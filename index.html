@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escudo Orofacial | Inteligência Artificial e Realida Mista</title>
+    <title>Escudo Orofacial | Inteligência Artificial e Realidade Mista</title>
 
     <meta name="description" content="Escudo Orofacial: Ferramenta de deep tech que usa Inteligência Artificial e Realidade Mista para análise, laudos e padronização clínica em reabilitações orofaciais. O futuro da engenharia clínica.">
     <meta name="keywords" content="Escudo Orofacial, Deep Tech, Engenharia Orofacial, Inteligência Artificial, Realidade Mista, Reabilitação Clínica, Odontologia Digital, Saúde 4.0">
     <meta name="author" content="THOTIACORP.COM.BR">
-    
     <meta name="robots" content="index, follow">
 
     <meta property="og:title" content="Escudo Orofacial: IA para Padronização Clínica | Eng. Orofacial">
@@ -16,73 +15,58 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="http://engenhariaorofacial.com.br/">
     <meta property="og:image" content="https://www.seuwebsite.com.br/imagem-de-capa-1200x630.jpg">
-    <meta property="og:locale" content="pt_BR">
-
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Escudo Orofacial: IA para Padronização Clínica | Eng. Orofacial">
-    <meta name="twitter:description" content="Revolucione sua prática com deep tech: Análise facial automatizada, laudos inteligentes e guia em Realidade Mista.">
-    <meta name="twitter:image" content="https://www.seuwebsite.com.br/imagem-de-capa-1200x630.jpg">
 
     <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
     <style>
+        /* Configuração de Fonte Global */
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        /* Custom Colors para garantir que o Tailwind use as classes dinâmicas */
+        .text-indigo-700 { color: #4338CA; }
+        .bg-indigo-700 { background-color: #4338CA; }
+        .hover\:bg-indigo-800:hover { background-color: #3730A3; }
+        .border-indigo-700 { border-color: #4338CA; }
 
-        /* Configuração de Fonte Global */
-
-        body {
-
-            font-family: 'Inter', sans-serif;
-
-            scroll-behavior: smooth;
-
-        }
-
-        /* Custom Colors para garantir que o Tailwind use as classes dinâmicas */
-
-        .text-indigo-700 { color: #4338CA; }
-
-        .bg-indigo-700 { background-color: #4338CA; }
-
-        .hover\:bg-indigo-800:hover { background-color: #3730A3; }
-
-        .border-indigo-700 { border-color: #4338CA; }
-
-
-
-        /* Animação simples para o menu mobile */
-
-        @keyframes fadeIn {
-
-            from { opacity: 0; transform: translateY(-10px); }
-
-            to { opacity: 1; transform: translateY(0); }
-
-        }
-
-        .animate-fade-in { animation: fadeIn 0.3s ease-out; }
-
-    </style>
+        /* Animação simples para o menu mobile */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in { animation: fadeIn 0.3s ease-out; }
+        
+        /* Estilo para o Contêiner 3D */
+        #model-container {
+            position: relative;
+        }
+        #model-container canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
 <body class="min-h-screen bg-white antialiased">
 
-    <!-- Variáveis de cor para JS -->
-    <script>
-        const PRIMARY_COLOR = 'indigo-700';
-    </script>
-
-    <!-- Header (Cabeçalho Fixo e Responsivo) -->
     <header class="sticky top-0 z-20 bg-white shadow-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-4">
-            <!-- Logo/Título -->
             <div class="flex flex-col">
                 <span class="text-xl font-extrabold text-indigo-700">ENG. OROFACIAL</span>
                 <span class="text-xs text-gray-500">Soluções Integradas</span>
             </div>
 
-            <!-- Menu de Navegação (Desktop) -->
             <nav id="desktop-nav" class="hidden md:flex space-x-8 items-center">
                 <a href="#solucao" class="text-gray-600 hover:text-indigo-600 transition duration-150">Escudo Orofacial</a>
                 <a href="#perfil" class="text-gray-600 hover:text-indigo-600 transition duration-150">Tecnologia</a>
@@ -94,20 +78,16 @@
                 </button>
             </nav>
 
-            <!-- Botão de Menu (Mobile) -->
             <button id="menu-toggle" class="md:hidden text-gray-600 hover:text-indigo-600">
-                <!-- Ícone Menu -->
                 <svg id="menu-icon" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
-                <!-- Ícone X (fechar) - Hidden initially -->
                 <svg id="close-icon" class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
         </div>
 
-        <!-- Menu Dropdown (Mobile) -->
         <nav id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200 shadow-lg animate-fade-in">
             <div class="pt-2 pb-3 space-y-1 flex flex-col items-center">
                 <a href="#solucao" class="mobile-link block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 w-full text-center">Escudo Orofacial</a>
@@ -123,11 +103,9 @@
     </header>
 
     <main>
-        <!-- Hero Section -->
         <section id="solucao" class="bg-gray-50 py-16 sm:py-24">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-10">
                 
-                <!-- Conteúdo Principal -->
                 <div class="md:w-1/2 text-center md:text-left">
                     <span class="text-sm font-semibold uppercase tracking-wider text-indigo-500">
                         Deep Tech | Engenharia Orofacial
@@ -139,7 +117,6 @@
                         Ferramenta revolucionária de **deep tech** que combina IA e realidade mista para análise automatizada, geração de laudos e padronização clínica em reabilitações.
                     </p>
                     
-                    <!-- CTAs -->
                     <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                         <button 
                             class="px-8 py-3 font-bold text-white bg-indigo-700 rounded-xl shadow-lg shadow-indigo-200 hover:bg-indigo-800 transform hover:scale-105 transition duration-300"
@@ -154,21 +131,13 @@
                     </div>
                 </div>
                 
-                <!-- Placeholder Visual (IA/RM) -->
                 <div class="md:w-1/2 w-full mt-10 md:mt-0">
-                    <div class="aspect-video w-full bg-gray-200 rounded-3xl shadow-2xl shadow-indigo-300 flex items-center justify-center p-8 text-center border-4 border-indigo-500 overflow-hidden">
-                        <div class="text-gray-700 font-semibold text-lg animate-pulse">
-                            <!-- Ícone Globe from Lucide/SVG equivalent -->
-                            <svg class="mx-auto h-8 w-8 text-indigo-600 mb-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-                            <p>Visualização 3D de Análise Facial por IA</p>
-                            <p class="text-sm font-normal mt-1">Realidade Mista & Deep Learning em Ação</p>
+                    <div id="model-container" class="aspect-video w-full bg-gray-200 rounded-3xl shadow-2xl shadow-indigo-300 flex items-center justify-center border-4 border-indigo-500 overflow-hidden">
                         </div>
-                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Features Section -->
         <section id="perfil" class="py-16 sm:py-24 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="text-3xl sm:text-4xl font-extrabold text-center text-indigo-700 mb-12">
@@ -176,28 +145,24 @@
                 </h2>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <!-- Feature Card 1: IA -->
                     <div class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
                         <svg class="mb-4 text-indigo-600 h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
                         <h3 class="text-xl font-bold text-gray-900 mb-3">Inteligência Artificial</h3>
                         <p class="text-gray-600">Combinação de múltiplos modelos de IA para geração de laudos e pré-indicações.</p>
                     </div>
 
-                    <!-- Feature Card 2: Realidade Mista -->
                     <div class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
                         <svg class="mb-4 text-teal-600 h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-4 6-4 4 4 6 4 3 4 6 4 4-4 6-4"/><path d="M2 12s3 4 6 4 4-4 6-4 3-4 6-4 4 4 6 4"/></svg>
                         <h3 class="text-xl font-bold text-gray-900 mb-3">Realidade Mista</h3>
                         <p class="text-gray-600">Atua como um guia virtual imediato para o profissional durante procedimentos.</p>
                     </div>
 
-                    <!-- Feature Card 3: Padronização Clínica -->
                     <div class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
                         <svg class="mb-4 text-yellow-600 h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                         <h3 class="text-xl font-bold text-gray-900 mb-3">Padronização Clínica</h3>
                         <p class="text-gray-600">Automatiza o prontuário, criando um Protocolo Operacional Padrão (POP) de alto nível.</p>
                     </div>
 
-                    <!-- Feature Card 4: Deep Tech -->
                     <div class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
                         <svg class="mb-4 text-pink-600 h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 0-3-1.5-3-3s1.5-3 3-3c.22 0 .44.02.65.06a8 8 8 0 0 1 15.3 0c.2.04.42.06.65.06 1.5 0 3 1.5 3 3s-1.5 3-3 3h-2.5"/></svg>
                         <h3 class="text-xl font-bold text-gray-900 mb-3">Tecnologia Profunda (Deep Tech)</h3>
@@ -211,7 +176,6 @@
             </div>
         </section>
 
-        <!-- Global Presence Section -->
         <section id="global" class="py-16 sm:py-24 bg-indigo-700">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
                 <h2 class="text-3xl sm:text-4xl font-extrabold text-center mb-12">
@@ -240,7 +204,6 @@
                         </ul>
                     </div>
                     
-                    <!-- Placeholder Mapa -->
                     <div class="md:w-1/2 w-full mt-8 md:mt-0">
                         <div class="aspect-video w-full bg-indigo-800 rounded-xl shadow-2xl flex items-center justify-center p-6 border border-white/50">
                             <p class="text-xl font-light text-center">Visualização da Rede de Atendimento Global</p>
@@ -251,7 +214,6 @@
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-gray-900 text-white py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
             <p class="mb-4 md:mb-0 text-sm">
@@ -265,7 +227,6 @@
         </div>
     </footer>
 
-    <!-- JavaScript para o Menu Mobile e Ano Atual -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const menuToggle = document.getElementById('menu-toggle');
@@ -275,10 +236,10 @@
             const mobileLinks = document.querySelectorAll('.mobile-link');
             const currentYear = document.getElementById('current-year');
 
-            // Set current year
+            // Define o ano atual
             currentYear.textContent = new Date().getFullYear();
 
-            // Toggle Mobile Menu
+            // Alterna o Menu Mobile
             const toggleMenu = () => {
                 const isHidden = mobileMenu.classList.contains('hidden');
                 
@@ -295,7 +256,7 @@
 
             menuToggle.addEventListener('click', toggleMenu);
 
-            // Close menu when a link is clicked
+            // Fecha o menu quando um link é clicado
             mobileLinks.forEach(link => {
                 link.addEventListener('click', () => {
                     if (!mobileMenu.classList.contains('hidden')) {
@@ -304,6 +265,101 @@
                 });
             });
         });
+    </script>
+    
+    <script>
+        // URL do modelo de exemplo Damaged Helmet (proxy para um modelo de face)
+        const DAMAGED_HELMET_URL = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb';
+        
+        // Contêiner HTML onde o 3D será renderizado
+        const container = document.getElementById('model-container');
+        
+        if (container) {
+            // Usa as dimensões do contêiner
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+
+            // --- 1. Configuração Básica ---
+            const scene = new THREE.Scene();
+            scene.background = new THREE.Color(0xFAFAFA); // Fundo claro que combina com o cinza do contêiner
+            
+            const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
+            
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); 
+            renderer.setSize(width, height);
+            
+            // Configurações de renderização avançadas para materiais PBR
+            renderer.toneMapping = THREE.ACESFilmicToneMapping; 
+            renderer.outputEncoding = THREE.sRGBEncoding;
+
+            // Adiciona o canvas ao contêiner HTML
+            container.appendChild(renderer.domElement);
+            
+            // --- 2. Controles de Câmera ---
+            const controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true; 
+            controls.autoRotate = true; // Rotação automática (demonstração)
+            controls.autoRotateSpeed = 0.8;
+            controls.minDistance = 2; 
+            controls.maxDistance = 10;
+            
+            // --- 3. Luzes ---
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.8); 
+            scene.add(ambientLight);
+
+            // Luz direcional para dar destaque
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 3);
+            directionalLight.position.set(5, 5, 5).normalize();
+            scene.add(directionalLight);
+
+            let model = null; 
+
+            // --- 4. Carregamento do Modelo ---
+            const loader = new THREE.GLTFLoader();
+
+            loader.load(
+                DAMAGED_HELMET_URL,
+                function (gltf) {
+                    model = gltf.scene; 
+                    
+                    // Ajusta a escala e posição para o centro do contêiner
+                    model.scale.set(1.5, 1.5, 1.5); 
+                    model.position.set(0, -0.5, 0); 
+                    
+                    scene.add(model);
+                },
+                undefined,
+                function (error) {
+                    console.error('Erro ao carregar o modelo GLTF:', error);
+                }
+            );
+
+            // --- 5. Posição da Câmera ---
+            camera.position.set(0, 0.5, 4);
+            controls.update(); 
+
+
+            // --- 6. Loop de Animação ---
+            function animate() {
+                requestAnimationFrame(animate);
+
+                controls.update(); // Atualiza a rotação automática e a interação do usuário
+
+                renderer.render(scene, camera);
+            }
+
+            animate();
+
+            // --- 7. Gerenciar Redimensionamento (Responsividade) ---
+            window.addEventListener('resize', () => {
+                const newWidth = container.clientWidth;
+                const newHeight = container.clientHeight;
+                
+                camera.aspect = newWidth / newHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(newWidth, newHeight);
+            });
+        }
     </script>
 </body>
 </html>
