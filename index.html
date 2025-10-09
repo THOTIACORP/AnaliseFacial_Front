@@ -266,85 +266,96 @@
             });
         });
     </script>
-    
+ 
     <script>
-        // URL do modelo de exemplo Damaged Helmet (proxy para um modelo de face)
-        const DAMAGED_HELMET_URL = 'https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/supportitseez3d.com.glb';
+        // URL do SEU MODELO 3D (.glb) do GitHub RAW
+        const FACE_SCAN_URL = 'https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/supportitseez3d.com.glb';
         
         // Contêiner HTML onde o 3D será renderizado
         const container = document.getElementById('model-container');
         
         if (container) {
-            // Usa as dimensões do contêiner
             const width = container.clientWidth;
             const height = container.clientHeight;
 
             // --- 1. Configuração Básica ---
             const scene = new THREE.Scene();
-            scene.background = new THREE.Color(0xFAFAFA); // Fundo claro que combina com o cinza do contêiner
+            scene.background = new THREE.Color(0xFAFAFA); 
             
             const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
-            
             const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); 
             renderer.setSize(width, height);
-            
-            // Configurações de renderização avançadas para materiais PBR
             renderer.toneMapping = THREE.ACESFilmicToneMapping; 
             renderer.outputEncoding = THREE.sRGBEncoding;
-
-            // Adiciona o canvas ao contêiner HTML
             container.appendChild(renderer.domElement);
             
             // --- 2. Controles de Câmera ---
             const controls = new THREE.OrbitControls(camera, renderer.domElement);
             controls.enableDamping = true; 
-            controls.autoRotate = true; // Rotação automática (demonstração)
+            controls.autoRotate = true; 
             controls.autoRotateSpeed = 0.8;
-            controls.minDistance = 2; 
-            controls.maxDistance = 10;
+            controls.minDistance = 0.5; // Ajuste para permitir mais zoom IN
+            controls.maxDistance = 10; // Ajuste para permitir mais zoom OUT
             
             // --- 3. Luzes ---
             const ambientLight = new THREE.AmbientLight(0xffffff, 0.8); 
             scene.add(ambientLight);
 
-            // Luz direcional para dar destaque
             const directionalLight = new THREE.DirectionalLight(0xffffff, 3);
             directionalLight.position.set(5, 5, 5).normalize();
             scene.add(directionalLight);
 
             let model = null; 
 
-            // --- 4. Carregamento do Modelo ---
+            // --- 4. Carregamento e Enquadramento do Modelo ---
             const loader = new THREE.GLTFLoader();
 
-            loader.load(
-                DAMAGED_HELMET_URL,
+           loader.load(
+                FACE_SCAN_URL,
                 function (gltf) {
                     model = gltf.scene; 
-                    
-                    // Ajusta a escala e posição para o centro do contêiner
-                    model.scale.set(1.5, 1.5, 1.5); 
-                    model.position.set(0, -0.5, 0); 
-                    
                     scene.add(model);
+                    console.log("Modelo 'face_scan_example.glb' carregado com sucesso!");
+
+                    // --- NOVO: Lógica de Enquadramento Automático (Fit to View) ---
+                    const box = new THREE.Box3().setFromObject(model); // Calcula a caixa delimitadora do modelo
+                    const center = box.getCenter(new THREE.Vector3()); // Obtém o centro da caixa
+                    const size = box.getSize(new THREE.Vector3());     // Obtém o tamanho da caixa
+
+                    // Centraliza o modelo na origem (0,0,0)
+                    model.position.x += (model.position.x - center.x);
+                    model.position.y += (model.position.y - center.y);
+                    model.position.z += (model.position.z - center.z);
+                    
+                    // Encontra a maior dimensão do modelo
+                    const maxDim = Math.max(size.x, size.y, size.z);
+                    
+                    // Calcula a distância necessária para a câmera ver todo o modelo
+                    const fov = camera.fov * (Math.PI / 180); // Converte FOV para radianos
+                    const cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2)); // Distância da câmera
+                    
+                    // Ajusta a posição da câmera e o alvo dos controles
+                    camera.position.set(center.x, center.y, center.z + cameraZ * 1.5); // Multiplicador para dar um pouco de "ar"
+                    controls.target.set(center.x, center.y, center.z); // Foca os controles no centro do modelo
+                    controls.update(); // Atualiza os controles para refletir as novas posições
+                    
+                    // Opcional: ajustar min/max distance dos controles com base no tamanho do modelo
+                    controls.minDistance = cameraZ * 0.5;
+                    controls.maxDistance = cameraZ * 5;
+
                 },
-                undefined,
+                function (xhr) {
+                    const percent = (xhr.loaded / xhr.total) * 100;
+                    console.log(`Carregando modelo: ${percent.toFixed(0)}%`);
+                },
                 function (error) {
                     console.error('Erro ao carregar o modelo GLTF:', error);
                 }
             );
-
-            // --- 5. Posição da Câmera ---
-            camera.position.set(0, 0.5, 4);
-            controls.update(); 
-
-
             // --- 6. Loop de Animação ---
             function animate() {
                 requestAnimationFrame(animate);
-
-                controls.update(); // Atualiza a rotação automática e a interação do usuário
-
+                controls.update(); 
                 renderer.render(scene, camera);
             }
 
