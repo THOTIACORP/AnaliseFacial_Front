@@ -27,6 +27,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://unpkg.com/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<!-- Biblioteca amCharts 5 (para o mapa global) -->
+<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/map.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
 
     <style>
         /* Configuração de Fonte Global */
@@ -219,42 +224,57 @@
                 </div>
             </div>
         </section>
-        <section id="global" class="py-16 sm:py-24 bg-indigo-700">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-center mb-12">
-                    Presença Global: Ações Locais, Impactos Mundiais
-                </h2>
-                
-                <div class="flex flex-col md:flex-row gap-8 items-center justify-between">
-                    <div class="md:w-1/2">
-                        <p class="text-lg mb-6 text-justify">
-                            Nossas soluções disruptivas estão disponíveis online, complementadas por uma robusta estratégia de expansão física.
-                        </p>
-                        
-                        <ul class="space-y-3 font-semibold">
-                            <li class="flex items-center">
-                                <svg class="text-white mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4-8-12c0-4.42 3.58-8 8-8s8 3.58 8 8c0 8-8 12-8 12z"/><circle cx="12" cy="10" r="3"/></svg>
-                                30+ Agências, Escritórios de Venda e Serviços ao redor do mundo
-                            </li>
-                            <li class="flex items-center">
-                                <svg class="text-white mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-                                Sede e Filiais Estratégicas
-                            </li>
-                            <li class="flex items-center">
-                                <svg class="text-white mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                                6+ Instituições e Universidades Apoiadoras
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <div class="md:w-1/2 w-full mt-8 md:mt-0">
-                        <div class="aspect-video w-full bg-indigo-800 rounded-xl shadow-2xl flex items-center justify-center p-6 border border-white/50">
-                            <p class="text-xl font-light text-center">Visualização da Rede de Atendimento Global</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+      <section id="global" class="py-16 sm:py-24 bg-indigo-700">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
+    <h2 class="text-3xl sm:text-4xl font-extrabold text-center mb-12">
+      Presença Global: Ações Locais, Impactos Mundiais
+    </h2>
+
+    <div class="flex flex-col md:flex-row gap-8 items-center justify-between">
+      <div class="md:w-1/2">
+        <p class="text-lg mb-6 text-justify">
+          Nossas soluções disruptivas estão disponíveis online, complementadas por uma robusta estratégia de expansão física.
+        </p>
+
+        <ul class="space-y-3 font-semibold">
+          <li class="flex items-center">
+            <svg class="text-white mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s-8-4-8-12c0-4.42 3.58-8 8-8s8 3.58 8 8c0 8-8 12-8 12z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+            30+ Agências e Escritórios de Vendas Globais
+          </li>
+          <li class="flex items-center">
+            <svg class="text-white mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+              <path d="M2 12h20" />
+            </svg>
+            Sede e Filiais Estratégicas
+          </li>
+          <li class="flex items-center">
+            <svg class="text-white mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+              <polyline points="22 4 12 14.01 9 11.01" />
+            </svg>
+            6+ Instituições e Universidades Apoiadoras
+          </li>
+        </ul>
+      </div>
+
+      <div class="md:w-1/2 w-full mt-8 md:mt-0">
+        <div id="mapa-visitantes"
+          class="aspect-video w-full bg-indigo-800 rounded-xl shadow-2xl border border-white/50">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
     </main>
 
     <footer class="bg-gray-900 text-white py-8">
@@ -415,5 +435,53 @@
             });
         }
     </script>
+
+<script>
+am5.ready(function () {
+  var root = am5.Root.new("mapa-visitantes");
+  root.setThemes([am5themes_Animated.new(root)]);
+
+  var chart = root.container.children.push(
+    am5map.MapChart.new(root, {
+      projection: am5map.geoMercator()
+    })
+  );
+
+  var polygonSeries = chart.series.push(
+    am5map.MapPolygonSeries.new(root, {
+      geoJSON: am5geodata_worldLow,
+      exclude: ["AQ"],
+      fill: am5.color(0x3b82f6),
+      stroke: am5.color(0xffffff)
+    })
+  );
+
+  // Dados simulados de visitas
+  const visitsData = {
+    BR: 1200, US: 950, FR: 700, DE: 620, IN: 500, JP: 420, AU: 310, ZA: 200
+  };
+
+  // Preenchimento dinâmico baseado na quantidade
+  polygonSeries.mapPolygons.template.adapters.add("fill", (fill, target) => {
+    const id = target.dataItem.get("id");
+    if (visitsData[id]) {
+      const ratio = visitsData[id] / 1200;
+      const r = 147 - Math.round(80 * ratio);
+      const g = 197 - Math.round(100 * ratio);
+      const b = 253 - Math.round(150 * ratio);
+      return am5.color(`rgb(${r},${g},${b})`);
+    }
+    return fill;
+  });
+
+  // Tooltip
+  polygonSeries.mapPolygons.template.set("tooltipText", "{name}: {value} visitas");
+  polygonSeries.data.setAll(
+    Object.entries(visitsData).map(([id, value]) => ({ id, value }))
+  );
+
+  chart.appear(1000, 100);
+});
+</script>
 </body>
 </html>
