@@ -79,6 +79,13 @@
     display: none;
   }
 }
+#model-protection {
+  transition: opacity 0.3s ease;
+}
+#model-protection.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
 
     </style>
 </head>
@@ -173,8 +180,13 @@
                             <svg class="w-4 h-4 mr-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2" ry="2"/><line x1="12" y1="6" x2="12" y2="10"/><line x1="10" y1="8" x2="14" y2="8"/></svg>
                             Interaja com o Modelo 3D
                         </span> 
+                             <div id="model-protection"
+  class="absolute inset-0 bg-black/40 flex items-center justify-center text-white font-semibold text-sm backdrop-blur-sm cursor-pointer md:hidden z-20 rounded-3xl">
+  🔒 Toque para Interagir
+</div>
                     </div>
-             
+        
+
                 </div>
             </div>
         </section>
@@ -307,6 +319,11 @@
             <svg class="w-4 h-4 mr-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg>
             Interaja com o Mapa Global
         </span>
+          <!-- Proteção de interação no mapa -->
+  <div id="map-protection"
+    class="absolute inset-0 bg-black/40 flex items-center justify-center text-white font-semibold text-sm backdrop-blur-sm cursor-pointer md:hidden z-20 rounded-xl transition-opacity duration-300">
+    🔒 Toque para Interagir
+  </div>
       </div>
       </div>
     </div>
@@ -488,6 +505,26 @@
                 camera.updateProjectionMatrix();
                 renderer.setSize(newWidth, newHeight);
             });
+            // --- Proteção para interação no celular ---
+const protectionLayer = document.getElementById('model-protection');
+let controlsEnabled = false;
+
+if (window.innerWidth < 768 && protectionLayer) {
+  protectionLayer.addEventListener('click', () => {
+    controls.enabled = true;
+    controls.autoRotate = false;
+    controlsEnabled = true;
+
+    protectionLayer.classList.add('hidden');
+  });
+
+  // Inicialmente, o controle está desativado no celular
+  controls.enabled = false;
+} else {
+  // Em desktop, controle sempre ativo
+  controls.enabled = true;
+}
+
         } else {
             console.error("Contêiner #model-container não encontrado.");
         }
@@ -586,7 +623,29 @@
         
     });
     </script>
-    
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const mapProtection = document.getElementById("model-protection");
+
+  if (mapProtection) {
+    mapProtection.addEventListener("click", () => {
+      mapProtection.classList.add("hidden"); // Esconde a proteção
+    });
+  }
+});
+</script>
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const mapProtection = document.getElementById("map-protection");
+
+  if (mapProtection) {
+    mapProtection.addEventListener("click", () => {
+      mapProtection.classList.add("hidden"); // Esconde a proteção
+    });
+  }
+});
+</script>
+
 <script>
   const saibaMaisBtn = document.getElementById("saibaMaisBtn");
   const extraText = document.getElementById("extraText");
@@ -602,6 +661,7 @@
     }
   });
 </script>
+
     <script>
 window.addEventListener('scroll', () => {
   const progressBar = document.getElementById('scroll-progress');
