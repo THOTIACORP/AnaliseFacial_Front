@@ -44,7 +44,9 @@
         .bg-indigo-700 { background-color: #4338CA; }
         .hover\:bg-indigo-800:hover { background-color: #3730A3; }
         .border-indigo-700 { border-color: #4338CA; }
-
+header {
+  z-index: 50 !important;
+}
         /* Animação simples para o menu mobile */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-10px); }
@@ -139,11 +141,16 @@
                 <a href="#perfil" class="mobile-link block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 w-full text-center">Tecnologia</a>
                    <a href="#livro" class="mobile-link block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 w-full text-center">Livro</a>
                 <a href="#global" class="mobile-link block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 w-full text-center">Presença Global</a>
-                <button 
-                    class="mt-2 w-11/12 px-4 py-2 font-semibold text-white bg-indigo-700 rounded-lg shadow-md hover:bg-indigo-800 transition duration-150"
-                >
-                    Contato
-                </button>
+               
+             
+                <a 
+  href="https://api.whatsapp.com/send?phone=5566996675486&text=Estou%20entrando%20em%20contato%20para%20" 
+  target="_blank" 
+  rel="noopener noreferrer"
+ class="mobile-link block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 w-full text-center"
+>
+  Contato
+</a>
             </div>
         </nav>
         <div id="scroll-progress"></div>
