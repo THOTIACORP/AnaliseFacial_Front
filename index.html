@@ -1,717 +1,731 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escudo Orofacial | Inteligência Artificial e Realidade Mista</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Escudo Orofacial | Inteligência Artificial e Realidade Mista</title>
 
-    <meta name="description" content="Escudo Orofacial: Ferramenta de deep tech que usa Inteligência Artificial e Realidade Mista para análise, laudos e padronização clínica em reabilitações orofaciais. O futuro da engenharia clínica.">
-    <meta name="keywords" content="Escudo Orofacial, Deep Tech, Engenharia Orofacial, Inteligência Artificial, Realidade Mista, Reabilitação Clínica, Odontologia Digital, Saúde 4.0">
-    <meta name="author" content="THOTIACORP.COM.BR">
-    <meta name="robots" content="index, follow">
+  <meta name="description"
+    content="Escudo Orofacial: Ferramenta de deep tech que usa Inteligência Artificial e Realidade Mista para análise, laudos e padronização clínica em reabilitações orofaciais. O futuro da engenharia clínica.">
+  <meta name="keywords"
+    content="Escudo Orofacial, Deep Tech, Engenharia Orofacial, Inteligência Artificial, Realidade Mista, Reabilitação Clínica, Odontologia Digital, Saúde 4.0">
+  <meta name="author" content="THOTIACORP.COM.BR">
+  <meta name="robots" content="index, follow">
 
-    <meta property="og:title" content="Escudo Orofacial: IA para Padronização Clínica | Eng. Orofacial">
-    <meta property="og:description" content="Revolucione sua prática com deep tech: Análise facial automatizada, laudos inteligentes e guia em Realidade Mista.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="http://engenhariaorofacial.com.br/">
-    <meta property="og:image" content="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/capa.jpg">
-    <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:title" content="Escudo Orofacial: IA para Padronização Clínica | Eng. Orofacial">
+  <meta property="og:description"
+    content="Revolucione sua prática com deep tech: Análise facial automatizada, laudos inteligentes e guia em Realidade Mista.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="http://engenhariaorofacial.com.br/">
+  <meta property="og:image" content="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/capa.jpg">
+  <meta name="twitter:card" content="summary_large_image">
 
-    <link rel="icon" type="image/ico" href="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/favicon.ico" sizes="32x32">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://unpkg.com/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <link rel="icon" type="image/ico"
+    href="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/favicon.ico" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
 
-    <style>
-        /* Configuração de Fonte Global */
-        body {
-            font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
-        }
-        /* Custom Colors para garantir que o Tailwind use as classes dinâmicas */
-        .text-indigo-700 { color: #4338CA; }
-        .bg-indigo-700 { background-color: #4338CA; }
-        .hover\:bg-indigo-800:hover { background-color: #3730A3; }
-        .border-indigo-700 { border-color: #4338CA; }
-header {
-  z-index: 50 !important;
-}
-        /* Animação simples para o menu mobile */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in { animation: fadeIn 0.3s ease-out; }
-        
-        /* Estilo para o Contêiner 3D */
-        #model-container {
-            position: relative;
-        }
-        #model-container canvas {
-            display: block;
-            width: 100%;
-            height: 100%;
-        }
-        /* Barra de progresso do scroll (visível apenas em mobile) */
-#scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 4px;
-  background: linear-gradient(to right, #4f46e5, #6366f1);
-  width: 0%;
-  z-index: 50;
-  transition: width 0.1s linear;
-}
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 
-/* Mostra apenas em telas menores que 768px */
-@media (min-width: 768px) {
-  #scroll-progress {
-    display: none;
-  }
-}
-#model-protection {
-  transition: opacity 0.3s ease;
-}
-#model-protection.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://unpkg.com/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 
-    </style>
+  <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
 
-    <!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '822978440229562');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=822978440229562&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-H24T7L0QSX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <style>
+    /* Configuração de Fonte Global */
+    body {
+      font-family: 'Inter', sans-serif;
+      scroll-behavior: smooth;
+    }
 
-  gtag('config', 'G-H24T7L0QSX');
-</script>
+    /* Custom Colors para garantir que o Tailwind use as classes dinâmicas */
+    .text-indigo-700 {
+      color: #4338CA;
+    }
+
+    .bg-indigo-700 {
+      background-color: #4338CA;
+    }
+
+    .hover\:bg-indigo-800:hover {
+      background-color: #3730A3;
+    }
+
+    .border-indigo-700 {
+      border-color: #4338CA;
+    }
+
+    header {
+      z-index: 50 !important;
+    }
+
+    /* Animação simples para o menu mobile */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-fade-in {
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    /* Estilo para o Contêiner 3D */
+    #model-container {
+      position: relative;
+    }
+
+    #model-container canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Barra de progresso do scroll (visível apenas em mobile) */
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(to right, #4f46e5, #6366f1);
+      width: 0%;
+      z-index: 50;
+      transition: width 0.1s linear;
+    }
+
+    /* Mostra apenas em telas menores que 768px */
+    @media (min-width: 768px) {
+      #scroll-progress {
+        display: none;
+      }
+    }
+
+    #model-protection {
+      transition: opacity 0.3s ease;
+    }
+
+    #model-protection.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () {
+        n.callMethod ?
+          n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+      };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+      n.queue = []; t = b.createElement(e); t.async = !0;
+      t.src = v; s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s)
+    }(window, document, 'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '822978440229562');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=822978440229562&ev=PageView&noscript=1" /></noscript>
+  <!-- End Meta Pixel Code -->
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H24T7L0QSX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-H24T7L0QSX');
+  </script>
 
 </head>
+
 <body class="min-h-screen bg-white antialiased">
 
-    <header class="sticky top-0 z-20 bg-white shadow-md">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-4">
-            <div class="flex flex-col">
-                <span class="text-xl font-extrabold text-indigo-700">ENG. OROFACIAL</span>
-                <span class="text-xs text-gray-500">Soluções Integradas</span>
-            </div>
+  <header class="sticky top-0 z-20 bg-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-4">
+      <div class="flex flex-col">
+        <span class="text-xl font-extrabold text-indigo-700">ENG. OROFACIAL</span>
+        <span class="text-xs text-gray-500">Soluções Integradas</span>
+      </div>
 
-            <nav id="desktop-nav" class="hidden md:flex space-x-8 items-center">
-                <a href="#solucao" class="text-gray-600 hover:text-indigo-600 transition duration-150">Escudo Orofacial</a>
-                <a href="#perfil" class="text-gray-600 hover:text-indigo-600 transition duration-150">Tecnologia</a>
-                        <a href="#livro" class="text-gray-600 hover:text-indigo-600 transition duration-150">Livro</a>
-                <a href="#global" class="text-gray-600 hover:text-indigo-600 transition duration-150">Presença Global</a>
-<a 
-  href="https://api.whatsapp.com/send?phone=5566996675486&text=Estou%20entrando%20em%20contato%20para%20" 
-  target="_blank" 
-  rel="noopener noreferrer"
-  class="px-4 py-2 font-semibold text-white bg-indigo-700 rounded-lg shadow-md hover:bg-indigo-800 transition duration-150 inline-block text-center"
->
-  Contato
-</a>
+      <nav id="desktop-nav" class="hidden md:flex space-x-8 items-center">
+        <a href="#solucao" class="text-gray-600 hover:text-indigo-600 transition duration-150">Escudo Orofacial</a>
+        <a href="#perfil" class="text-gray-600 hover:text-indigo-600 transition duration-150">Tecnologia</a>
+        <a href="#livro" class="text-gray-600 hover:text-indigo-600 transition duration-150">Livro</a>
+        <a href="#global" class="text-gray-600 hover:text-indigo-600 transition duration-150">Presença Global</a>
+        <a href="https://api.whatsapp.com/send?phone=5566996675486&text=Estou%20entrando%20em%20contato%20para%20"
+          target="_blank" rel="noopener noreferrer"
+          class="px-4 py-2 font-semibold text-white bg-indigo-700 rounded-lg shadow-md hover:bg-indigo-800 transition duration-150 inline-block text-center">
+          Contato
+        </a>
 
-            </nav>
+      </nav>
 
-            <button id="menu-toggle" class="md:hidden text-gray-600 hover:text-indigo-600">
-                <svg id="menu-icon" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-                <svg id="close-icon" class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-        </div>
-
-        <nav id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200 shadow-lg animate-fade-in">
-            <div class="pt-2 pb-3 space-y-1 flex flex-col items-center">
-                <a href="#solucao" class="mobile-link block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 w-full text-center">Escudo Orofacial</a>
-                <a href="#perfil" class="mobile-link block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 w-full text-center">Tecnologia</a>
-                   <a href="#livro" class="mobile-link block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 w-full text-center">Livro</a>
-                <a href="#global" class="mobile-link block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 w-full text-center">Presença Global</a>
-               
-             
-                <a 
-  href="https://api.whatsapp.com/send?phone=5566996675486&text=Estou%20entrando%20em%20contato%20para%20" 
-  target="_blank" 
-  rel="noopener noreferrer"
- class="mobile-link block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 w-full text-center"
->
-  Contato
-</a>
-            </div>
-        </nav>
-        <div id="scroll-progress"></div>
-
-    </header>
-
-    <main>
-        <section id="solucao" class="bg-gray-50 py-16 sm:py-24">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-10">
-                
-                <div class="md:w-1/2 text-center md:text-left">
-                    <span class="text-sm font-semibold uppercase tracking-wider text-indigo-500">
-                        Deep Tech | Engenharia Orofacial
-                    </span>
-                    <h1 class="mt-4 text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900 leading-tight">
-                        Escudo Orofacial: Seu Futuro com <span class="text-indigo-700">Inteligência Artificial</span>
-                    </h1>
-                    <p class="mt-6 text-xl text-gray-600 text-justify">
-                       Geração de prontuários e laudos automatos, padronização em clínica de reabilitações funcionais e estéticas.  Ferramenta revolucionária disruptiva que combina Inteligência Artificial e Realidade Mista para indicações de reabilitações estético funcionais
-                    </p>
-                      <!-- Texto oculto inicialmente -->
-    <div id="extraText" class="hidden mt-4 text-lg text-gray-600 text-justify transition-all duration-500">
-      Comece agora mesmo com celular ou câmera. Procure seu paciente (caso precise, cadastre-o),
-      adicione as fotos e gere automaticamente os prontuários e laudos com precisão clínica e agilidade
-    </div>
-
-                    <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                  <a 
-  href="https://www.thotiacorp.com.br/analiseOrofacial" 
-  target="_blank" 
-  rel="noopener noreferrer"
-  class="px-8 py-3 font-bold text-white bg-indigo-700 rounded-xl shadow-lg shadow-indigo-200 hover:bg-indigo-800 transform hover:scale-105 transition duration-300 inline-block text-center"
->
-  Ver Demonstração
-</a>
-
-                         <button 
-        id="saibaMaisBtn"
-        class="px-8 py-3 font-bold text-indigo-700 bg-white border-2 border-indigo-700 rounded-xl hover:bg-indigo-50 transform hover:scale-105 transition duration-300"
-      >
-        Saiba Mais
+      <button id="menu-toggle" class="md:hidden text-gray-600 hover:text-indigo-600">
+        <svg id="menu-icon" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="close-icon" class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
       </button>
-                    </div>
-                </div>
-                
-                <div class="md:w-1/2 w-full mt-10 md:mt-0">
-                    <div id="model-container" class="aspect-video w-full bg-gray-200 rounded-3xl shadow-2xl shadow-indigo-300 flex items-center justify-center border-4 border-indigo-500 overflow-hidden">
-                            <span class="absolute bottom-3 right-3 text-xs font-semibold text-white bg-indigo-700/80 backdrop-blur-sm px-3 py-1.5 rounded-full flex items-center shadow-lg pointer-events-none z-10">
-                            <svg class="w-4 h-4 mr-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2" ry="2"/><line x1="12" y1="6" x2="12" y2="10"/><line x1="10" y1="8" x2="14" y2="8"/></svg>
-                            Interaja com o Modelo 3D
-                        </span> 
-                             <div id="model-protection"
-  class="absolute inset-0 bg-black/40 flex items-center justify-center text-white font-semibold text-sm backdrop-blur-sm cursor-pointer md:hidden z-20 rounded-3xl">
-  🔒 Toque para Interagir
-</div>
-                    </div>
-        
-
-                </div>
-            </div>
-        </section>
-
-        <section id="perfil" class="py-16 sm:py-24 bg-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-center text-indigo-700 mb-12">
-                    O Diferencial: Tecnologia Integrada
-                </h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
-                        <svg class="mb-4 text-indigo-600 h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                        <h3 class="text-xl font-bold text-gray-900 mb-3">Inteligência Artificial</h3>
-                        <p class="text-gray-600">Combinação de múltiplos modelos de IA para geração de laudos e pré-indicações.</p>
-                    </div>
-
-                    <div class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
-                        <svg class="mb-4 text-teal-600 h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-4 6-4 4 4 6 4 3 4 6 4 4-4 6-4"/><path d="M2 12s3 4 6 4 4-4 6-4 3-4 6-4 4 4 6 4"/></svg>
-                        <h3 class="text-xl font-bold text-gray-900 mb-3">Realidade Mista</h3>
-                        <p class="text-gray-600">Atua como um guia virtual imediato para o profissional durante procedimentos.</p>
-                    </div>
-
-                    <div class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
-                        <svg class="mb-4 text-yellow-600 h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                        <h3 class="text-xl font-bold text-gray-900 mb-3">Padronização Clínica</h3>
-                        <p class="text-gray-600">Automatiza o prontuário, criando um Protocolo Operacional Padrão (POP) de alto nível.</p>
-                    </div>
-
-                    <div class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
-                        <svg class="mb-4 text-pink-600 h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 0-3-1.5-3-3s1.5-3 3-3c.22 0 .44.02.65.06a8 8 8 0 0 1 15.3 0c.2.04.42.06.65.06 1.5 0 3 1.5 3 3s-1.5 3-3 3h-2.5"/></svg>
-                        <h3 class="text-xl font-bold text-gray-900 mb-3">Tecnologia Profunda (Deep Tech)</h3>
-                        <p class="text-gray-600">Soluções integradas e disruptivas em diversas áreas, com rigorosos processos de criação.</p>
-                    </div>
-                </div>
-
-                <p class="text-center mt-12 text-gray-500 italic">
-                    *É fundamental que a ferramenta seja utilizada por um profissional da área, responsável final pela validação dos laudos e indicações.
-                </p>
-            </div>
-        </section>
-        
-    <section id="livro" class="bg-white py-16 sm:py-24">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-center text-gray-900 mb-12">
-                    <span class="text-indigo-700">Validação Científica:</span> O Livro
-                </h2>
-                
-                <div class="flex flex-col md:flex-row items-center justify-center gap-12 bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200">
-                    
-                    <div class="w-64 flex-shrink-0">
-                        <img 
-                            src="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/capalivro.jpg" 
-                            alt="Capa do Livro de Validação Científica"
-                            class="w-full h-auto object-cover rounded-lg shadow-2xl transition duration-300 hover:scale-[1.02] border-4 border-white"
-                        >
-                    </div>
-
-                    <div class="md:text-left text-center">
-                        <h3 class="text-2xl font-bold text-indigo-700 mb-3">
-                            Engenharia Orofacial 
-                        </h3>
-                        <p class="text-gray-700 text-lg mb-4 text-justify">
-                            O método científico e a tecnologia por trás do Escudo Orofacial estão detalhados nesta publicação essencial. O livro serve como a base teórica e clínica que valida a metodologia da ferramenta, garantindo a precisão e a confiabilidade de cada laudo gerado.
-                        </p>
-                        <ul class="list-disc list-inside text-gray-600 space-y-2 text-sm md:text-base md:ml-4 text-left">
-                            <li><span class="font-semibold text-gray-800">Autores:</span> [Nome do Autor(es)]</li>
-                            <li><span class="font-semibold text-gray-800">Ano de Publicação:</span> [Ano]</li>
-                            <li><span class="font-semibold text-gray-800">ISBN:</span> [Se houver]</li>
-                        </ul>
-                    <a
-                        href="javascript:void(0)"
-                        title="Função temporariamente desativada"
-                        class="mt-6 inline-block font-semibold text-sm text-white bg-gray-400 px-6 py-2 rounded-lg opacity-60 cursor-not-allowed"
-                    >
-                        Acessar Referência
-                    </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-      <section id="global" class="py-16 sm:py-24 bg-indigo-700">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
-      <h2 class="text-3xl sm:text-4xl font-extrabold text-center mb-12">
-        Presença Global: Ações Locais, Impactos Mundiais
-      </h2>
-
-      <div class="flex flex-col md:flex-row gap-8 items-center justify-between">
-        <div class="md:w-1/2">
-          <p class="text-lg mb-6 text-justify">
-            Nossas soluções disruptivas estão disponíveis online, complementadas por uma robusta estratégia de expansão física.
-          </p>
-
-          <ul class="space-y-3 font-semibold">
-            <li class="flex items-center">
-              <svg class="text-white mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none"
-                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path d="M12 22s-8-4-8-12c0-4.42 3.58-8 8-8s8 3.58 8 8c0 8-8 12-8 12z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
-              30+ Agências e Escritórios de Vendas Globais
-            </li>
-            <li class="flex items-center">
-              <svg class="text-white mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none"
-                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10" />
-                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
-                <path d="M2 12h20" />
-              </svg>
-              Sede e Filiais Estratégicas
-            </li>
-            <li class="flex items-center">
-              <svg class="text-white mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none"
-                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                <polyline points="22 4 12 14.01 9 11.01" />
-              </svg>
-              6+ Instituições e Universidades Apoiadoras
-            </li>
-          </ul>
-        </div>
-
-      <div class="md:w-1/2 w-full mt-8 md:mt-0 relative"> 
-        <div 
-          id="mapa-visitantes"
-          class="aspect-video w-full bg-indigo-800 rounded-xl shadow-2xl border border-white/50 overflow-hidden"
-        >
-        </div>
-        <span id="map-interaction-notice" class="absolute bottom-3 right-3 text-xs font-semibold text-white bg-white/30 backdrop-blur-sm px-3 py-1.5 rounded-full flex items-center shadow-lg pointer-events-none z-10 transition-opacity duration-500">
-            <svg class="w-4 h-4 mr-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg>
-            Interaja com o Mapa Global
-        </span>
-          <!-- Proteção de interação no mapa -->
-  <div id="map-protection"
-    class="absolute inset-0 bg-black/40 flex items-center justify-center text-white font-semibold text-sm backdrop-blur-sm cursor-pointer md:hidden z-20 rounded-xl transition-opacity duration-300">
-    🔒 Toque para Interagir
-  </div>
-      </div>
-      </div>
     </div>
+
+    <nav id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200 shadow-lg animate-fade-in">
+      <div class="pt-2 pb-3 space-y-1 flex flex-col items-center">
+        <a href="#solucao"
+          class="mobile-link block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 w-full text-center">Escudo
+          Orofacial</a>
+        <a href="#perfil"
+          class="mobile-link block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 w-full text-center">Tecnologia</a>
+        <a href="#livro"
+          class="mobile-link block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 w-full text-center">Livro</a>
+        <a href="#global"
+          class="mobile-link block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 w-full text-center">Presença
+          Global</a>
+        <a href="https://api.whatsapp.com/send?phone=5566996675486&text=Estou%20entrando%20em%20contato%20para%20"
+          target="_blank" rel="noopener noreferrer"
+          class="mobile-link block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 w-full text-center">
+          Contato
+        </a>
+      </div>
+    </nav>
+    <div id="scroll-progress"></div>
+  </header>
+
+  <main>
+    <section id="solucao" class="bg-gray-50 py-16 sm:py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-10">
+
+        <div class="md:w-1/2 text-center md:text-left">
+          <span class="text-sm font-semibold uppercase tracking-wider text-indigo-500">
+            Deep Tech | Engenharia Orofacial
+          </span>
+          <h1 class="mt-4 text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900 leading-tight">
+            Escudo Orofacial: Seu Futuro com <span class="text-indigo-700">Inteligência Artificial</span>
+          </h1>
+          <p class="mt-6 text-xl text-gray-600 text-justify">
+            Geração de prontuários e laudos automatos, padronização em clínica de reabilitações funcionais e estéticas.
+            Ferramenta revolucionária disruptiva que combina Inteligência Artificial e Realidade Mista para indicações
+            de reabilitações estético funcionais
+          </p>
+          <!-- Texto oculto inicialmente -->
+          <div id="extraText" class="hidden mt-4 text-lg text-gray-600 text-justify transition-all duration-500">
+            Monetize seus clientes ainda na consulta - Comece agora mesmo com celular ou câmera. Procure seu paciente (caso precise, cadastre-o),
+            adicione as fotos e gere automaticamente os prontuários e laudos com precisão clínica e agilidade. Utilize o marketing e remarkting mantenha sua agenda organizada e cheia 
+          </div>
+          <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+            <a href="https://www.thotiacorp.com.br/analiseOrofacial" target="_blank" rel="noopener noreferrer"
+              class="px-8 py-3 font-bold text-white bg-indigo-700 rounded-xl shadow-lg shadow-indigo-200 hover:bg-indigo-800 transform hover:scale-105 transition duration-300 inline-block text-center">
+              Ver Demonstração
+            </a>
+            <button id="saibaMaisBtn"
+              class="px-8 py-3 font-bold text-indigo-700 bg-white border-2 border-indigo-700 rounded-xl hover:bg-indigo-50 transform hover:scale-105 transition duration-300">
+              Saiba Mais
+            </button>
+          </div>
+        </div>
+        <div class="md:w-1/2 w-full mt-10 md:mt-0">
+          <div id="model-container"
+            class="aspect-video w-full bg-gray-200 rounded-3xl shadow-2xl shadow-indigo-300 flex items-center justify-center border-4 border-indigo-500 overflow-hidden">
+            <span
+              class="absolute bottom-3 right-3 text-xs font-semibold text-white bg-indigo-700/80 backdrop-blur-sm px-3 py-1.5 rounded-full flex items-center shadow-lg pointer-events-none z-10">
+              <svg class="w-4 h-4 mr-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="6" y="2" width="12" height="20" rx="2" ry="2" />
+                <line x1="12" y1="6" x2="12" y2="10" />
+                <line x1="10" y1="8" x2="14" y2="8" />
+              </svg>
+              Interaja com o Modelo 3D
+            </span>
+            <div id="model-protection"
+              class="absolute inset-0 bg-black/40 flex items-center justify-center text-white font-semibold text-sm backdrop-blur-sm cursor-pointer md:hidden z-20 rounded-3xl">
+              🔒 Toque para Interagir
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-
-    </main>
-
-    <footer class="bg-gray-900 text-white py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
-            <p class="mb-4 md:mb-0 text-sm">
-                © <span id="current-year"></span> THOTIACORP.COM.BR. Todos os direitos reservados.
-            </p>
-            
-            <div class="flex space-x-6 text-sm">
-                <a href="#" class="hover:text-indigo-400 transition duration-150">Política de Privacidade</a>
-                <a href="#" class="hover:text-indigo-400 transition duration-150">Termos de Uso</a>
-            </div>
+    <section id="perfil" class="py-16 sm:py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-center text-indigo-700 mb-12">
+          O Diferencial: Tecnologia Integrada
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div
+            class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
+            <svg class="mb-4 text-indigo-600 h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" />
+              <line x1="8" y1="21" x2="16" y2="21" />
+              <line x1="12" y1="17" x2="12" y2="21" />
+            </svg>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Inteligência Artificial</h3>
+            <p class="text-gray-600">Combinação de múltiplos modelos de IA para geração de laudos e pré-indicações.</p>
+          </div>
+          <div
+            class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
+            <svg class="mb-4 text-teal-600 h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M2 12s3-4 6-4 4 4 6 4 3 4 6 4 4-4 6-4" />
+              <path d="M2 12s3 4 6 4 4-4 6-4 3-4 6-4 4 4 6 4" />
+            </svg>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Realidade Mista</h3>
+            <p class="text-gray-600">Atua como um guia virtual imediato para o profissional durante procedimentos.</p>
+          </div>
+          <div
+            class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
+            <svg class="mb-4 text-yellow-600 h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+              <polyline points="22 4 12 14.01 9 11.01" />
+            </svg>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Padronização Clínica</h3>
+            <p class="text-gray-600">Automatiza o prontuário, criando um Protocolo Operacional Padrão (POP) de alto
+              nível.</p>
+          </div>
+          <div
+            class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
+            <svg class="mb-4 text-pink-600 h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path
+                d="M4.5 16.5c-1.5 0-3-1.5-3-3s1.5-3 3-3c.22 0 .44.02.65.06a8 8 8 0 0 1 15.3 0c.2.04.42.06.65.06 1.5 0 3 1.5 3 3s-1.5 3-3 3h-2.5" />
+            </svg>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Tecnologia Profunda (Deep Tech)</h3>
+            <p class="text-gray-600">Soluções integradas e disruptivas em diversas áreas, com rigorosos processos de
+              criação.</p>
+          </div>
         </div>
-    </footer>
+        <p class="text-center mt-12 text-gray-500 italic">
+          *É fundamental que a ferramenta seja utilizada por um profissional da área, responsável final pela validação
+          dos laudos e indicações.
+        </p>
+      </div>
+    </section>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuToggle = document.getElementById('menu-toggle');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const menuIcon = document.getElementById('menu-icon');
-            const closeIcon = document.getElementById('close-icon');
-            const mobileLinks = document.querySelectorAll('.mobile-link');
-            const currentYear = document.getElementById('current-year');
+    <section id="livro" class="bg-white py-16 sm:py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-center text-gray-900 mb-12">
+          <span class="text-indigo-700">Validação Científica:</span> O Livro
+        </h2>
+        <div
+          class="flex flex-col md:flex-row items-center justify-center gap-12 bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200">
+          <div class="w-64 flex-shrink-0">
+            <img src="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/capalivro.jpg"
+              alt="Capa do Livro de Validação Científica"
+              class="w-full h-auto object-cover rounded-lg shadow-2xl transition duration-300 hover:scale-[1.02] border-4 border-white">
+          </div>
+          <div class="md:text-left text-center">
+            <h3 class="text-2xl font-bold text-indigo-700 mb-3">
+              Engenharia Orofacial
+            </h3>
+            <p class="text-gray-700 text-lg mb-4 text-justify">
+              O método científico e a tecnologia por trás do Escudo Orofacial estão detalhados nesta publicação
+              essencial. O livro serve como a base teórica e clínica que valida a metodologia da ferramenta, garantindo
+              a precisão e a confiabilidade de cada laudo gerado.
+            </p>
+            <ul class="list-disc list-inside text-gray-600 space-y-2 text-sm md:text-base md:ml-4 text-left">
+              <li><span class="font-semibold text-gray-800">Autores:</span> [Nome do Autor(es)]</li>
+              <li><span class="font-semibold text-gray-800">Ano de Publicação:</span> [Ano]</li>
+              <li><span class="font-semibold text-gray-800">ISBN:</span> [Se houver]</li>
+            </ul>
+            <a href="javascript:void(0)" title="Função temporariamente desativada"
+              class="mt-6 inline-block font-semibold text-sm text-white bg-gray-400 px-6 py-2 rounded-lg opacity-60 cursor-not-allowed">
+              Acessar Referência
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="global" class="py-16 sm:py-24 bg-indigo-700">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-center mb-12">
+          Presença Global: Ações Locais, Impactos Mundiais
+        </h2>
 
-            // Define o ano atual
-            currentYear.textContent = new Date().getFullYear();
+        <div class="flex flex-col md:flex-row gap-8 items-center justify-between">
+          <div class="md:w-1/2">
+            <p class="text-lg mb-6 text-justify">
+              Nossas soluções disruptivas estão disponíveis online, complementadas por uma robusta estratégia de
+              expansão física.
+            </p>
 
-            // Alterna o Menu Mobile
-            const toggleMenu = () => {
-                const isHidden = mobileMenu.classList.contains('hidden');
-                
-                if (isHidden) {
-                    mobileMenu.classList.remove('hidden');
-                    menuIcon.classList.add('hidden');
-                    closeIcon.classList.remove('hidden');
-                } else {
-                    mobileMenu.classList.add('hidden');
-                    menuIcon.classList.remove('hidden');
-                    closeIcon.classList.add('hidden');
-                }
-            };
+            <ul class="space-y-3 font-semibold">
+              <li class="flex items-center">
+                <svg class="text-white mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s-8-4-8-12c0-4.42 3.58-8 8-8s8 3.58 8 8c0 8-8 12-8 12z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                30+ Agências e Escritórios de Vendas Globais
+              </li>
+              <li class="flex items-center">
+                <svg class="text-white mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+                  <path d="M2 12h20" />
+                </svg>
+                Sede e Filiais Estratégicas
+              </li>
+              <li class="flex items-center">
+                <svg class="text-white mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor" stroke-width="2">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                  <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+                6+ Instituições e Universidades Apoiadoras
+              </li>
+            </ul>
+          </div>
+          <div class="md:w-1/2 w-full mt-8 md:mt-0 relative">
+            <div id="mapa-visitantes"
+              class="aspect-video w-full bg-indigo-800 rounded-xl shadow-2xl border border-white/50 overflow-hidden">
+            </div>
+            <span id="map-interaction-notice"
+              class="absolute bottom-3 right-3 text-xs font-semibold text-white bg-white/30 backdrop-blur-sm px-3 py-1.5 rounded-full flex items-center shadow-lg pointer-events-none z-10 transition-opacity duration-500">
+              <svg class="w-4 h-4 mr-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="2" x2="12" y2="6" />
+                <line x1="12" y1="18" x2="12" y2="22" />
+                <line x1="2" y1="12" x2="6" y2="12" />
+                <line x1="18" y1="12" x2="22" y2="12" />
+              </svg>
+              Interaja com o Mapa Global
+            </span>
+            <!-- Proteção de interação no mapa -->
+            <div id="map-protection"
+              class="absolute inset-0 bg-black/40 flex items-center justify-center text-white font-semibold text-sm backdrop-blur-sm cursor-pointer md:hidden z-20 rounded-xl transition-opacity duration-300">
+              🔒 Toque para Interagir
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-            menuToggle.addEventListener('click', toggleMenu);
+  <footer class="bg-gray-900 text-white py-8">
+    <div
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+      <p class="mb-4 md:mb-0 text-sm">
+        © <span id="current-year"></span> THOTIACORP.COM.BR. Todos os direitos reservados.
+      </p>
 
-            // Fecha o menu quando um link é clicado
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    if (!mobileMenu.classList.contains('hidden')) {
-                        toggleMenu();
-                    }
-                });
-            });
-        });
-    </script>
-    
-    <script>
-        // --- CÓDIGO THREE.JS PARA O MODELO 3D ---
-        // As bibliotecas THREE.js, GLTFLoader e OrbitControls devem estar carregadas globalmente.
-        
-        // URL do SEU MODELO 3D (.glb) do GitHub RAW
-        const FACE_SCAN_URL = 'https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/supportitseez3d.com.glb';
-        
-        // Contêiner HTML onde o 3D será renderizado
-        const container = document.getElementById('model-container');
-        
-        if (container) {
-            // Certifique-se de que THREE, GLTFLoader e OrbitControls estejam acessíveis
-            // O unpkg geralmente anexa estas classes ao objeto global 'THREE'.
-            if (typeof THREE.GLTFLoader === 'undefined') {
-                console.error("GLTFLoader não está definido. Verifique a importação.");
-            }
-            if (typeof THREE.OrbitControls === 'undefined') {
-                console.error("OrbitControls não está definido. Verifique a importação.");
-            }
-            
-            const width = container.clientWidth;
-            const height = container.clientHeight;
+      <div class="flex space-x-6 text-sm">
+        <a href="#" class="hover:text-indigo-400 transition duration-150">Política de Privacidade</a>
+        <a href="#" class="hover:text-indigo-400 transition duration-150">Termos de Uso</a>
+      </div>
+    </div>
+  </footer>
 
-            // --- 1. Configuração Básica ---
-            const scene = new THREE.Scene();
-            scene.background = new THREE.Color(0xFAFAFA); 
-            
-            const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); 
-            renderer.setSize(width, height);
-            renderer.toneMapping = THREE.ACESFilmicToneMapping; 
-            // CORREÇÃO: THREE.sRGBEncoding foi removido/substituído em versões mais recentes do THREE.js. 
-            // Para r128, esta linha pode ser mantida, mas é comum agora usar:
-            // renderer.outputEncoding = THREE.LinearEncoding; // Ou simplesmente omitir se for a saída padrão
-            
-            container.appendChild(renderer.domElement);
-            
-            // --- 2. Controles de Câmera ---
-            // Certifique-se de que OrbitControls está disponível como THREE.OrbitControls
-            const controls = new THREE.OrbitControls(camera, renderer.domElement);
-            controls.enableDamping = true; 
-            controls.autoRotate = true; 
-            controls.autoRotateSpeed = 0.8;
-            controls.minDistance = 0.5; 
-            controls.maxDistance = 10; 
-            
-            // --- 3. Luzes ---
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.8); 
-            scene.add(ambientLight);
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuToggle = document.getElementById('menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuIcon = document.getElementById('menu-icon');
+      const closeIcon = document.getElementById('close-icon');
+      const mobileLinks = document.querySelectorAll('.mobile-link');
+      const currentYear = document.getElementById('current-year');
 
-            const directionalLight = new THREE.DirectionalLight(0xffffff, 3);
-            directionalLight.position.set(5, 5, 5).normalize();
-            scene.add(directionalLight);
+      // Define o ano atual
+      currentYear.textContent = new Date().getFullYear();
 
-            let model = null; 
+      // Alterna o Menu Mobile
+      const toggleMenu = () => {
+        const isHidden = mobileMenu.classList.contains('hidden');
 
-            // --- 4. Carregamento e Enquadramento do Modelo ---
-            // Certifique-se de que GLTFLoader está disponível como THREE.GLTFLoader
-            const loader = new THREE.GLTFLoader();
-
-            loader.load(
-                FACE_SCAN_URL,
-                function (gltf) {
-                    model = gltf.scene; 
-                    scene.add(model);
-                    console.log("Modelo GLTF carregado com sucesso!");
-
-                    // --- Lógica de Enquadramento Automático (Fit to View) ---
-                    const box = new THREE.Box3().setFromObject(model); 
-                    const center = box.getCenter(new THREE.Vector3()); 
-                    const size = box.getSize(new THREE.Vector3()); 
-
-                    // Centraliza o modelo (move o pivô para o centro)
-                    model.position.sub(center);
-                    // O centro do controle também deve ser o novo centro (0,0,0)
-                    controls.target.set(0, 0, 0); 
-                    
-                    // Encontra a maior dimensão do modelo
-                    const maxDim = Math.max(size.x, size.y, size.z);
-                    
-                    // Calcula a distância necessária para a câmera ver todo o modelo
-                    const fov = camera.fov * (Math.PI / 180); 
-                    const cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2)); 
-                    
-                    // Ajusta a posição da câmera
-                    camera.position.set(0, 0, cameraZ * 1.8); // 1.8 para um zoom mais recuado
-                    
-                    controls.update(); 
-                    
-                    // Opcional: ajustar min/max distance dos controles com base no tamanho do modelo
-                    controls.minDistance = cameraZ * 0.5;
-                    controls.maxDistance = cameraZ * 5;
-
-                },
-                function (xhr) {
-                    const percent = (xhr.loaded / xhr.total) * 100;
-                    console.log(`Carregando modelo: ${percent.toFixed(0)}%`);
-                },
-                function (error) {
-                    console.error('Erro ao carregar o modelo GLTF:', error);
-                }
-            );
-            // --- 5. Loop de Animação ---
-            function animate() {
-                requestAnimationFrame(animate);
-                controls.update(); 
-                renderer.render(scene, camera);
-            }
-
-            animate();
-
-            // --- 6. Gerenciar Redimensionamento (Responsividade) ---
-            window.addEventListener('resize', () => {
-                const newWidth = container.clientWidth;
-                const newHeight = container.clientHeight;
-                
-                camera.aspect = newWidth / newHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(newWidth, newHeight);
-            });
-            // --- Proteção para interação no celular ---
-const protectionLayer = document.getElementById('model-protection');
-let controlsEnabled = false;
-
-if (window.innerWidth < 768 && protectionLayer) {
-  protectionLayer.addEventListener('click', () => {
-    controls.enabled = true;
-    controls.autoRotate = false;
-    controlsEnabled = true;
-
-    protectionLayer.classList.add('hidden');
-  });
-
-  // Inicialmente, o controle está desativado no celular
-  controls.enabled = false;
-} else {
-  // Em desktop, controle sempre ativo
-  controls.enabled = true;
-}
-
+        if (isHidden) {
+          mobileMenu.classList.remove('hidden');
+          menuIcon.classList.add('hidden');
+          closeIcon.classList.remove('hidden');
         } else {
-            console.error("Contêiner #model-container não encontrado.");
+          mobileMenu.classList.add('hidden');
+          menuIcon.classList.remove('hidden');
+          closeIcon.classList.add('hidden');
         }
-    </script>
+      };
 
-    <script>
+      menuToggle.addEventListener('click', toggleMenu);
+
+      // Fecha o menu quando um link é clicado
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          if (!mobileMenu.classList.contains('hidden')) {
+            toggleMenu();
+          }
+        });
+      });
+    });
+  </script>
+
+  <script>
+    // --- CÓDIGO THREE.JS PARA O MODELO 3D ---
+    // As bibliotecas THREE.js, GLTFLoader e OrbitControls devem estar carregadas globalmente.
+    // URL do SEU MODELO 3D (.glb) do GitHub RAW
+    const FACE_SCAN_URL = 'https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/supportitseez3d.com.glb';
+    // Contêiner HTML onde o 3D será renderizado
+    const container = document.getElementById('model-container');
+    if (container) {
+      // Certifique-se de que THREE, GLTFLoader e OrbitControls estejam acessíveis
+      // O unpkg geralmente anexa estas classes ao objeto global 'THREE'.
+      if (typeof THREE.GLTFLoader === 'undefined') {
+        console.error("GLTFLoader não está definido. Verifique a importação.");
+      }
+      if (typeof THREE.OrbitControls === 'undefined') {
+        console.error("OrbitControls não está definido. Verifique a importação.");
+      }
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+      // --- 1. Configuração Básica ---
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0xFAFAFA);
+      const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setSize(width, height);
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      // CORREÇÃO: THREE.sRGBEncoding foi removido/substituído em versões mais recentes do THREE.js. 
+      // Para r128, esta linha pode ser mantida, mas é comum agora usar:
+      // renderer.outputEncoding = THREE.LinearEncoding; // Ou simplesmente omitir se for a saída padrão
+      container.appendChild(renderer.domElement);
+      // --- 2. Controles de Câmera ---
+      // Certifique-se de que OrbitControls está disponível como THREE.OrbitControls
+      const controls = new THREE.OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 0.8;
+      controls.minDistance = 0.5;
+      controls.maxDistance = 10;
+      // --- 3. Luzes ---
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+      scene.add(ambientLight);
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 3);
+      directionalLight.position.set(5, 5, 5).normalize();
+      scene.add(directionalLight);
+      let model = null;
+      // --- 4. Carregamento e Enquadramento do Modelo ---
+      // Certifique-se de que GLTFLoader está disponível como THREE.GLTFLoader
+      const loader = new THREE.GLTFLoader();
+      loader.load(
+        FACE_SCAN_URL,
+        function (gltf) {
+          model = gltf.scene;
+          scene.add(model);
+          console.log("Modelo GLTF carregado com sucesso!");
+          // --- Lógica de Enquadramento Automático (Fit to View) ---
+          const box = new THREE.Box3().setFromObject(model);
+          const center = box.getCenter(new THREE.Vector3());
+          const size = box.getSize(new THREE.Vector3());
+          // Centraliza o modelo (move o pivô para o centro)
+          model.position.sub(center);
+          // O centro do controle também deve ser o novo centro (0,0,0)
+          controls.target.set(0, 0, 0);
+          // Encontra a maior dimensão do modelo
+          const maxDim = Math.max(size.x, size.y, size.z);
+          // Calcula a distância necessária para a câmera ver todo o modelo
+          const fov = camera.fov * (Math.PI / 180);
+          const cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
+          // Ajusta a posição da câmera
+          camera.position.set(0, 0, cameraZ * 1.8); // 1.8 para um zoom mais recuado
+          controls.update();
+          // Opcional: ajustar min/max distance dos controles com base no tamanho do modelo
+          controls.minDistance = cameraZ * 0.5;
+          controls.maxDistance = cameraZ * 5;
+        },
+        function (xhr) {
+          const percent = (xhr.loaded / xhr.total) * 100;
+          console.log(`Carregando modelo: ${percent.toFixed(0)}%`);
+        },
+        function (error) {
+          console.error('Erro ao carregar o modelo GLTF:', error);
+        }
+      );
+      // --- 5. Loop de Animação ---
+      function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+      }
+      animate();
+      // --- 6. Gerenciar Redimensionamento (Responsividade) ---
+      window.addEventListener('resize', () => {
+        const newWidth = container.clientWidth;
+        const newHeight = container.clientHeight;
+
+        camera.aspect = newWidth / newHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(newWidth, newHeight);
+      });
+      // --- Proteção para interação no celular ---
+      const protectionLayer = document.getElementById('model-protection');
+      let controlsEnabled = false;
+
+      if (window.innerWidth < 768 && protectionLayer) {
+        protectionLayer.addEventListener('click', () => {
+          controls.enabled = true;
+          controls.autoRotate = false;
+          controlsEnabled = true;
+          protectionLayer.classList.add('hidden');
+        });
+        // Inicialmente, o controle está desativado no celular
+        controls.enabled = false;
+      } else {
+        // Em desktop, controle sempre ativo
+        controls.enabled = true;
+      }
+    } else {
+      console.error("Contêiner #model-container não encontrado.");
+    }
+  </script>
+
+  <script>
     // --- CÓDIGO AMCHARTS 5 PARA O MAPA GLOBAL ---
     am5.ready(function () {
-        var root = am5.Root.new("mapa-visitantes");
-        root.setThemes([am5themes_Animated.new(root)]);
-        var chart = root.container.children.push(
-            am5map.MapChart.new(root, {
-                projection: am5map.geoMercator(),
-                // Adicionamos a linha abaixo para que o mapa possa ser arrastado/movido
-                panX: "translateX", 
-                panY: "translateY",
-                wheelX: "none",
-                wheelY: "zoomX",
-                homeZoomLevel: 1, // Nível de zoom inicial
-                homeGeoPoint: { latitude: 0, longitude: 0 } // Ponto inicial
-            })
-        );
-
-        var polygonSeries = chart.series.push(
-            am5map.MapPolygonSeries.new(root, {
-                geoJSON: am5geodata_worldLow,
-                exclude: ["AQ"],
-                fill: am5.color(0x3b82f6),
-                stroke: am5.color(0xffffff),
-                // Ativa o cursor de "mão" para indicar interatividade
-                interactive: true 
-            })
-        );
-
-        // Adicionamos um contêiner invisível sobre o mapa para capturar o primeiro clique/interação
-        // CORREÇÃO: Removida a falha de sintaxe `is/>`
-        var interactionOverlay = am5.Container.new(root, {
-            width: am5.percent(100),
-            height: am5.percent(100)
-        });
-        chart.children.push(interactionOverlay);
-
-
-        // Dados simulados de visitas (simulando um campo para o tooltip)
-        const visitsData = {
-            BR: 1200, US: 950, FR: 700, DE: 620, IN: 500, JP: 420, AU: 310, ZA: 200
-        };
-
-        // Preenchimento dinâmico baseado na quantidade
-        polygonSeries.mapPolygons.template.adapters.add("fill", (fill, target) => {
-            const id = target.dataItem.get("id");
-            if (visitsData[id]) {
-                const ratio = visitsData[id] / 1200;
-                // Tons de azul (ajustado para ser mais visível sobre o bg indigo-700)
-                const r = 255 - Math.round(150 * ratio);
-                const g = 255 - Math.round(150 * ratio);
-                const b = 255 - Math.round(50 * ratio);
-                return am5.color(`rgb(${r},${g},${b})`);
-            }
-            return am5.color(0x3730A3); // Cor de preenchimento padrão (indigo-800)
-        });
-
-        // Tooltip
-        polygonSeries.mapPolygons.template.setAll({
-             tooltipText: "{name}: {value} visitas",
-             // Adiciona um hover state para melhorar a interatividade
-             interactive: true
-        });
-
-
-        // CORREÇÃO: Passa os dados no formato correto (array de objetos {id, value})
-        polygonSeries.data.setAll(
-            Object.entries(visitsData).map(([id, value]) => ({ id, value }))
-        );
-
-        chart.appear(1000, 100);
-
-
-        // LÓGICA PARA ESCONDER O AVISO
-        const mapNotice = document.getElementById('map-interaction-notice');
-        let hasInteracted = false;
-
-        const hideNotice = () => {
-            if (!hasInteracted) {
-                mapNotice.classList.add('opacity-0');
-                setTimeout(() => {
-                    mapNotice.style.display = 'none'; // Remove do layout após a transição
-                }, 500); 
-                hasInteracted = true;
-            }
+      var root = am5.Root.new("mapa-visitantes");
+      root.setThemes([am5themes_Animated.new(root)]);
+      var chart = root.container.children.push(
+        am5map.MapChart.new(root, {
+          projection: am5map.geoMercator(),
+          // Adicionamos a linha abaixo para que o mapa possa ser arrastado/movido
+          panX: "translateX",
+          panY: "translateY",
+          wheelX: "none",
+          wheelY: "zoomX",
+          homeZoomLevel: 1, // Nível de zoom inicial
+          homeGeoPoint: { latitude: 0, longitude: 0 } // Ponto inicial
+        })
+      );
+      var polygonSeries = chart.series.push(
+        am5map.MapPolygonSeries.new(root, {
+          geoJSON: am5geodata_worldLow,
+          exclude: ["AQ"],
+          fill: am5.color(0x3b82f6),
+          stroke: am5.color(0xffffff),
+          // Ativa o cursor de "mão" para indicar interatividade
+          interactive: true
+        })
+      );
+      // Adicionamos um contêiner invisível sobre o mapa para capturar o primeiro clique/interação
+      // CORREÇÃO: Removida a falha de sintaxe `is/>`
+      var interactionOverlay = am5.Container.new(root, {
+        width: am5.percent(100),
+        height: am5.percent(100)
+      });
+      chart.children.push(interactionOverlay);
+      // Dados simulados de visitas (simulando um campo para o tooltip)
+      const visitsData = {
+        BR: 1200, US: 950, FR: 700, DE: 620, IN: 500, JP: 420, AU: 310, ZA: 200
+      };
+      // Preenchimento dinâmico baseado na quantidade
+      polygonSeries.mapPolygons.template.adapters.add("fill", (fill, target) => {
+        const id = target.dataItem.get("id");
+        if (visitsData[id]) {
+          const ratio = visitsData[id] / 1200;
+          // Tons de azul (ajustado para ser mais visível sobre o bg indigo-700)
+          const r = 255 - Math.round(150 * ratio);
+          const g = 255 - Math.round(150 * ratio);
+          const b = 255 - Math.round(50 * ratio);
+          return am5.color(`rgb(${r},${g},${b})`);
         }
+        return am5.color(0x3730A3); // Cor de preenchimento padrão (indigo-800)
+      });
+      // Tooltip
+      polygonSeries.mapPolygons.template.setAll({
+        tooltipText: "{name}: {value} visitas",
+        // Adiciona um hover state para melhorar a interatividade
+        interactive: true
+      });
+      // CORREÇÃO: Passa os dados no formato correto (array de objetos {id, value})
+      polygonSeries.data.setAll(
+        Object.entries(visitsData).map(([id, value]) => ({ id, value }))
+      );
+      chart.appear(1000, 100);
+      // LÓGICA PARA ESCONDER O AVISO
+      const mapNotice = document.getElementById('map-interaction-notice');
+      let hasInteracted = false;
+      const hideNotice = () => {
+        if (!hasInteracted) {
+          mapNotice.classList.add('opacity-0');
+          setTimeout(() => {
+            mapNotice.style.display = 'none'; // Remove do layout após a transição
+          }, 500);
+          hasInteracted = true;
+        }
+      }
+      // Ocultar aviso ao primeiro clique/toque no elemento que está sobre o mapa
+      interactionOverlay.events.on("click", hideNotice);
+      interactionOverlay.events.on("pointerdown", hideNotice);
 
-        // Ocultar aviso ao primeiro clique/toque no elemento que está sobre o mapa
-        interactionOverlay.events.on("click", hideNotice);
-        interactionOverlay.events.on("pointerdown", hideNotice);
-        
     });
-    </script>
-    <script>
-document.addEventListener("DOMContentLoaded", () => {
-  const mapProtection = document.getElementById("model-protection");
+  </script>
 
-  if (mapProtection) {
-    mapProtection.addEventListener("click", () => {
-      mapProtection.classList.add("hidden"); // Esconde a proteção
-    });
-  }
-});
-</script>
   <script>
-document.addEventListener("DOMContentLoaded", () => {
-  const mapProtection = document.getElementById("map-protection");
-
-  if (mapProtection) {
-    mapProtection.addEventListener("click", () => {
-      mapProtection.classList.add("hidden"); // Esconde a proteção
+    document.addEventListener("DOMContentLoaded", () => {
+      const mapProtection = document.getElementById("model-protection");
+      if (mapProtection) {
+        mapProtection.addEventListener("click", () => {
+          mapProtection.classList.add("hidden"); // Esconde a proteção
+        });
+      }
     });
-  }
-});
-</script>
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const mapProtection = document.getElementById("map-protection");
+      if (mapProtection) {
+        mapProtection.addEventListener("click", () => {
+          mapProtection.classList.add("hidden"); // Esconde a proteção
+        });
+      }
+    });
+  </script>
 
-<script>
-  const saibaMaisBtn = document.getElementById("saibaMaisBtn");
-  const extraText = document.getElementById("extraText");
+  <script>
+    const saibaMaisBtn = document.getElementById("saibaMaisBtn");
+    const extraText = document.getElementById("extraText");
+    saibaMaisBtn.addEventListener("click", () => {
+      extraText.classList.toggle("hidden");
+      // Muda o texto do botão dinamicamente
+      if (extraText.classList.contains("hidden")) {
+        saibaMaisBtn.textContent = "Saiba Mais";
+      } else {
+        saibaMaisBtn.textContent = "Mostrar Menos";
+      }
+    });
+  </script>
 
-  saibaMaisBtn.addEventListener("click", () => {
-    extraText.classList.toggle("hidden");
-
-    // Muda o texto do botão dinamicamente
-    if (extraText.classList.contains("hidden")) {
-      saibaMaisBtn.textContent = "Saiba Mais";
-    } else {
-      saibaMaisBtn.textContent = "Mostrar Menos";
-    }
-  });
-</script>
-
-    <script>
-window.addEventListener('scroll', () => {
-  const progressBar = document.getElementById('scroll-progress');
-  const scrollTop = window.scrollY;
-  const docHeight = document.body.scrollHeight - window.innerHeight;
-  const scrollPercent = (scrollTop / docHeight) * 100;
-  progressBar.style.width = scrollPercent + '%';
-});
-</script>
+  <script>
+    window.addEventListener('scroll', () => {
+      const progressBar = document.getElementById('scroll-progress');
+      const scrollTop = window.scrollY;
+      const docHeight = document.body.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+      progressBar.style.width = scrollPercent + '%';
+    });
+  </script>
 
 </body>
+
 </html>
