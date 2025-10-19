@@ -724,51 +724,62 @@
       const scrollPercent = (scrollTop / docHeight) * 100;
       progressBar.style.width = scrollPercent + '%';
     });
-  </script>
-// --- CÓDIGO DE INTERCEPTAÇÃO E ABERTURA EXTERNA ---
-<script>
+  </script><script>
     // Função auxiliar para determinar se o ambiente é o WebView do Instagram/Facebook
     const isMetaWebView = () => {
         const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-        // O UA geralmente contém 'Instagram', 'FBAV' (Facebook app version), ou 'Messenger'
-        return /Instagram|FBAV|FBAN|Messenger/.test(userAgent);
+        // Detecta strings comuns em WebViews da Meta
+        return /Instagram|FBAV|FBAN|Messenger/i.test(userAgent);
     };
 
     document.addEventListener('DOMContentLoaded', () => {
-        const openExternalBrowserBtn = document.getElementById('openExternalBrowser');
+        const btnContainer = document.querySelector('#solucao .mt-10'); // Container dos botões
         
-        // Se estivermos em um WebView Meta (Facebook/Instagram), mostre o botão de interceptação
-        if (isMetaWebView() && openExternalBrowserBtn) {
-            openExternalBrowserBtn.classList.remove('hidden');
+        // 1. Verifica se estamos em um WebView Meta
+        if (isMetaWebView() && btnContainer) {
             
-            // Lógica para interceptar e abrir no navegador externo
+            // 2. CRIA O BOTÃO DE INTERCEPTAÇÃO DINAMICAMENTE
+            const openExternalBrowserBtn = document.createElement('button');
+            openExternalBrowserBtn.id = 'openExternalBrowser';
+            // Classes Tailwind para design e visibilidade (agora visível por padrão)
+            openExternalBrowserBtn.className = 'px-8 py-3 font-bold text-white bg-red-600 rounded-xl shadow-lg shadow-red-200 hover:bg-red-700 transform hover:scale-105 transition duration-300 inline-block text-center mt-4 sm:mt-0'; // Adicionei margem superior em mobile
+            openExternalBrowserBtn.innerHTML = 'Abrir no Navegador Externo 🔗';
+
+            // 3. INJETA O BOTÃO NO CONTAINER DE AÇÕES
+            // Inserimos ele após o botão 'Saiba Mais'
+            const saibaMaisBtn = document.getElementById('saibaMaisBtn');
+            if (saibaMaisBtn) {
+                saibaMaisBtn.parentNode.insertBefore(openExternalBrowserBtn, saibaMaisBtn.nextSibling);
+            } else {
+                btnContainer.appendChild(openExternalBrowserBtn);
+            }
+
+            // 4. LÓGICA DE DEEP LINKING AO CLICAR
             openExternalBrowserBtn.addEventListener('click', () => {
                 const currentUrl = window.location.href;
                 
-                // 1. Tenta o esquema URI do Chrome (Android e iOS)
+                // Tenta o esquema URI do Chrome (Android e iOS)
                 let chromeUrl = currentUrl.replace(/https?:\/\//, 'googlechrome://');
                 window.location.href = chromeUrl;
 
-                // 2. Tenta o esquema URI do Safari (iOS)
-                // Usamos setTimeout para tentar o próximo link se o primeiro falhar
+                // Tenta o esquema URI do Safari (iOS)
                 setTimeout(() => {
                     let safariUrl = currentUrl.replace(/https?:\/\//, 'x-callback-url://');
                     window.location.href = safariUrl;
                 }, 100); 
 
-                // 3. Tenta o método padrão (window.open ou redirecionamento direto)
-                // Isso pode disparar o menu de "Abrir com" em alguns Androids
+                // Tenta o método padrão forçando a abertura externa (pode funcionar em alguns Androids)
                 setTimeout(() => {
-                    window.open(currentUrl, '_system'); // Tenta abrir como um aplicativo externo
+                    window.open(currentUrl, '_system');
                 }, 200);
                 
-                // Exibe uma instrução de fallback caso nada funcione imediatamente
+                // 5. Exibe a instrução de fallback caso a abertura falhe
                 setTimeout(() => {
                     alert(
-                        "Caso a página não abra automaticamente:\n\n" +
-                        "1. Use o menu (três pontos) no canto superior.\n" +
-                        "2. Selecione a opção 'Abrir no Navegador' ou 'Abrir no Safari/Chrome'.\n" +
-                        "3. Tente o download novamente!"
+                        "Caso a página não abra automaticamente, o aplicativo bloqueou a ação. 😥\n\n" +
+                        "1. Use o menu (três pontos) no canto superior para copiar o link.\n" +
+                        "2. Abra seu navegador (Chrome/Safari).\n" +
+                        "3. Cole e acesse o link para tentar o download novamente!"
                     );
                 }, 500);
             });
