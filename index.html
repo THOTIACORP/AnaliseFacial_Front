@@ -724,68 +724,96 @@
       const scrollPercent = (scrollTop / docHeight) * 100;
       progressBar.style.width = scrollPercent + '%';
     });
-  </script><script>
-    // Função auxiliar para determinar se o ambiente é o WebView do Instagram/Facebook
-    const isMetaWebView = () => {
-        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-        // Detecta strings comuns em WebViews da Meta
-        return /Instagram|FBAV|FBAN|Messenger/i.test(userAgent);
-    };
+  </script>
 
-    document.addEventListener('DOMContentLoaded', () => {
-        const btnContainer = document.querySelector('#solucao .mt-10'); // Container dos botões
-        
-        // 1. Verifica se estamos em um WebView Meta
-        if (isMetaWebView() && btnContainer) {
-            
-            // 2. CRIA O BOTÃO DE INTERCEPTAÇÃO DINAMICAMENTE
-            const openExternalBrowserBtn = document.createElement('button');
-            openExternalBrowserBtn.id = 'openExternalBrowser';
-            // Classes Tailwind para design e visibilidade (agora visível por padrão)
-            openExternalBrowserBtn.className = 'px-8 py-3 font-bold text-white bg-red-600 rounded-xl shadow-lg shadow-red-200 hover:bg-red-700 transform hover:scale-105 transition duration-300 inline-block text-center mt-4 sm:mt-0'; // Adicionei margem superior em mobile
-            openExternalBrowserBtn.innerHTML = 'Abrir no Navegador Externo 🔗';
+  <script>
+  // Função auxiliar para detectar WebView do Instagram/Facebook/Messenger
+  const isMetaWebView = () => {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    return /Instagram|FBAV|FBAN|Messenger/i.test(userAgent);
+  };
 
-            // 3. INJETA O BOTÃO NO CONTAINER DE AÇÕES
-            // Inserimos ele após o botão 'Saiba Mais'
-            const saibaMaisBtn = document.getElementById('saibaMaisBtn');
-            if (saibaMaisBtn) {
-                saibaMaisBtn.parentNode.insertBefore(openExternalBrowserBtn, saibaMaisBtn.nextSibling);
-            } else {
-                btnContainer.appendChild(openExternalBrowserBtn);
-            }
+  document.addEventListener('DOMContentLoaded', () => {
+    if (isMetaWebView()) {
+      // Remove rolagem e oculta o restante da página
+      document.body.style.overflow = 'hidden';
+      document.body.innerHTML = ''; // limpa tudo
 
-            // 4. LÓGICA DE DEEP LINKING AO CLICAR
-            openExternalBrowserBtn.addEventListener('click', () => {
-                const currentUrl = window.location.href;
-                
-                // Tenta o esquema URI do Chrome (Android e iOS)
-                let chromeUrl = currentUrl.replace(/https?:\/\//, 'googlechrome://');
-                window.location.href = chromeUrl;
+      // Cria o overlay de bloqueio (fundo)
+      const overlay = document.createElement('div');
+      overlay.style.position = 'fixed';
+      overlay.style.top = '0';
+      overlay.style.left = '0';
+      overlay.style.width = '100%';
+      overlay.style.height = '100vh';
+      overlay.style.backgroundColor = '#0d1117'; // fundo escuro elegante
+      overlay.style.display = 'flex';
+      overlay.style.justifyContent = 'center';
+      overlay.style.alignItems = 'center';
+      overlay.style.zIndex = '999999';
+      overlay.style.flexDirection = 'column';
+      overlay.style.textAlign = 'center';
+      overlay.style.color = '#fff';
 
-                // Tenta o esquema URI do Safari (iOS)
-                setTimeout(() => {
-                    let safariUrl = currentUrl.replace(/https?:\/\//, 'x-callback-url://');
-                    window.location.href = safariUrl;
-                }, 100); 
+      // Cria o botão central
+      const openExternalBrowserBtn = document.createElement('button');
+      openExternalBrowserBtn.id = 'openExternalBrowser';
+      openExternalBrowserBtn.className =
+        'px-8 py-3 font-bold text-white bg-red-600 rounded-xl shadow-lg shadow-red-200 hover:bg-red-700 transform hover:scale-105 transition duration-300';
+      openExternalBrowserBtn.innerHTML = 'Abrir no Navegador Externo 🔗';
 
-                // Tenta o método padrão forçando a abertura externa (pode funcionar em alguns Androids)
-                setTimeout(() => {
-                    window.open(currentUrl, '_system');
-                }, 200);
-                
-                // 5. Exibe a instrução de fallback caso a abertura falhe
-                setTimeout(() => {
-                    alert(
-                        "Caso a página não abra automaticamente, o aplicativo bloqueou a ação. 😥\n\n" +
-                        "1. Use o menu (três pontos) no canto superior para copiar o link.\n" +
-                        "2. Abra seu navegador (Chrome/Safari).\n" +
-                        "3. Cole e acesse o link para tentar o download novamente!"
-                    );
-                }, 500);
-            });
+      // Mensagem de instrução
+      const message = document.createElement('p');
+      message.style.maxWidth = '300px';
+      message.style.marginTop = '16px';
+      message.style.fontSize = '15px';
+      message.style.lineHeight = '1.5';
+      message.innerText =
+        '🚫 O Instagram bloqueia downloads diretos se sua inteção é ter um prontuário.\nToque no botão abaixo para abrir no navegador e continuar.';
+
+      overlay.appendChild(openExternalBrowserBtn);
+      overlay.appendChild(message);
+      document.body.appendChild(overlay);
+
+      // Lógica de tentativa para abrir no navegador externo
+      openExternalBrowserBtn.addEventListener('click', () => {
+        const currentUrl = window.location.href;
+
+        try {
+          // Tenta abrir no Chrome (Android)
+          const chromeUrl = currentUrl.replace(/https?:\/\//, 'googlechrome://');
+          window.location.href = chromeUrl;
+
+          // Tenta Safari (iOS)
+          setTimeout(() => {
+            const safariUrl = currentUrl.replace(/https?:\/\//, 'x-callback-url://');
+            window.location.href = safariUrl;
+          }, 150);
+
+          // Tentativa adicional padrão
+          setTimeout(() => {
+            window.open(currentUrl, '_system');
+          }, 300);
+
+          // Caso nada aconteça (bloqueio da WebView)
+          setTimeout(() => {
+            alert(
+              "Caso a página não abra automaticamente, o aplicativo bloqueou a ação. 😥\n\n" +
+                "1️⃣ Toque nos três pontos no canto superior.\n" +
+                "2️⃣ Selecione 'Abrir no navegador' 'Abrir no Chrome' ou 'Copiar link'.\n" +
+                "3️⃣ Abra o Chrome/Safari e cole o link manualmente."
+            );
+          }, 600);
+        } catch (error) {
+          alert(
+            "O aplicativo bloqueou a abertura externa. Abra o menu (três pontos) e escolha 'Abrir no navegador'."
+          );
         }
-    });
+      });
+    }
+  });
 </script>
+
 </body>
 
 </html>
