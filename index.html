@@ -725,7 +725,56 @@
       progressBar.style.width = scrollPercent + '%';
     });
   </script>
+// --- CÓDIGO DE INTERCEPTAÇÃO E ABERTURA EXTERNA ---
+<script>
+    // Função auxiliar para determinar se o ambiente é o WebView do Instagram/Facebook
+    const isMetaWebView = () => {
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        // O UA geralmente contém 'Instagram', 'FBAV' (Facebook app version), ou 'Messenger'
+        return /Instagram|FBAV|FBAN|Messenger/.test(userAgent);
+    };
 
+    document.addEventListener('DOMContentLoaded', () => {
+        const openExternalBrowserBtn = document.getElementById('openExternalBrowser');
+        
+        // Se estivermos em um WebView Meta (Facebook/Instagram), mostre o botão de interceptação
+        if (isMetaWebView() && openExternalBrowserBtn) {
+            openExternalBrowserBtn.classList.remove('hidden');
+            
+            // Lógica para interceptar e abrir no navegador externo
+            openExternalBrowserBtn.addEventListener('click', () => {
+                const currentUrl = window.location.href;
+                
+                // 1. Tenta o esquema URI do Chrome (Android e iOS)
+                let chromeUrl = currentUrl.replace(/https?:\/\//, 'googlechrome://');
+                window.location.href = chromeUrl;
+
+                // 2. Tenta o esquema URI do Safari (iOS)
+                // Usamos setTimeout para tentar o próximo link se o primeiro falhar
+                setTimeout(() => {
+                    let safariUrl = currentUrl.replace(/https?:\/\//, 'x-callback-url://');
+                    window.location.href = safariUrl;
+                }, 100); 
+
+                // 3. Tenta o método padrão (window.open ou redirecionamento direto)
+                // Isso pode disparar o menu de "Abrir com" em alguns Androids
+                setTimeout(() => {
+                    window.open(currentUrl, '_system'); // Tenta abrir como um aplicativo externo
+                }, 200);
+                
+                // Exibe uma instrução de fallback caso nada funcione imediatamente
+                setTimeout(() => {
+                    alert(
+                        "Caso a página não abra automaticamente:\n\n" +
+                        "1. Use o menu (três pontos) no canto superior.\n" +
+                        "2. Selecione a opção 'Abrir no Navegador' ou 'Abrir no Safari/Chrome'.\n" +
+                        "3. Tente o download novamente!"
+                    );
+                }, 500);
+            });
+        }
+    });
+</script>
 </body>
 
 </html>
