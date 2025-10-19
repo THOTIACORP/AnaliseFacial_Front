@@ -726,93 +726,99 @@
     });
   </script>
 
-  <script>
-  // Função auxiliar para detectar WebView do Instagram/Facebook/Messenger
+<script>
+  // Detecta se é WebView do Instagram/Facebook/Messenger
   const isMetaWebView = () => {
-    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-    return /Instagram|FBAV|FBAN|Messenger/i.test(userAgent);
+    const ua = navigator.userAgent || navigator.vendor || window.opera;
+    return /Instagram|FBAV|FBAN|Messenger/i.test(ua);
   };
 
-  document.addEventListener('DOMContentLoaded', () => {
-    if (isMetaWebView()) {
-      // Remove rolagem e oculta o restante da página
-      document.body.style.overflow = 'hidden';
-      document.body.innerHTML = ''; // limpa tudo
+  document.addEventListener("DOMContentLoaded", () => {
+    const demoButton = document.querySelector('a[href*="analiseOrofacial"]'); // Botão "Fazer Demonstração"
 
-      // Cria o overlay de bloqueio (fundo)
-      const overlay = document.createElement('div');
-      overlay.style.position = 'fixed';
-      overlay.style.top = '0';
-      overlay.style.left = '0';
-      overlay.style.width = '100%';
-      overlay.style.height = '100vh';
-      overlay.style.backgroundColor = '#0d1117'; // fundo escuro elegante
-      overlay.style.display = 'flex';
-      overlay.style.justifyContent = 'center';
-      overlay.style.alignItems = 'center';
-      overlay.style.zIndex = '999999';
-      overlay.style.flexDirection = 'column';
-      overlay.style.textAlign = 'center';
-      overlay.style.color = '#fff';
+    if (demoButton && isMetaWebView()) {
+      // Intercepta o clique
+      demoButton.addEventListener("click", (event) => {
+        event.preventDefault(); // bloqueia a tentativa de abrir o link
 
-      // Cria o botão central
-      const openExternalBrowserBtn = document.createElement('button');
-      openExternalBrowserBtn.id = 'openExternalBrowser';
-      openExternalBrowserBtn.className =
-        'px-8 py-3 font-bold text-white bg-red-600 rounded-xl shadow-lg shadow-red-200 hover:bg-red-700 transform hover:scale-105 transition duration-300';
-      openExternalBrowserBtn.innerHTML = 'Abrir no Navegador Externo 🔗';
+        // Cria o overlay de bloqueio
+        const overlay = document.createElement("div");
+        overlay.style.position = "fixed";
+        overlay.style.top = "0";
+        overlay.style.left = "0";
+        overlay.style.width = "100%";
+        overlay.style.height = "100vh";
+        overlay.style.backgroundColor = "#0d1117";
+        overlay.style.display = "flex";
+        overlay.style.flexDirection = "column";
+        overlay.style.alignItems = "center";
+        overlay.style.justifyContent = "center";
+        overlay.style.zIndex = "999999";
+        overlay.style.textAlign = "center";
+        overlay.style.color = "#fff";
+        overlay.style.padding = "20px";
 
-      // Mensagem de instrução
-      const message = document.createElement('p');
-      message.style.maxWidth = '300px';
-      message.style.marginTop = '16px';
-      message.style.fontSize = '15px';
-      message.style.lineHeight = '1.5';
-      message.innerText =
-        '🚫 O Instagram bloqueia downloads diretos se sua inteção é ter um prontuário.\nToque no botão abaixo para abrir no navegador e continuar.';
+        // Cria o botão central
+        const openExternalBtn = document.createElement("button");
+        openExternalBtn.className =
+          "px-8 py-3 font-bold text-white bg-red-600 rounded-xl shadow-lg shadow-red-200 hover:bg-red-700 transform hover:scale-105 transition duration-300";
+        openExternalBtn.innerHTML = "Abrir no Navegador Externo 🔗";
 
-      overlay.appendChild(openExternalBrowserBtn);
-      overlay.appendChild(message);
-      document.body.appendChild(overlay);
+        // Mensagem de instrução
+        const message = document.createElement("p");
+        message.style.maxWidth = "320px";
+        message.style.marginTop = "16px";
+        message.style.fontSize = "15px";
+        message.style.lineHeight = "1.6";
+        message.innerText =
+          "🚫 O Instagram bloqueia aberturas de links diretos.\nToque no botão abaixo para abrir no navegador e continuar.";
 
-      // Lógica de tentativa para abrir no navegador externo
-      openExternalBrowserBtn.addEventListener('click', () => {
-        const currentUrl = window.location.href;
+        overlay.appendChild(openExternalBtn);
+        overlay.appendChild(message);
+        document.body.innerHTML = ""; // remove tudo da página
+        document.body.appendChild(overlay);
+        document.body.style.overflow = "hidden"; // bloqueia rolagem
 
-        try {
-          // Tenta abrir no Chrome (Android)
-          const chromeUrl = currentUrl.replace(/https?:\/\//, 'googlechrome://');
-          window.location.href = chromeUrl;
+        // Lógica de abertura externa ao clicar
+        openExternalBtn.addEventListener("click", () => {
+          const targetUrl = demoButton.href;
 
-          // Tenta Safari (iOS)
-          setTimeout(() => {
-            const safariUrl = currentUrl.replace(/https?:\/\//, 'x-callback-url://');
-            window.location.href = safariUrl;
-          }, 150);
+          try {
+            // Tenta abrir no Chrome (Android)
+            const chromeUrl = targetUrl.replace(/https?:\/\//, "googlechrome://");
+            window.location.href = chromeUrl;
 
-          // Tentativa adicional padrão
-          setTimeout(() => {
-            window.open(currentUrl, '_system');
-          }, 300);
+            // Tenta Safari (iOS)
+            setTimeout(() => {
+              const safariUrl = targetUrl.replace(/https?:\/\//, "x-callback-url://");
+              window.location.href = safariUrl;
+            }, 150);
 
-          // Caso nada aconteça (bloqueio da WebView)
-          setTimeout(() => {
+            // Tenta método padrão (_system)
+            setTimeout(() => {
+              window.open(targetUrl, "_system");
+            }, 300);
+
+            // Se ainda falhar (bloqueio)
+            setTimeout(() => {
+              alert(
+                "Caso o link não abra automaticamente, o Instagram bloqueou a ação. 😥\n\n" +
+                  "1️⃣ Toque nos três pontos no canto superior.\n" +
+                  "2️⃣ Selecione 'Abrir no navegador' ou 'Copiar link'.\n" +
+                  "3️⃣ Abra o Chrome/Safari e cole o link manualmente."
+              );
+            }, 600);
+          } catch (error) {
             alert(
-              "Caso a página não abra automaticamente, o aplicativo bloqueou a ação. 😥\n\n" +
-                "1️⃣ Toque nos três pontos no canto superior.\n" +
-                "2️⃣ Selecione 'Abrir no navegador' 'Abrir no Chrome' ou 'Copiar link'.\n" +
-                "3️⃣ Abra o Chrome/Safari e cole o link manualmente."
+              "O aplicativo bloqueou a abertura externa. Toque nos três pontos e escolha 'Abrir no navegador'."
             );
-          }, 600);
-        } catch (error) {
-          alert(
-            "O aplicativo bloqueou a abertura externa. Abra o menu (três pontos) e escolha 'Abrir no navegador'."
-          );
-        }
+          }
+        });
       });
     }
   });
 </script>
+
 
 </body>
 
