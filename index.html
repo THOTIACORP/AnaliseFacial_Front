@@ -518,125 +518,115 @@
       });
     });
   </script>
+<script>
+  // --- CONFIGURAÇÃO THREE.JS PARA MODELO 3D (.glb) ---
+  const FACE_SCAN_URL = 'https://www.thotiacorp.com.br/assets/images/supportitseez3d.com.glb';
+  const container = document.getElementById('model-container');
 
-  <script>
-    // --- CÓDIGO THREE.JS PARA O MODELO 3D ---
-    // As bibliotecas THREE.js, GLTFLoader e OrbitControls devem estar carregadas globalmente.
-    // URL do SEU MODELO 3D (.glb) do GitHub RAW
-    const FACE_SCAN_URL = 'https://www.thotiacorp.com.br/assets/images/supportitseez3d.com.glb';
-    // Contêiner HTML onde o 3D será renderizado
-    const container = document.getElementById('model-container');
-    if (container) {
-      // Certifique-se de que THREE, GLTFLoader e OrbitControls estejam acessíveis
-      // O unpkg geralmente anexa estas classes ao objeto global 'THREE'.
-      if (typeof THREE.GLTFLoader === 'undefined') {
-        console.error("GLTFLoader não está definido. Verifique a importação.");
-      }
-      if (typeof THREE.OrbitControls === 'undefined') {
-        console.error("OrbitControls não está definido. Verifique a importação.");
-      }
-      const width = container.clientWidth;
-      const height = container.clientHeight;
-      // --- 1. Configuração Básica ---
-      const scene = new THREE.Scene();
-      scene.background = new THREE.Color(0xFAFAFA);
-      const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-      renderer.setSize(width, height);
-      renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      // CORREÇÃO: THREE.sRGBEncoding foi removido/substituído em versões mais recentes do THREE.js. 
-      // Para r128, esta linha pode ser mantida, mas é comum agora usar:
-      // renderer.outputEncoding = THREE.LinearEncoding; // Ou simplesmente omitir se for a saída padrão
-      container.appendChild(renderer.domElement);
-      // --- 2. Controles de Câmera ---
-      // Certifique-se de que OrbitControls está disponível como THREE.OrbitControls
-      const controls = new THREE.OrbitControls(camera, renderer.domElement);
-      controls.enableDamping = true;
-      controls.autoRotate = true;
-      controls.autoRotateSpeed = 0.8;
-      controls.minDistance = 0.5;
-      controls.maxDistance = 10;
-      // --- 3. Luzes ---
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
-      scene.add(ambientLight);
-      const directionalLight = new THREE.DirectionalLight(0xffffff, 3);
-      directionalLight.position.set(5, 5, 5).normalize();
-      scene.add(directionalLight);
-      let model = null;
-      // --- 4. Carregamento e Enquadramento do Modelo ---
-      // Certifique-se de que GLTFLoader está disponível como THREE.GLTFLoader
-      const loader = new THREE.GLTFLoader();
-      loader.load(
-        FACE_SCAN_URL,
-        function (gltf) {
+  if (!container) {
+    console.error("Contêiner #model-container não encontrado.");
+  } else {
+    // --- Verificar se as classes estão carregadas ---
+    if (typeof THREE.GLTFLoader === 'undefined') console.error("GLTFLoader não está definido.");
+    if (typeof THREE.OrbitControls === 'undefined') console.error("OrbitControls não está definido.");
+
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+
+    // --- 1. Cena, Câmera e Renderer ---
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xFAFAFA);
+
+    const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(width, height);
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    container.appendChild(renderer.domElement);
+
+    // --- 2. Controles ---
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 0.8;
+    controls.minDistance = 0.5;
+    controls.maxDistance = 10;
+
+    // --- 3. Luzes ---
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+    scene.add(ambientLight);
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 3);
+    directionalLight.position.set(5, 5, 5).normalize();
+    scene.add(directionalLight);
+
+    let model = null;
+
+    // --- 4. Carregamento do modelo (robusto para .glb) ---
+    const loader = new THREE.GLTFLoader();
+
+    // Usando fetch + arrayBuffer para garantir binário
+    fetch(FACE_SCAN_URL)
+      .then(res => {
+        if (!res.ok) throw new Error(`Falha ao carregar modelo: ${res.status}`);
+        return res.arrayBuffer();
+      })
+      .then(data => {
+        loader.parse(data, '', function (gltf) {
           model = gltf.scene;
           scene.add(model);
           console.log("Modelo GLTF carregado com sucesso!");
-          // --- Lógica de Enquadramento Automático (Fit to View) ---
+
+          // --- Centralização e fit-to-view ---
           const box = new THREE.Box3().setFromObject(model);
           const center = box.getCenter(new THREE.Vector3());
           const size = box.getSize(new THREE.Vector3());
-          // Centraliza o modelo (move o pivô para o centro)
+
           model.position.sub(center);
-          // O centro do controle também deve ser o novo centro (0,0,0)
           controls.target.set(0, 0, 0);
-          // Encontra a maior dimensão do modelo
+
           const maxDim = Math.max(size.x, size.y, size.z);
-          // Calcula a distância necessária para a câmera ver todo o modelo
           const fov = camera.fov * (Math.PI / 180);
           const cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
-          // Ajusta a posição da câmera
-          camera.position.set(0, 0, cameraZ * 1.8); // 1.8 para um zoom mais recuado
-          controls.update();
-          // Opcional: ajustar min/max distance dos controles com base no tamanho do modelo
+          camera.position.set(0, 0, cameraZ * 1.8);
+
           controls.minDistance = cameraZ * 0.5;
           controls.maxDistance = cameraZ * 5;
-        },
-        function (xhr) {
-          const percent = (xhr.loaded / xhr.total) * 100;
-          console.log(`Carregando modelo: ${percent.toFixed(0)}%`);
-        },
-        function (error) {
-          console.error('Erro ao carregar o modelo GLTF:', error);
-        }
-      );
-      // --- 5. Loop de Animação ---
-      function animate() {
-        requestAnimationFrame(animate);
-        controls.update();
-        renderer.render(scene, camera);
-      }
-      animate();
-      // --- 6. Gerenciar Redimensionamento (Responsividade) ---
-      window.addEventListener('resize', () => {
-        const newWidth = container.clientWidth;
-        const newHeight = container.clientHeight;
-
-        camera.aspect = newWidth / newHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(newWidth, newHeight);
-      });
-      // --- Proteção para interação no celular ---
-      const protectionLayer = document.getElementById('model-protection');
-      let controlsEnabled = false;
-
-      if (window.innerWidth < 768 && protectionLayer) {
-        protectionLayer.addEventListener('click', () => {
-          controls.enabled = true;
-          controls.autoRotate = false;
-          controlsEnabled = true;
-          protectionLayer.classList.add('hidden');
+          controls.update();
         });
-        // Inicialmente, o controle está desativado no celular
-        controls.enabled = false;
-      } else {
-        // Em desktop, controle sempre ativo
-        controls.enabled = true;
-      }
-    } else {
-      console.error("Contêiner #model-container não encontrado.");
+      })
+      .catch(err => console.error(err));
+
+    // --- 5. Loop de animação ---
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
     }
-  </script>
+    animate();
+
+    // --- 6. Responsividade ---
+    window.addEventListener('resize', () => {
+      const newWidth = container.clientWidth;
+      const newHeight = container.clientHeight;
+      camera.aspect = newWidth / newHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(newWidth, newHeight);
+    });
+
+    // --- 7. Proteção / interação no celular ---
+    const protectionLayer = document.getElementById('model-protection');
+    if (window.innerWidth < 768 && protectionLayer) {
+      controls.enabled = false;
+      protectionLayer.addEventListener('click', () => {
+        controls.enabled = true;
+        controls.autoRotate = false;
+        protectionLayer.classList.add('hidden');
+      });
+    } else {
+      controls.enabled = true;
+    }
+  }
+</script>
 
   <script>
     // --- CÓDIGO AMCHARTS 5 PARA O MAPA GLOBAL ---
