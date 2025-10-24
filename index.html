@@ -255,10 +255,16 @@
               </svg>
               Interaja com o Modelo 3D
             </span>
-            <div id="model-protection"
-              class="absolute inset-0 bg-black/40 flex items-center justify-center text-white font-semibold text-sm backdrop-blur-sm cursor-pointer md:hidden z-20 rounded-3xl">
-              🔒 Toque para Interagir
-            </div>
+    
+  <div id="model-status">
+    <div class="spinner"></div>
+    <span id="model-message">Carregando modelo 3D...</span>
+    <button id="retry-button" class="retry-btn" style="display:none;">🔁 Tentar novamente</button>
+  </div>
+  <div id="model-progress"><div id="model-progress-bar"></div></div>
+  <div id="model-protection"></div>
+
+
           </div>
         </div>
       </div>
