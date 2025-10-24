@@ -122,6 +122,35 @@
       pointer-events: none;
     }
   </style>
+<style>
+  #model-progress {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 200px;
+    height: 10px;
+    background-color: #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    z-index: 10;
+  }
+  #model-progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #4caf50;
+    transition: width 0.2s;
+  }
+  #model-error {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: red;
+    font-weight: bold;
+    z-index: 10;
+    display: none;
+  }
+</style>
 
   <!-- Meta Pixel Code -->
   <script>
@@ -518,114 +547,174 @@
       });
     });
   </script>
+
+<div id="model-progress"><div id="model-progress-bar"></div></div>
+<div id="model-error">Falha ao carregar o modelo 3D</div>
+<div id="model-container" style="width:100%; height:500px; position:relative;"></div>
+<div id="model-protection" style="position:absolute; top:0; left:0; width:100%; height:100%; background:transparent;"></div>
+
 <script>
-  // --- CONFIGURAÇÃO THREE.JS PARA MODELO 3D (.glb) ---
-  const FACE_SCAN_URL = 'https://www.thotiacorp.com.br/assets/images/supportitseez3d.com.glb';
-  const container = document.getElementById('model-container');
+const FACE_SCAN_URL = 'https://www.thotiacorp.com.br/assets/images/supportitseez3d.com.glb';
+const container = document.getElementById('model-container');
+const progressBar = document.getElementById('model-progress-bar');
+const errorMsg = document.getElementById('model-error');
+const protectionLayer = document.getElementById('model-protection');
 
-  if (!container) {
-    console.error("Contêiner #model-container não encontrado.");
-  } else {
-    // --- Verificar se as classes estão carregadas ---
-    if (typeof THREE.GLTFLoader === 'undefined') console.error("GLTFLoader não está definido.");
-    if (typeof THREE.OrbitControls === 'undefined') console.error("OrbitControls não está definido.");
+if (!container) console.error("Contêiner #model-container não encontrado.");
+if (typeof THREE.GLTFLoader === 'undefined') console.error("GLTFLoader não está definido.");
+if (typeof THREE.OrbitControls === 'undefined') console.error("OrbitControls não está definido.");
 
-    const width = container.clientWidth;
-    const height = container.clientHeight;
+const width = container.clientWidth;
+const height = container.clientHeight;
 
-    // --- 1. Cena, Câmera e Renderer ---
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xFAFAFA);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xFAFAFA);
 
-    const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setSize(width, height);
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    container.appendChild(renderer.domElement);
+const camera = new THREE.PerspectiveCamera(50, width/height, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true });
+renderer.setSize(width, height);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+container.appendChild(renderer.domElement);
 
-    // --- 2. Controles ---
-    const controls = new THREE.OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.autoRotate = true;
-    controls.autoRotateSpeed = 0.8;
-    controls.minDistance = 0.5;
-    controls.maxDistance = 10;
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.autoRotate = true;
+controls.autoRotateSpeed = 0.8;
 
-    // --- 3. Luzes ---
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
-    scene.add(ambientLight);
+scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+const dirLight = new THREE.DirectionalLight(0xffffff, 3);
+dirLight.position.set(5,5,5).normalize();
+scene.add(dirLight);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 3);
-    directionalLight.position.set(5, 5, 5).normalize();
-    scene.add(directionalLight);
+let model = null;
+const loader = new THREE.GLTFLoader();
 
-    let model = null;
+// --- IndexedDB ---
+const dbName = "glbCacheDB";
+const storeName = "models";
 
-    // --- 4. Carregamento do modelo (robusto para .glb) ---
-    const loader = new THREE.GLTFLoader();
+function openDB() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open(dbName, 1);
+    request.onupgradeneeded = e => e.target.result.createObjectStore(storeName);
+    request.onsuccess = e => resolve(e.target.result);
+    request.onerror = e => reject(e.target.error);
+  });
+}
 
-    // Usando fetch + arrayBuffer para garantir binário
-    fetch(FACE_SCAN_URL)
-      .then(res => {
-        if (!res.ok) throw new Error(`Falha ao carregar modelo: ${res.status}`);
-        return res.arrayBuffer();
-      })
-      .then(data => {
-        loader.parse(data, '', function (gltf) {
-          model = gltf.scene;
-          scene.add(model);
-          console.log("Modelo GLTF carregado com sucesso!");
+async function getCachedModel(key) {
+  const db = await openDB();
+  return new Promise((resolve,reject)=>{
+    const tx = db.transaction(storeName,"readonly");
+    const store = tx.objectStore(storeName);
+    const req = store.get(key);
+    req.onsuccess=()=>resolve(req.result);
+    req.onerror=e=>reject(e.target.error);
+  });
+}
 
-          // --- Centralização e fit-to-view ---
-          const box = new THREE.Box3().setFromObject(model);
-          const center = box.getCenter(new THREE.Vector3());
-          const size = box.getSize(new THREE.Vector3());
+async function setCachedModel(key,data) {
+  const db = await openDB();
+  return new Promise((resolve,reject)=>{
+    const tx = db.transaction(storeName,"readwrite");
+    const store = tx.objectStore(storeName);
+    const req = store.put(data,key);
+    req.onsuccess=()=>resolve();
+    req.onerror=e=>reject(e.target.error);
+  });
+}
 
-          model.position.sub(center);
-          controls.target.set(0, 0, 0);
+// --- Carregar modelo (cache + fetch com progresso) ---
+async function loadModel() {
+  try {
+    let arrayBuffer = await getCachedModel(FACE_SCAN_URL);
 
-          const maxDim = Math.max(size.x, size.y, size.z);
-          const fov = camera.fov * (Math.PI / 180);
-          const cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
-          camera.position.set(0, 0, cameraZ * 1.8);
+    if (!arrayBuffer) {
+      const res = await fetch(FACE_SCAN_URL);
+      if (!res.ok) throw new Error(`Falha ao baixar: ${res.status}`);
 
-          controls.minDistance = cameraZ * 0.5;
-          controls.maxDistance = cameraZ * 5;
-          controls.update();
-        });
-      })
-      .catch(err => console.error(err));
+      const reader = res.body.getReader();
+      const contentLength = +res.headers.get('Content-Length');
+      let receivedLength = 0;
+      const chunks = [];
 
-    // --- 5. Loop de animação ---
-    function animate() {
-      requestAnimationFrame(animate);
-      controls.update();
-      renderer.render(scene, camera);
+      while(true){
+        const {done,value}=await reader.read();
+        if(done) break;
+        chunks.push(value);
+        receivedLength += value.length;
+        if(contentLength) progressBar.style.width = ((receivedLength/contentLength)*100).toFixed(0)+'%';
+      }
+
+      arrayBuffer = new Uint8Array(receivedLength);
+      let position = 0;
+      for(const chunk of chunks){
+        arrayBuffer.set(chunk, position);
+        position += chunk.length;
+      }
+
+      await setCachedModel(FACE_SCAN_URL,arrayBuffer.buffer);
+      console.log("Modelo baixado e salvo no cache!");
+      progressBar.style.width = "100%";
+      setTimeout(()=>{progressBar.parentElement.style.display="none";},500);
+    } else {
+      console.log("Modelo carregado do cache!");
+      progressBar.style.width = "100%";
+      setTimeout(()=>{progressBar.parentElement.style.display="none";},500);
     }
-    animate();
 
-    // --- 6. Responsividade ---
-    window.addEventListener('resize', () => {
-      const newWidth = container.clientWidth;
-      const newHeight = container.clientHeight;
-      camera.aspect = newWidth / newHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(newWidth, newHeight);
+    loader.parse(arrayBuffer,'',gltf=>{
+      model = gltf.scene;
+      scene.add(model);
+
+      const box = new THREE.Box3().setFromObject(model);
+      const center = box.getCenter(new THREE.Vector3());
+      const size = box.getSize(new THREE.Vector3());
+      model.position.sub(center);
+      controls.target.set(0,0,0);
+      const maxDim = Math.max(size.x,size.y,size.z);
+      const fov = camera.fov*(Math.PI/180);
+      const cameraZ = Math.abs(maxDim/2/Math.tan(fov/2));
+      camera.position.set(0,0,cameraZ*1.8);
+      controls.minDistance=cameraZ*0.5;
+      controls.maxDistance=cameraZ*5;
+      controls.update();
     });
 
-    // --- 7. Proteção / interação no celular ---
-    const protectionLayer = document.getElementById('model-protection');
-    if (window.innerWidth < 768 && protectionLayer) {
-      controls.enabled = false;
-      protectionLayer.addEventListener('click', () => {
-        controls.enabled = true;
-        controls.autoRotate = false;
-        protectionLayer.classList.add('hidden');
-      });
-    } else {
-      controls.enabled = true;
-    }
+  } catch(err) {
+    console.error("Erro ao carregar modelo:", err);
+    errorMsg.style.display="block";
   }
+}
+
+loadModel();
+
+// --- Loop animação ---
+function animate(){
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene,camera);
+}
+animate();
+
+// --- Responsividade ---
+window.addEventListener('resize',()=>{
+  camera.aspect=container.clientWidth/container.clientHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(container.clientWidth,container.clientHeight);
+});
+
+// --- Proteção mobile ---
+if(window.innerWidth<768 && protectionLayer){
+  controls.enabled=false;
+  protectionLayer.addEventListener('click',()=>{
+    controls.enabled=true;
+    controls.autoRotate=false;
+    protectionLayer.classList.add('hidden');
+  });
+}else{
+  controls.enabled=true;
+}
 </script>
 
   <script>
