@@ -122,94 +122,7 @@
       pointer-events: none;
     }
   </style>
-<style>
-  
 
-
-  /* Barra de progresso */
-  #model-progress {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60%;
-    height: 10px;
-    background: rgba(255, 255, 255, 0.4);
-    border-radius: 6px;
-    overflow: hidden;
-    backdrop-filter: blur(6px);
-    box-shadow: 0 0 8px rgba(0,0,0,0.15);
-  }
-
-  #model-progress-bar {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, #007bff, #00e0ff);
-    border-radius: 6px;
-    transition: width 0.3s ease-in-out;
-  }
-
-  /* Overlay de status (erro ou carregando) */
-  #model-status {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 14px;
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(6px);
-    transition: opacity 0.3s ease;
-    font-size: 15px;
-    color: #333;
-    text-align: center;
-    z-index: 5;
-  }
-
-  #model-status.hidden {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  /* Spinner elegante */
-  .spinner {
-    width: 40px;
-    height: 40px;
-    border: 3px solid rgba(0, 123, 255, 0.3);
-    border-top-color: #007bff;
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-  }
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
-
-  /* Botão de tentar novamente */
-  .retry-btn {
-    padding: 8px 18px;
-    background: linear-gradient(90deg, #007bff, #00c8ff);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 3px 8px rgba(0, 123, 255, 0.3);
-    transition: transform 0.2s, box-shadow 0.3s;
-  }
-  .retry-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
-  }
-
-  /* Proteção para mobile */
-  #model-protection {
-    position: absolute;
-    inset: 0;
-    background: transparent;
-    z-index: 10;
-  }
-</style>
   <!-- Meta Pixel Code -->
   <script>
     !function (f, b, e, v, n, t, s) {
@@ -542,11 +455,7 @@
               Interaja com o Mapa Global
             </span>
             <!-- Proteção de interação no mapa -->
-          <div id="model-progress"><div id="model-progress-bar"></div></div>
-<div id="model-error">Falha ao carregar o modelo 3D</div>
-<div id="model-container" style="width:100%; height:500px; position:relative;"></div>
-<div id="model-protection" style="position:absolute; top:0; left:0; width:100%; height:100%; background:transparent;"></div>
-          </div>
+        
         </div>
       </div>
     </section>
