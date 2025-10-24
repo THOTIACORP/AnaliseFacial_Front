@@ -528,6 +528,10 @@ const container = document.getElementById('model-container');
 const progressBar = document.getElementById('model-progress-bar');
 const errorMsg = document.getElementById('model-error');
 const protectionLayer = document.getElementById('model-protection');
+const modelStatus = document.getElementById('model-status'); // Novo
+const modelMessage = document.getElementById('model-message'); // Novo
+const retryButton = document.getElementById('retry-button'); // Novo
+const errorMsg = document.getElementById('model-error'); // Novo
 
 if (!container) console.error("Contêiner #model-container não encontrado.");
 if (typeof THREE.GLTFLoader === 'undefined') console.error("GLTFLoader não está definido.");
@@ -595,6 +599,10 @@ async function setCachedModel(key,data) {
 
 // --- Carregar modelo (cache + fetch com progresso) ---
 async function loadModel() {
+  retryButton.style.display = 'none';
+  errorMsg.style.display = 'none';
+  modelMessage.textContent = 'Carregando modelo 3D...';
+  modelStatus.style.display = 'flex'; // Exibe o status/spinner
   try {
     let arrayBuffer = await getCachedModel(FACE_SCAN_URL);
 
@@ -649,14 +657,19 @@ async function loadModel() {
       controls.maxDistance=cameraZ*5;
       controls.update();
     });
-
+modelStatus.style.display = 'none'; // Esconde o status
+    protectionLayer.classList.remove('hidden'); // Exibe a proteção (se for mobile)
   } catch(err) {
     console.error("Erro ao carregar modelo:", err);
-    errorMsg.style.display="block";
+    modelMessage.textContent = 'Falha no carregamento. Tente novamente.';
+    errorMsg.style.display="block"; // Exibe o erro
+    retryButton.style.display="block"; // Exibe o botão de retentativa
+    progressBar.parentElement.style.display = 'none'; // Esconde a barra de progresso
   }
 }
 
 loadModel();
+retryButton.addEventListener('click', loadModel); // Adiciona a retentativa
 
 // --- Loop animação ---
 function animate(){
