@@ -629,7 +629,6 @@ async function setCachedModel(key,data) {
   });
 }
 
-// --- Carregar modelo (cache + fetch com progresso) ---
 async function loadModel() {
   try {
     let arrayBuffer = await getCachedModel(FACE_SCAN_URL);
@@ -643,32 +642,38 @@ async function loadModel() {
       let receivedLength = 0;
       const chunks = [];
 
-      while(true){
-        const {done,value}=await reader.read();
-        if(done) break;
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
         chunks.push(value);
         receivedLength += value.length;
-        if(contentLength) progressBar.style.width = ((receivedLength/contentLength)*100).toFixed(0)+'%';
+        if (contentLength) {
+          progressBar.style.width = ((receivedLength / contentLength) * 100).toFixed(0) + '%';
+        }
       }
 
-      arrayBuffer = new Uint8Array(receivedLength);
+      const tempArray = new Uint8Array(receivedLength);
       let position = 0;
-      for(const chunk of chunks){
-        arrayBuffer.set(chunk, position);
+      for (const chunk of chunks) {
+        tempArray.set(chunk, position);
         position += chunk.length;
       }
 
-      await setCachedModel(FACE_SCAN_URL,arrayBuffer.buffer);
+      arrayBuffer = tempArray.buffer;
+      await setCachedModel(FACE_SCAN_URL, arrayBuffer);
+
       console.log("Modelo baixado e salvo no cache!");
       progressBar.style.width = "100%";
-      setTimeout(()=>{progressBar.parentElement.style.display="none";},500);
+      setTimeout(() => { progressBar.parentElement.style.display = "none"; }, 500);
     } else {
       console.log("Modelo carregado do cache!");
       progressBar.style.width = "100%";
-      setTimeout(()=>{progressBar.parentElement.style.display="none";},500);
+      setTimeout(() => { progressBar.parentElement.style.display = "none"; }, 500);
     }
 
-    loader.parse(arrayBuffer,'',gltf=>{
+    // --- Garantia de parse correto ---
+    const dataToParse = arrayBuffer instanceof ArrayBuffer ? arrayBuffer : arrayBuffer.buffer;
+    loader.parse(dataToParse, '', (gltf) => {
       model = gltf.scene;
       scene.add(model);
 
@@ -676,19 +681,19 @@ async function loadModel() {
       const center = box.getCenter(new THREE.Vector3());
       const size = box.getSize(new THREE.Vector3());
       model.position.sub(center);
-      controls.target.set(0,0,0);
-      const maxDim = Math.max(size.x,size.y,size.z);
-      const fov = camera.fov*(Math.PI/180);
-      const cameraZ = Math.abs(maxDim/2/Math.tan(fov/2));
-      camera.position.set(0,0,cameraZ*1.8);
-      controls.minDistance=cameraZ*0.5;
-      controls.maxDistance=cameraZ*5;
+
+      const maxDim = Math.max(size.x, size.y, size.z);
+      const fov = camera.fov * (Math.PI / 180);
+      const cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
+      camera.position.set(0, 0, cameraZ * 1.8);
+      controls.minDistance = cameraZ * 0.5;
+      controls.maxDistance = cameraZ * 5;
       controls.update();
     });
 
-  } catch(err) {
+  } catch (err) {
     console.error("Erro ao carregar modelo:", err);
-    errorMsg.style.display="block";
+    errorMsg.style.display = "block";
   }
 }
 
