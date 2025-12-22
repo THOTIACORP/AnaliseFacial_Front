@@ -354,8 +354,8 @@
             Escudo Orofacial: Seu Futuro com <span class="text-indigo-700">Inteligência Artificial</span>
           </h1>
           <p class="mt-6 text-xl text-gray-600 text-justify">
-            Geração de prontuários e laudos automatos, padronização em clínica de reabilitações funcionais e estéticas.
-            Ferramenta revolucionária disruptiva que combina Inteligência Artificial e Realidade Mista para indicações
+            Geração de prontuários e laudos automatos, padronização em hospitais e clínica de reabilitações estéticas e funcionais.
+            Ferramenta revolucionária disruptiva que combina Inteligência Artificial e Realidade Mista para gerar prontuários e indicações
             de reabilitações estético funcionais
           </p>
           <!-- Texto oculto inicialmente -->
@@ -390,22 +390,76 @@
               </svg>
               Interaja com o Modelo 3D
             </span>
-            <div id="model-protection"
-              class="absolute inset-0 bg-black/40 flex items-center justify-center text-white font-semibold text-sm backdrop-blur-sm cursor-pointer md:hidden z-20 rounded-3xl">
-              🔒 Toque para Interagir
-            </div>
+           <div id="model-progress" style="position: absolute; top: 10px; left: 10px; width: 200px; height: 10px; background-color: #ddd; border-radius: 5px; overflow: hidden; z-index: 10;">
+      <div id="model-progress-bar" style="height: 100%; width: 0%; background-color: #4caf50; transition: width 0.2s;"></div>
+  </div>
+  <div id="model-error" style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); color: red; font-weight: bold; z-index: 10; display: none;">
+      Erro ao carregar modelo.
+  </div>
+
+  <div id="model-protection"
+    class="absolute inset-0 bg-black/40 flex items-center justify-center text-white font-semibold text-sm backdrop-blur-sm cursor-pointer md:hidden z-20 rounded-3xl">
+    🔒 Toque para Interagir
+  </div>
           </div>
         </div>
       </div>
     </section>
 
     <section id="perfil" class="py-16 sm:py-24 bg-white">
+  
+
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
         <h2 class="text-3xl sm:text-4xl font-extrabold text-center text-indigo-700 mb-12">
           O Diferencial: Tecnologia Integrada
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div
+      
+        
+                    <div
+  class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
+  <svg class="mb-4 text-purple-600 h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M12 2a10 10 0 1 1-10 10A10 10 0 0 1 12 2z" />
+    <path d="M12 6v6l4 2" />
+  </svg>
+  <h3 class="text-xl font-bold text-gray-900 mb-3">Sugestões Clínicas Inteligentes</h3>
+  <p class="text-gray-600 text-justify">
+    Indica pontos ideais para aplicações de Botox e Preenchimentos Faciais, além de fornecer guia digital para Próteses, entre muitos outros
+    garantindo segurança e precisão clínica
+  </p>
+</div>
+            <div
+            class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
+            <svg class="mb-4 text-yellow-600 h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+              <polyline points="22 4 12 14.01 9 11.01" />
+            </svg>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Padronização Clínica</h3>
+            <p class="text-gray-600 text-justify">Automatiza o prontuário, criando um Protocolo Operacional Padrão (POP) de alto
+              nível. Assim você pode prospectar procedimento único no dia aumentando muito sua eficiência </p>
+          </div>
+             <div
+  class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
+  <svg class="mb-4 text-green-600 h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M17 1l4 4-4 4" />
+    <path d="M3 11h18v10H3z" />
+    <path d="M7 15h10" />
+  </svg>
+  <h3 class="text-xl font-bold text-gray-900 mb-3">Marketing e Remarketing</h3>
+  <p class="text-gray-600 text-justify">
+    Ferramentas integradas para engajamento contínuo do paciente: mantenha sua agenda cheia através de campanhas
+    automáticas de marketing e remarketing, otimizando retorno e fidelização direcional
+  </p>
+</div>
+
+            <div
             class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
             <svg class="mb-4 text-indigo-600 h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
               viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -415,7 +469,7 @@
               <line x1="12" y1="17" x2="12" y2="21" />
             </svg>
             <h3 class="text-xl font-bold text-gray-900 mb-3">Inteligência Artificial</h3>
-            <p class="text-gray-600">Combinação de múltiplos modelos de IA para geração de laudos e pré-indicações.</p>
+            <p class="text-gray-600 text-justify">Combinação de múltiplos modelos de IA para geração de prontuários, laudos e pré-indicações automáticas</p>
           </div>
           <div
             class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
@@ -428,18 +482,9 @@
             <h3 class="text-xl font-bold text-gray-900 mb-3">Realidade Mista</h3>
             <p class="text-gray-600">Atua como um guia virtual imediato para o profissional durante procedimentos.</p>
           </div>
-          <div
-            class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
-            <svg class="mb-4 text-yellow-600 h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-              <polyline points="22 4 12 14.01 9 11.01" />
-            </svg>
-            <h3 class="text-xl font-bold text-gray-900 mb-3">Padronização Clínica</h3>
-            <p class="text-gray-600">Automatiza o prontuário, criando um Protocolo Operacional Padrão (POP) de alto
-              nível.</p>
-          </div>
+        
+       
+
           <div
             class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
             <svg class="mb-4 text-pink-600 h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -449,7 +494,7 @@
                 d="M4.5 16.5c-1.5 0-3-1.5-3-3s1.5-3 3-3c.22 0 .44.02.65.06a8 8 8 0 0 1 15.3 0c.2.04.42.06.65.06 1.5 0 3 1.5 3 3s-1.5 3-3 3h-2.5" />
             </svg>
             <h3 class="text-xl font-bold text-gray-900 mb-3">Tecnologia Profunda (Deep Tech)</h3>
-            <p class="text-gray-600">Soluções integradas e disruptivas em diversas áreas, com rigorosos processos de
+            <p class="text-gray-600 text-justify">Soluções integradas e disruptivas em diversas áreas, com rigorosos processos de
               criação.</p>
           </div>
         </div>
@@ -488,7 +533,7 @@
             </ul>
             <a href="javascript:void(0)" title="Função temporariamente desativada"
               class="mt-6 inline-block font-semibold text-sm text-white bg-gray-400 px-6 py-2 rounded-lg opacity-60 cursor-not-allowed">
-              Acessar Referência
+              Em Desenvolvimento
             </a>
           </div>
         </div>
@@ -849,124 +894,175 @@
     });
   </script>
 
-  <script>
-    // --- CÓDIGO THREE.JS PARA O MODELO 3D ---
-    // As bibliotecas THREE.js, GLTFLoader e OrbitControls devem estar carregadas globalmente.
-    // URL do SEU MODELO 3D (.glb) do GitHub RAW
-    const FACE_SCAN_URL = 'https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/supportitseez3d.com.glb';
-    // Contêiner HTML onde o 3D será renderizado
-    const container = document.getElementById('model-container');
-    if (container) {
-      // Certifique-se de que THREE, GLTFLoader e OrbitControls estejam acessíveis
-      // O unpkg geralmente anexa estas classes ao objeto global 'THREE'.
-      if (typeof THREE.GLTFLoader === 'undefined') {
-        console.error("GLTFLoader não está definido. Verifique a importação.");
-      }
-      if (typeof THREE.OrbitControls === 'undefined') {
-        console.error("OrbitControls não está definido. Verifique a importação.");
-      }
-      const width = container.clientWidth;
-      const height = container.clientHeight;
-      // --- 1. Configuração Básica ---
-      const scene = new THREE.Scene();
-      scene.background = new THREE.Color(0xFAFAFA);
-      const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-      renderer.setSize(width, height);
-      renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      // CORREÇÃO: THREE.sRGBEncoding foi removido/substituído em versões mais recentes do THREE.js. 
-      // Para r128, esta linha pode ser mantida, mas é comum agora usar:
-      // renderer.outputEncoding = THREE.LinearEncoding; // Ou simplesmente omitir se for a saída padrão
-      container.appendChild(renderer.domElement);
-      // --- 2. Controles de Câmera ---
-      // Certifique-se de que OrbitControls está disponível como THREE.OrbitControls
-      const controls = new THREE.OrbitControls(camera, renderer.domElement);
-      controls.enableDamping = true;
-      controls.autoRotate = true;
-      controls.autoRotateSpeed = 0.8;
-      controls.minDistance = 0.5;
-      controls.maxDistance = 10;
-      // --- 3. Luzes ---
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
-      scene.add(ambientLight);
-      const directionalLight = new THREE.DirectionalLight(0xffffff, 3);
-      directionalLight.position.set(5, 5, 5).normalize();
-      scene.add(directionalLight);
-      let model = null;
-      // --- 4. Carregamento e Enquadramento do Modelo ---
-      // Certifique-se de que GLTFLoader está disponível como THREE.GLTFLoader
-      const loader = new THREE.GLTFLoader();
-      loader.load(
-        FACE_SCAN_URL,
-        function (gltf) {
-          model = gltf.scene;
-          scene.add(model);
-          console.log("Modelo GLTF carregado com sucesso!");
-          // --- Lógica de Enquadramento Automático (Fit to View) ---
-          const box = new THREE.Box3().setFromObject(model);
-          const center = box.getCenter(new THREE.Vector3());
-          const size = box.getSize(new THREE.Vector3());
-          // Centraliza o modelo (move o pivô para o centro)
-          model.position.sub(center);
-          // O centro do controle também deve ser o novo centro (0,0,0)
-          controls.target.set(0, 0, 0);
-          // Encontra a maior dimensão do modelo
-          const maxDim = Math.max(size.x, size.y, size.z);
-          // Calcula a distância necessária para a câmera ver todo o modelo
-          const fov = camera.fov * (Math.PI / 180);
-          const cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
-          // Ajusta a posição da câmera
-          camera.position.set(0, 0, cameraZ * 1.8); // 1.8 para um zoom mais recuado
-          controls.update();
-          // Opcional: ajustar min/max distance dos controles com base no tamanho do modelo
-          controls.minDistance = cameraZ * 0.5;
-          controls.maxDistance = cameraZ * 5;
-        },
-        function (xhr) {
-          const percent = (xhr.loaded / xhr.total) * 100;
-          console.log(`Carregando modelo: ${percent.toFixed(0)}%`);
-        },
-        function (error) {
-          console.error('Erro ao carregar o modelo GLTF:', error);
+
+<script>
+const FACE_SCAN_URL = 'https://www.thotiacorp.com.br/assets/images/supportitseez3d.com.glb';
+const container = document.getElementById('model-container');
+const progressBar = document.getElementById('model-progress-bar');
+const errorMsg = document.getElementById('model-error');
+const protectionLayer = document.getElementById('model-protection');
+
+if (!container) console.error("Contêiner #model-container não encontrado.");
+if (typeof THREE.GLTFLoader === 'undefined') console.error("GLTFLoader não está definido.");
+if (typeof THREE.OrbitControls === 'undefined') console.error("OrbitControls não está definido.");
+
+const width = container.clientWidth;
+const height = container.clientHeight;
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xFAFAFA);
+
+const camera = new THREE.PerspectiveCamera(50, width/height, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true });
+renderer.setSize(width, height);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+container.appendChild(renderer.domElement);
+
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.autoRotate = true;
+controls.autoRotateSpeed = 0.8;
+
+scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+const dirLight = new THREE.DirectionalLight(0xffffff, 3);
+dirLight.position.set(5,5,5).normalize();
+scene.add(dirLight);
+
+let model = null;
+const loader = new THREE.GLTFLoader();
+
+// --- IndexedDB ---
+const dbName = "glbCacheDB";
+const storeName = "models";
+
+function openDB() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open(dbName, 1);
+    request.onupgradeneeded = e => e.target.result.createObjectStore(storeName);
+    request.onsuccess = e => resolve(e.target.result);
+    request.onerror = e => reject(e.target.error);
+  });
+}
+
+async function getCachedModel(key) {
+  const db = await openDB();
+  return new Promise((resolve,reject)=>{
+    const tx = db.transaction(storeName,"readonly");
+    const store = tx.objectStore(storeName);
+    const req = store.get(key);
+    req.onsuccess=()=>resolve(req.result);
+    req.onerror=e=>reject(e.target.error);
+  });
+}
+
+async function setCachedModel(key,data) {
+  const db = await openDB();
+  return new Promise((resolve,reject)=>{
+    const tx = db.transaction(storeName,"readwrite");
+    const store = tx.objectStore(storeName);
+    const req = store.put(data,key);
+    req.onsuccess=()=>resolve();
+    req.onerror=e=>reject(e.target.error);
+  });
+}
+
+async function loadModel() {
+  try {
+    let arrayBuffer = await getCachedModel(FACE_SCAN_URL);
+
+    if (!arrayBuffer) {
+      const res = await fetch(FACE_SCAN_URL);
+      if (!res.ok) throw new Error(`Falha ao baixar: ${res.status}`);
+
+      const reader = res.body.getReader();
+      const contentLength = +res.headers.get('Content-Length');
+      let receivedLength = 0;
+      const chunks = [];
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        chunks.push(value);
+        receivedLength += value.length;
+        if (contentLength) {
+          progressBar.style.width = ((receivedLength / contentLength) * 100).toFixed(0) + '%';
         }
-      );
-      // --- 5. Loop de Animação ---
-      function animate() {
-        requestAnimationFrame(animate);
-        controls.update();
-        renderer.render(scene, camera);
       }
-      animate();
-      // --- 6. Gerenciar Redimensionamento (Responsividade) ---
-      window.addEventListener('resize', () => {
-        const newWidth = container.clientWidth;
-        const newHeight = container.clientHeight;
 
-        camera.aspect = newWidth / newHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(newWidth, newHeight);
-      });
-      // --- Proteção para interação no celular ---
-      const protectionLayer = document.getElementById('model-protection');
-      let controlsEnabled = false;
-
-      if (window.innerWidth < 768 && protectionLayer) {
-        protectionLayer.addEventListener('click', () => {
-          controls.enabled = true;
-          controls.autoRotate = false;
-          controlsEnabled = true;
-          protectionLayer.classList.add('hidden');
-        });
-        // Inicialmente, o controle está desativado no celular
-        controls.enabled = false;
-      } else {
-        // Em desktop, controle sempre ativo
-        controls.enabled = true;
+      const tempArray = new Uint8Array(receivedLength);
+      let position = 0;
+      for (const chunk of chunks) {
+        tempArray.set(chunk, position);
+        position += chunk.length;
       }
+
+      arrayBuffer = tempArray.buffer;
+      await setCachedModel(FACE_SCAN_URL, arrayBuffer);
+
+      console.log("Modelo baixado e salvo no cache!");
+      progressBar.style.width = "100%";
+      setTimeout(() => { progressBar.parentElement.style.display = "none"; }, 500);
     } else {
-      console.error("Contêiner #model-container não encontrado.");
+      console.log("Modelo carregado do cache!");
+      progressBar.style.width = "100%";
+      setTimeout(() => { progressBar.parentElement.style.display = "none"; }, 500);
     }
-  </script>
+
+    // --- Garantia de parse correto ---
+    const dataToParse = arrayBuffer instanceof ArrayBuffer ? arrayBuffer : arrayBuffer.buffer;
+    loader.parse(dataToParse, '', (gltf) => {
+      model = gltf.scene;
+      scene.add(model);
+
+      const box = new THREE.Box3().setFromObject(model);
+      const center = box.getCenter(new THREE.Vector3());
+      const size = box.getSize(new THREE.Vector3());
+      model.position.sub(center);
+
+      const maxDim = Math.max(size.x, size.y, size.z);
+      const fov = camera.fov * (Math.PI / 180);
+      const cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
+      camera.position.set(0, 0, cameraZ * 1.8);
+      controls.minDistance = cameraZ * 0.5;
+      controls.maxDistance = cameraZ * 5;
+      controls.update();
+    });
+
+  } catch (err) {
+    console.error("Erro ao carregar modelo:", err);
+    errorMsg.style.display = "block";
+  }
+}
+
+loadModel();
+
+// --- Loop animação ---
+function animate(){
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene,camera);
+}
+animate();
+
+// --- Responsividade ---
+window.addEventListener('resize',()=>{
+  camera.aspect=container.clientWidth/container.clientHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(container.clientWidth,container.clientHeight);
+});
+
+// --- Proteção mobile ---
+if(window.innerWidth<768 && protectionLayer){
+  controls.enabled=false;
+  protectionLayer.addEventListener('click',()=>{
+    controls.enabled=true;
+    controls.autoRotate=false;
+    protectionLayer.classList.add('hidden');
+  });
+}else{
+  controls.enabled=true;
+}
+</script>
 
   <script>
     // --- CÓDIGO AMCHARTS 5 PARA O MAPA GLOBAL ---
@@ -1160,6 +1256,114 @@
       });
     });
   </script>
+
+
+<script>
+    // Detecta se é WebView do Instagram/Facebook/Messenger
+    const isMetaWebView = () => {
+        const ua = navigator.userAgent || navigator.vendor || window.opera;
+        return /Instagram|FBAV|FBAN|Messenger/i.test(ua);
+    };
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const demoButton = document.querySelector('a[href*="analiseOrofacial"]'); // Botão "Fazer Demonstração"
+
+        if (demoButton && isMetaWebView()) {
+            // Intercepta o clique
+            demoButton.addEventListener("click", (event) => {
+                event.preventDefault(); // bloqueia a tentativa de abrir o link
+
+                // 1. SOLUÇÃO CONTRA LOOP DE RECARGA:
+                // Cria um novo estado de histórico antes de mostrar o overlay.
+                // Isso faz com que o botão "Voltar" do app ignore o overlay e retorne ao estado limpo.
+                history.replaceState(null, '', window.location.href);
+
+                // Cria o overlay de bloqueio
+                const overlay = document.createElement("div");
+                overlay.id = "meta-block-overlay"; // ID para fácil remoção
+                overlay.style.position = "fixed";
+                overlay.style.top = "0";
+                overlay.style.left = "0";
+                overlay.style.width = "100%";
+                overlay.style.height = "100vh";
+                overlay.style.backgroundColor = "#0d1117";
+                overlay.style.display = "flex";
+                overlay.style.flexDirection = "column";
+                overlay.style.alignItems = "center";
+                overlay.style.justifyContent = "center";
+                overlay.style.zIndex = "999999";
+                overlay.style.textAlign = "center";
+                overlay.style.color = "#fff";
+                overlay.style.padding = "20px";
+                overlay.style.transition = "opacity 0.3s";
+
+                // Conteúdo do overlay
+                const content = document.createElement("div");
+                content.innerHTML = `
+                    <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px;">
+                        Atenção! Restrição de Navegação 🚨
+                    </h2>
+                    <button id="openExternalBtn"
+                        class="px-8 py-3 font-bold text-white bg-red-600 rounded-xl shadow-lg shadow-red-200 hover:bg-red-700 transform hover:scale-105 transition duration-300">
+                        Abrir no Navegador Externo 🔗
+                    </button>
+                    <p style="max-width: 320px; margin-top: 16px; font-size: 15px; line-height: 1.6;">
+                        🚫 O navegador do Instagram/Facebook bloqueia o acesso ao prontuário e ao laudo.
+                        <br><br>
+                        Toque no botão acima para **continuar no seu navegador padrão** (Chrome/Safari) e acessar a demonstração completa.
+                    </p>
+                `;
+                overlay.appendChild(content);
+
+                // 2. INSERIR O OVERLAY POR CIMA E ESCONDER CONTEÚDO
+                document.body.appendChild(overlay);
+                document.body.style.overflow = "hidden"; // bloqueia rolagem
+
+                const openExternalBtn = document.getElementById("openExternalBtn");
+                const targetUrl = demoButton.href;
+                
+                // 3. Lógica de abertura externa ao clicar
+                openExternalBtn.addEventListener("click", () => {
+                    // Remove o overlay antes de tentar a navegação
+                    overlay.style.opacity = '0';
+                    setTimeout(() => overlay.remove(), 300);
+                    document.body.style.overflow = "auto";
+                    
+                    try {
+                        // Tenta abrir no Chrome (Android)
+                        const chromeUrl = targetUrl.replace(/https?:\/\//, "googlechrome://");
+                        window.location.href = chromeUrl;
+
+                        // Tenta Safari (iOS)
+                        setTimeout(() => {
+                            const safariUrl = targetUrl.replace(/https?:\/\//, "x-callback-url://");
+                            window.location.href = safariUrl;
+                        }, 150);
+
+                        // Tenta método padrão (_system)
+                        setTimeout(() => {
+                            window.open(targetUrl, "_system");
+                        }, 300);
+
+                        // Se ainda falhar (bloqueio)
+                        setTimeout(() => {
+                            alert(
+                                "Se a demonstração não abriu automaticamente:\n\n" +
+                                "1️⃣ Toque nos três pontos no canto superior.\n" +
+                                "2️⃣ Selecione 'Abrir no navegador' ou 'Copiar link'.\n" +
+                                "3️⃣ Abra o Chrome/Safari e cole o link."
+                            );
+                        }, 600);
+                    } catch (error) {
+                        alert(
+                            "O aplicativo bloqueou a abertura externa. Toque nos três pontos e escolha 'Abrir no navegador'."
+                        );
+                    }
+                });
+            });
+        }
+    });
+</script>
 
 
 </body>
