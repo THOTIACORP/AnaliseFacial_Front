@@ -122,7 +122,130 @@
       pointer-events: none;
     }
   </style>
+<style>
+    /* ... (Mantenha as configurações globais iniciais que você já tem) ... */
 
+    #projetos { background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%); }
+
+    /* CAROUSEL DE PROJETOS */
+    .projetos-carousel { position: relative; padding: 0 10px; }
+    
+    .projetos-track {
+        display: flex;
+        gap: 2rem;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        padding: 2rem 0.5rem; /* Aumentado para não cortar o hover */
+        align-items: stretch;
+    }
+    .projetos-track::-webkit-scrollbar { display: none; }
+
+    .projeto-slide { min-width: 100%; scroll-snap-align: start; }
+    @media (min-width: 768px) { .projeto-slide { min-width: calc(50% - 1rem); } }
+
+    /* BOTÕES DO CAROUSEL - Visíveis em tudo, menores no mobile */
+    .carousel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: #0d47a1;
+        color: white;
+        font-size: 1.5rem;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .carousel-btn.left { left: -5px; }
+    .carousel-btn.right { right: -5px; }
+    
+    @media (min-width: 768px) {
+        .carousel-btn { width: 44px; height: 44px; font-size: 2rem; }
+        .carousel-btn.left { left: -20px; }
+        .carousel-btn.right { right: -20px; }
+    }
+
+    /* CAROUSEL DE BOLSISTAS */
+    .bolsistas-track {
+        display: flex;
+        gap: 1rem;
+        overflow-x: auto;
+        padding: 1rem 5px;
+        scroll-snap-type: x mandatory;
+    }
+    .bolsistas-track::-webkit-scrollbar { display: none; }
+
+    .bolsista-slide {
+        flex: 0 0 85%;
+        scroll-snap-align: start;
+        display: flex;
+    }
+    @media (min-width: 768px) { .bolsista-slide { flex: 0 0 48%; } }
+    @media (min-width: 1024px) { .bolsista-slide { flex: 0 0 32%; } }
+
+    /* CARD DO BOLSISTA - Correção das Letras Cortadas */
+    .bolsista-card {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.8rem;
+        background: white;
+        border-radius: 12px;
+        border: 1px solid #e5e7eb;
+        transition: all 0.3s ease;
+        min-width: 0; /* ESSENCIAL para o texto não vazar */
+    }
+
+    .bolsista-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .bolsista-photo {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        flex-shrink: 0;
+    }
+
+    /* Container de texto interno do card */
+    .bolsista-info {
+        flex: 1;
+        min-width: 0; /* Força o texto a respeitar o espaço do flexbox */
+        overflow: hidden;
+    }
+
+    .bolsista-info h5 {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: #0d47a1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; /* Se o nome for gigante, vira "..." */
+    }
+
+    .bolsista-info .cargo {
+        font-size: 0.8rem;
+        color: #475569;
+        line-height: 1.2;
+        margin-bottom: 2px;
+    }
+
+    .bolsista-info .valor {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #166534;
+    }
+</style>
   <!-- Meta Pixel Code -->
   <script>
     !function (f, b, e, v, n, t, s) {
@@ -139,6 +262,7 @@
     fbq('init', '822978440229562');
     fbq('track', 'PageView');
   </script>
+
   <noscript><img height="1" width="1" style="display:none"
       src="https://www.facebook.com/tr?id=822978440229562&ev=PageView&noscript=1" /></noscript>
   <!-- End Meta Pixel Code -->
@@ -167,6 +291,9 @@
         <a href="#solucao" class="text-gray-600 hover:text-indigo-600 transition duration-150">Escudo Orofacial</a>
         <a href="#perfil" class="text-gray-600 hover:text-indigo-600 transition duration-150">Tecnologia</a>
         <a href="#livro" class="text-gray-600 hover:text-indigo-600 transition duration-150">Livro</a>
+        <a href="#projetos" class="text-gray-600 hover:text-indigo-600 transition duration-150">
+          Projetos
+        </a>
         <a href="#global" class="text-gray-600 hover:text-indigo-600 transition duration-150">Presença Global</a>
         <a href="https://api.whatsapp.com/send?phone=5566996675486&text=Estou%20entrando%20em%20contato%20para%20"
           target="_blank" rel="noopener noreferrer"
@@ -197,6 +324,11 @@
           class="mobile-link block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 w-full text-center">Tecnologia</a>
         <a href="#livro"
           class="mobile-link block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 w-full text-center">Livro</a>
+        <a href="#projetos"
+          class="mobile-link block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 w-full text-center">
+          Projetos
+        </a>
+
         <a href="#global"
           class="mobile-link block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 w-full text-center">Presença
           Global</a>
@@ -228,13 +360,16 @@
           </p>
           <!-- Texto oculto inicialmente -->
           <div id="extraText" class="hidden mt-4 text-lg text-gray-600 text-justify transition-all duration-500">
-            Monetize seus clientes ainda na 1º consulta - Comece agora mesmo com celular ou câmera. Procure seu paciente (caso precise, cadastre-o),
-            adicione as fotos e gere automaticamente os prontuários e laudos com precisão clínica e agilidade. Reduza erros, evite desperdício de materiais. Aproveite as ferramentas de marketing e remarketing para manter sua agenda sempre organizada e cheia
+            Monetize seus clientes ainda na 1º consulta - Comece agora mesmo com celular ou câmera. Procure seu paciente
+            (caso precise, cadastre-o),
+            adicione as fotos e gere automaticamente os prontuários e laudos com precisão clínica e agilidade. Reduza
+            erros, evite desperdício de materiais. Aproveite as ferramentas de marketing e remarketing para manter sua
+            agenda sempre organizada e cheia
           </div>
           <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <a href="https://www.thotiacorp.com.br/analiseOrofacial" target="_blank" rel="noopener noreferrer"
               class="px-8 py-3 font-bold text-white bg-indigo-700 rounded-xl shadow-lg shadow-indigo-200 hover:bg-indigo-800 transform hover:scale-105 transition duration-300 inline-block text-center">
-              Ver Demonstração
+              Fazer Demonstração
             </a>
             <button id="saibaMaisBtn"
               class="px-8 py-3 font-bold text-indigo-700 bg-white border-2 border-indigo-700 rounded-xl hover:bg-indigo-50 transform hover:scale-105 transition duration-300">
@@ -359,6 +494,239 @@
         </div>
       </div>
     </section>
+
+    <section id="projetos" class="py-16 sm:py-24 bg-gray-50">
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-center text-indigo-700 mb-4">
+          Projetos Institucionais
+        </h2>
+
+        <p class="text-center text-gray-600 max-w-3xl mx-auto mb-12">
+          Projetos tecnológicos com foco em inovação, pesquisa aplicada e subvenções
+        </p>
+
+        <!-- CAROUSEL PROJETOS -->
+        <div class="projetos-carousel">
+
+          <button class="carousel-btn left" onclick="scrollProjetos(-1)">‹</button>
+
+          <div class="projetos-track" id="projetosTrack">
+            <!-- ================= INOVAMT ================= -->
+
+            <div class="projeto-slide">
+              <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
+
+                <span
+                  class="inline-block mb-3 text-xs font-semibold px-3 py-1 rounded-full bg-green-100 text-green-700">
+                  Em execução
+                </span>
+
+                <h3 class="text-xl font-bold text-gray-900 mb-3">
+                  InovaMT – Análise Orofacial com IA e Realidade Mista
+                </h3>
+
+                <p class="projeto-desc mt-2">
+                  Aperfeiçoamento de solução deep tech baseada em Inteligência Artificial e Realidade Mista,
+                  com foco em escalabilidade, robustez clínica e impacto econômico-social.
+                </p>
+
+                <ul class="projeto-meta mt-2">
+                  <li><strong>Governança:</strong> Inova Simples (I.s.)</li>
+                  <li><strong>Apoio:</strong> UFPEL, UNEMAT, UFR</li>
+                  <li><strong>Auditoria:</strong> Aberta</li>
+                  <li><strong>NF-e:</strong> Não se aplica (bolsas)</li>
+                </ul>
+
+                <!-- BOLSISTAS -->
+                <h4 class="bolsista-title py-1">Equipe Bolsista</h4>
+
+                <div class="bolsistas-carousel">
+                  <div class="bolsistas-track">
+
+                    <div class="bolsista-slide">
+                      <div class="bolsista-card">
+                        <img src="https://via.placeholder.com/160" alt="Foto do colaborador" class="bolsista-photo" />
+
+                        <div>
+                          <h5>Victória Viana</h5>
+                          <p class="cargo">Pesquisadora Desenvolvedora</p>
+                          <p class="valor">R$ 5.000,00 / mês</p>
+                          <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- ================= CSTALISA ================= -->
+            <div class="projeto-slide">
+              <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
+
+                <span
+                  class="inline-block mb-3 text-xs font-semibold px-3 py-1 rounded-full bg-green-100 text-green-700">
+                  Em execução
+                </span>
+
+                <h3 class="text-xl font-bold text-gray-900 mb-3">
+                  Catalisa – Análise Orofacial com IA e Realidade Mista
+                </h3>
+
+                <p class="projeto-desc mt-2">
+                  Aperfeiçoamento de solução deep tech baseada em Inteligência Artificial e Realidade Mista,
+                  com foco em escalabilidade, robustez clínica e impacto econômico-social.
+                </p>
+
+                <ul class="projeto-meta mt-2">
+                  <li><strong>Governança:</strong> Inova Simples (I.s.)</li>
+                  <li><strong>Apoio:</strong> UFPEL, UNEMAT, UFR</li>
+                  <li><strong>Auditoria:</strong> Aberta</li>
+                  <li><strong>NF-e:</strong> Não se aplica (bolsas)</li>
+                </ul>
+
+                <!-- BOLSISTAS -->
+                <h4 class="bolsista-title py-1">Equipe Bolsista</h4>
+
+                <div class="bolsistas-carousel">
+                  <div class="bolsistas-track">
+
+                    <div class="bolsista-slide">
+                      <div class="bolsista-card">
+                        <img src="https://via.placeholder.com/160" alt="Foto do colaborador" class="bolsista-photo" />
+
+                        <div>
+                          <h5>Ronnei</h5>
+                          <p class="cargo">Pesquisador Desenvolvedor</p>
+                          <p class="valor">R$ 2.500,00 / mês</p>
+                          <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="bolsista-slide">
+                      <div class="bolsista-card">
+                        <img src="https://via.placeholder.com/160" alt="Foto do colaborador" class="bolsista-photo" />
+
+                        <div>
+                          <h5>Pedro</h5>
+                          <p class="cargo">Pesquisador Desenvolvedor</p>
+                          <p class="valor">R$ 6.500,00 / mês</p>
+                          <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="bolsista-slide">
+                      <div class="bolsista-card">
+                        <img src="https://via.placeholder.com/160" alt="Foto do colaborador" class="bolsista-photo" />
+
+                        <div>
+                          <h5>Lucas</h5>
+                          <p class="cargo">Pesquisador Desenvolvedor</p>
+                          <p class="valor">R$ 6.500,00 / mês</p>
+                          <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="bolsista-slide">
+                      <div class="bolsista-card">
+                        <img src="https://via.placeholder.com/160" alt="Foto do colaborador" class="bolsista-photo" />
+
+                        <div>
+                          <h5>Nayra</h5>
+                          <p class="cargo">Pesquisador Desenvolvedor</p>
+                          <p class="valor">R$ 6.500,00 / mês</p>
+                          <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- ================= LABTS ================= -->
+            <div class="projeto-slide">
+              <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
+
+                <span
+                  class="inline-block mb-3 text-xs font-semibold px-3 py-1 rounded-full bg-green-100 text-green-700">
+                  Em execução
+                </span>
+
+                <h3 class="text-xl font-bold text-gray-900 mb-3">
+                  Laboratório de Tecnologia Social – LABTS
+                </h3>
+
+                <p class="projeto-desc">
+                  O objetivo inicial do Plano de Inovação proposto é coleta e análise de dados orofaciais com câmeras
+                  reutilizáveis - Teste de plataforma de inteligência
+                  artificial para coletar e gerar documentação médico-odontológica automata
+
+                </p>
+
+                <ul class="projeto-meta">
+                  <li><strong>Governança:</strong> I-GEOS</li>
+                  <li><strong>Apoio:</strong> UNB, UFPEL, UNEMAT</li>
+                  <li><strong>Auditoria:</strong> Aberta</li>
+                  <li><strong>NF-e:</strong> Vinculada ao projeto</li>
+                </ul>
+
+                <h4 class="bolsista-title py-1">Equipe Bolsista</h4>
+
+                <div class="bolsistas-carousel">
+                  <div class="bolsistas-track">
+
+                    <div class="bolsista-slide">
+                      <div class="bolsista-card">
+                        <img src="https://via.placeholder.com/160" alt="Foto do colaborador" class="bolsista-photo" />
+
+                        <div>
+                          <h5>July</h5>
+                          <p class="cargo">Pesquisadora Desenvolvedora</p>
+                          <p class="valor">R$ 2.500,00 / mês</p>
+                          <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="bolsista-slide">
+                      <div class="bolsista-card">
+                        <img src="https://via.placeholder.com/160" alt="Foto do colaborador" class="bolsista-photo" />
+
+                        <div>
+                          <h5>Gabriel</h5>
+                          <p class="cargo">Pesquisador Desenvolvedor</p>
+                          <p class="valor">R$ 2.500,00 / mês</p>
+                          <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+          <button class="carousel-btn right" onclick="scrollProjetos(1)">›</button>
+
+        </div>
+
+      </div>
+    </section>
+
+
     <section id="global" class="py-16 sm:py-24 bg-indigo-700">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
         <h2 class="text-3xl sm:text-4xl font-extrabold text-center mb-12">
@@ -725,6 +1093,74 @@
       progressBar.style.width = scrollPercent + '%';
     });
   </script>
+  <script>
+    /* =========================
+       CAROUSEL DE PROJETOS
+    ========================= */
+
+    function scrollProjetos(direction) {
+      const track = document.getElementById("projetosTrack");
+      if (!track) return;
+
+      const scrollAmount = track.clientWidth * 0.9;
+      track.scrollBy({
+        left: scrollAmount * direction,
+        behavior: "smooth"
+      });
+    }
+
+    /* =========================
+       CAROUSEL DE BOLSISTAS
+       (FUNCIONA PARA TODOS)
+    ========================= */
+
+    document.querySelectorAll(".bolsistas-carousel").forEach(carousel => {
+      const track = carousel.querySelector(".bolsistas-track");
+
+      let isDown = false;
+      let startX;
+      let scrollLeft;
+
+      // Mouse (desktop)
+      track.addEventListener("mousedown", e => {
+        isDown = true;
+        startX = e.pageX - track.offsetLeft;
+        scrollLeft = track.scrollLeft;
+        track.classList.add("dragging");
+      });
+
+      track.addEventListener("mouseleave", () => {
+        isDown = false;
+        track.classList.remove("dragging");
+      });
+
+      track.addEventListener("mouseup", () => {
+        isDown = false;
+        track.classList.remove("dragging");
+      });
+
+      track.addEventListener("mousemove", e => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - track.offsetLeft;
+        const walk = (x - startX) * 1.5;
+        track.scrollLeft = scrollLeft - walk;
+      });
+
+      // Touch (mobile)
+      track.addEventListener("touchstart", e => {
+        startX = e.touches[0].pageX;
+        scrollLeft = track.scrollLeft;
+      });
+
+      track.addEventListener("touchmove", e => {
+        const x = e.touches[0].pageX;
+        const walk = (x - startX) * 1.5;
+        track.scrollLeft = scrollLeft - walk;
+      });
+    });
+  </script>
+
 
 </body>
 
