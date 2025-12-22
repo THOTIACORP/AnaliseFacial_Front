@@ -18,11 +18,11 @@
     content="Revolucione sua prática com deep tech: Análise facial automatizada, laudos inteligentes e guia em Realidade Mista.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="http://engenhariaorofacial.com.br/">
-  <meta property="og:image" content="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/capa.jpg">
+  <meta property="og:image" content="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/public/capa.jpg">
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" type="image/ico"
-    href="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/favicon.ico" sizes="32x32">
+    href="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/public/favicon.ico" sizes="32x32">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -122,130 +122,242 @@
       pointer-events: none;
     }
   </style>
-<style>
+  <style>
     /* ... (Mantenha as configurações globais iniciais que você já tem) ... */
 
-    #projetos { background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%); }
+    #projetos {
+      background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+    }
 
     /* CAROUSEL DE PROJETOS */
-    .projetos-carousel { position: relative; padding: 0 10px; }
-    
-    .projetos-track {
-        display: flex;
-        gap: 2rem;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        scroll-behavior: smooth;
-        padding: 2rem 0.5rem; /* Aumentado para não cortar o hover */
-        align-items: stretch;
+    .projetos-carousel {
+      position: relative;
+      padding: 0 10px;
     }
-    .projetos-track::-webkit-scrollbar { display: none; }
 
-    .projeto-slide { min-width: 100%; scroll-snap-align: start; }
-    @media (min-width: 768px) { .projeto-slide { min-width: calc(50% - 1rem); } }
+    .projetos-track {
+      display: flex;
+      gap: 2rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      padding: 2rem 0.5rem;
+      /* Aumentado para não cortar o hover */
+      align-items: stretch;
+    }
+
+    .projetos-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .projeto-slide {
+      min-width: 100%;
+      scroll-snap-align: start;
+    }
+
+    @media (min-width: 768px) {
+      .projeto-slide {
+        min-width: calc(50% - 1rem);
+      }
+    }
 
     /* BOTÕES DO CAROUSEL - Visíveis em tudo, menores no mobile */
     .carousel-btn {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background: #0d47a1;
-        color: white;
-        font-size: 1.5rem;
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-        border: none;
-        cursor: pointer;
-        z-index: 20;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #0d47a1;
+      color: white;
+      font-size: 1.5rem;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
-    .carousel-btn.left { left: -5px; }
-    .carousel-btn.right { right: -5px; }
-    
+
+    .carousel-btn.left {
+      left: -5px;
+    }
+
+    .carousel-btn.right {
+      right: -5px;
+    }
+
     @media (min-width: 768px) {
-        .carousel-btn { width: 44px; height: 44px; font-size: 2rem; }
-        .carousel-btn.left { left: -20px; }
-        .carousel-btn.right { right: -20px; }
+      .carousel-btn {
+        width: 44px;
+        height: 44px;
+        font-size: 2rem;
+      }
+
+      .carousel-btn.left {
+        left: -20px;
+      }
+
+      .carousel-btn.right {
+        right: -20px;
+      }
     }
 
     /* CAROUSEL DE BOLSISTAS */
     .bolsistas-track {
-        display: flex;
-        gap: 1rem;
-        overflow-x: auto;
-        padding: 1rem 5px;
-        scroll-snap-type: x mandatory;
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      padding: 1rem 5px;
+      scroll-snap-type: x mandatory;
     }
-    .bolsistas-track::-webkit-scrollbar { display: none; }
+
+    .bolsistas-track::-webkit-scrollbar {
+      display: none;
+    }
 
     .bolsista-slide {
-        flex: 0 0 85%;
-        scroll-snap-align: start;
-        display: flex;
+      flex: 0 0 85%;
+      scroll-snap-align: start;
+      display: flex;
     }
-    @media (min-width: 768px) { .bolsista-slide { flex: 0 0 48%; } }
-    @media (min-width: 1024px) { .bolsista-slide { flex: 0 0 32%; } }
+
+    @media (min-width: 768px) {
+      .bolsista-slide {
+        flex: 0 0 48%;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .bolsista-slide {
+        flex: 0 0 32%;
+      }
+    }
 
     /* CARD DO BOLSISTA - Correção das Letras Cortadas */
     .bolsista-card {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        padding: 0.8rem;
-        background: white;
-        border-radius: 12px;
-        border: 1px solid #e5e7eb;
-        transition: all 0.3s ease;
-        min-width: 0; /* ESSENCIAL para o texto não vazar */
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.8rem;
+      background: white;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      transition: all 0.3s ease;
+      min-width: 0;
+      /* ESSENCIAL para o texto não vazar */
     }
 
     .bolsista-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     }
 
     .bolsista-photo {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        object-fit: cover;
-        flex-shrink: 0;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
     }
 
     /* Container de texto interno do card */
     .bolsista-info {
-        flex: 1;
-        min-width: 0; /* Força o texto a respeitar o espaço do flexbox */
-        overflow: hidden;
+      flex: 1;
+      min-width: 0;
+      /* Força o texto a respeitar o espaço do flexbox */
+      overflow: hidden;
     }
 
-    .bolsista-info h5 {
-        font-size: 0.95rem;
-        font-weight: 700;
-        color: #0d47a1;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis; /* Se o nome for gigante, vira "..." */
+    .bolsista-title {
+      margin-top: 2rem;
+      font-weight: 700;
+      color: #0d47a1;
     }
 
-    .bolsista-info .cargo {
-        font-size: 0.8rem;
-        color: #475569;
-        line-height: 1.2;
-        margin-bottom: 2px;
+    /* =========================
+
+   TEXTO DO BOLSISTA
+
+========================= */
+
+
+
+    .bolsista-card h5 {
+
+      font-weight: 700;
+
+      color: #0d47a1;
+
     }
 
-    .bolsista-info .valor {
-        font-size: 0.8rem;
-        font-weight: 700;
-        color: #166534;
+
+
+    .bolsista-card .cargo {
+
+      font-size: 0.85rem;
+
+      color: #475569;
+
     }
-</style>
+
+
+
+    .bolsista-card .valor {
+
+      font-size: 0.85rem;
+
+      font-weight: 700;
+
+      color: #166534;
+
+    }
+
+
+
+    .bolsista-card a {
+
+      font-size: 0.75rem;
+
+      font-weight: 600;
+
+      color: #0a66c2;
+
+      text-decoration: none;
+
+    }
+
+
+
+    .bolsista-card a:hover {
+
+      text-decoration: underline;
+
+    }
+
+
+
+    /* =========================
+
+   RESPONSIVIDADE TEXTO
+
+========================= */
+
+
+
+    @media (max-width: 768px) {
+
+      #projetos h3 {
+
+        font-size: 1.25rem;
+
+      }
+
+    }
+  </style>
   <!-- Meta Pixel Code -->
   <script>
     !function (f, b, e, v, n, t, s) {
@@ -354,8 +466,10 @@
             Escudo Orofacial: Seu Futuro com <span class="text-indigo-700">Inteligência Artificial</span>
           </h1>
           <p class="mt-6 text-xl text-gray-600 text-justify">
-            Geração de prontuários e laudos automatos, padronização em hospitais e clínica de reabilitações estéticas e funcionais.
-            Ferramenta revolucionária disruptiva que combina Inteligência Artificial e Realidade Mista para gerar prontuários e indicações
+            Geração de prontuários e laudos automatos, padronização em hospitais e clínica de reabilitações estéticas e
+            funcionais.
+            Ferramenta revolucionária disruptiva que combina Inteligência Artificial e Realidade Mista para gerar
+            prontuários e indicações
             de reabilitações estético funcionais
           </p>
           <!-- Texto oculto inicialmente -->
@@ -390,48 +504,52 @@
               </svg>
               Interaja com o Modelo 3D
             </span>
-           <div id="model-progress" style="position: absolute; top: 10px; left: 10px; width: 200px; height: 10px; background-color: #ddd; border-radius: 5px; overflow: hidden; z-index: 10;">
-      <div id="model-progress-bar" style="height: 100%; width: 0%; background-color: #4caf50; transition: width 0.2s;"></div>
-  </div>
-  <div id="model-error" style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); color: red; font-weight: bold; z-index: 10; display: none;">
-      Erro ao carregar modelo.
-  </div>
+            <div id="model-progress"
+              style="position: absolute; top: 10px; left: 10px; width: 200px; height: 10px; background-color: #ddd; border-radius: 5px; overflow: hidden; z-index: 10;">
+              <div id="model-progress-bar"
+                style="height: 100%; width: 0%; background-color: #4caf50; transition: width 0.2s;"></div>
+            </div>
+            <div id="model-error"
+              style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); color: red; font-weight: bold; z-index: 10; display: none;">
+              Erro ao carregar modelo.
+            </div>
 
-  <div id="model-protection"
-    class="absolute inset-0 bg-black/40 flex items-center justify-center text-white font-semibold text-sm backdrop-blur-sm cursor-pointer md:hidden z-20 rounded-3xl">
-    🔒 Toque para Interagir
-  </div>
+            <div id="model-protection"
+              class="absolute inset-0 bg-black/40 flex items-center justify-center text-white font-semibold text-sm backdrop-blur-sm cursor-pointer md:hidden z-20 rounded-3xl">
+              🔒 Toque para Interagir
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <section id="perfil" class="py-16 sm:py-24 bg-white">
-  
+
 
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
+
         <h2 class="text-3xl sm:text-4xl font-extrabold text-center text-indigo-700 mb-12">
           O Diferencial: Tecnologia Integrada
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-      
-        
-                    <div
-  class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
-  <svg class="mb-4 text-purple-600 h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-    stroke-linejoin="round">
-    <path d="M12 2a10 10 0 1 1-10 10A10 10 0 0 1 12 2z" />
-    <path d="M12 6v6l4 2" />
-  </svg>
-  <h3 class="text-xl font-bold text-gray-900 mb-3">Sugestões Clínicas Inteligentes</h3>
-  <p class="text-gray-600 text-justify">
-    Indica pontos ideais para aplicações de Botox e Preenchimentos Faciais, além de fornecer guia digital para Próteses, entre muitos outros
-    garantindo segurança e precisão clínica
-  </p>
-</div>
-            <div
+
+
+          <div
+            class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
+            <svg class="mb-4 text-purple-600 h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M12 2a10 10 0 1 1-10 10A10 10 0 0 1 12 2z" />
+              <path d="M12 6v6l4 2" />
+            </svg>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Sugestões Clínicas Inteligentes</h3>
+            <p class="text-gray-600 text-justify">
+              Indica pontos ideais para aplicações de Botox e Preenchimentos Faciais, além de fornecer guia digital para
+              Próteses, entre muitos outros
+              garantindo segurança e precisão clínica
+            </p>
+          </div>
+          <div
             class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
             <svg class="mb-4 text-yellow-600 h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
               viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -440,26 +558,28 @@
               <polyline points="22 4 12 14.01 9 11.01" />
             </svg>
             <h3 class="text-xl font-bold text-gray-900 mb-3">Padronização Clínica</h3>
-            <p class="text-gray-600 text-justify">Automatiza o prontuário, criando um Protocolo Operacional Padrão (POP) de alto
+            <p class="text-gray-600 text-justify">Automatiza o prontuário, criando um Protocolo Operacional Padrão (POP)
+              de alto
               nível. Assim você pode prospectar procedimento único no dia aumentando muito sua eficiência </p>
           </div>
-             <div
-  class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
-  <svg class="mb-4 text-green-600 h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-    stroke-linejoin="round">
-    <path d="M17 1l4 4-4 4" />
-    <path d="M3 11h18v10H3z" />
-    <path d="M7 15h10" />
-  </svg>
-  <h3 class="text-xl font-bold text-gray-900 mb-3">Marketing e Remarketing</h3>
-  <p class="text-gray-600 text-justify">
-    Ferramentas integradas para engajamento contínuo do paciente: mantenha sua agenda cheia através de campanhas
-    automáticas de marketing e remarketing, otimizando retorno e fidelização direcional
-  </p>
-</div>
+          <div
+            class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
+            <svg class="mb-4 text-green-600 h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M17 1l4 4-4 4" />
+              <path d="M3 11h18v10H3z" />
+              <path d="M7 15h10" />
+            </svg>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Marketing e Remarketing</h3>
+            <p class="text-gray-600 text-justify">
+              Ferramentas integradas para engajamento contínuo do paciente: mantenha sua agenda cheia através de
+              campanhas
+              automáticas de marketing e remarketing, otimizando retorno e fidelização direcional
+            </p>
+          </div>
 
-            <div
+          <div
             class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
             <svg class="mb-4 text-indigo-600 h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
               viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -469,7 +589,8 @@
               <line x1="12" y1="17" x2="12" y2="21" />
             </svg>
             <h3 class="text-xl font-bold text-gray-900 mb-3">Inteligência Artificial</h3>
-            <p class="text-gray-600 text-justify">Combinação de múltiplos modelos de IA para geração de prontuários, laudos e pré-indicações automáticas</p>
+            <p class="text-gray-600 text-justify">Combinação de múltiplos modelos de IA para geração de prontuários,
+              laudos e pré-indicações automáticas</p>
           </div>
           <div
             class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
@@ -482,8 +603,8 @@
             <h3 class="text-xl font-bold text-gray-900 mb-3">Realidade Mista</h3>
             <p class="text-gray-600">Atua como um guia virtual imediato para o profissional durante procedimentos.</p>
           </div>
-        
-       
+
+
 
           <div
             class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
@@ -494,7 +615,8 @@
                 d="M4.5 16.5c-1.5 0-3-1.5-3-3s1.5-3 3-3c.22 0 .44.02.65.06a8 8 8 0 0 1 15.3 0c.2.04.42.06.65.06 1.5 0 3 1.5 3 3s-1.5 3-3 3h-2.5" />
             </svg>
             <h3 class="text-xl font-bold text-gray-900 mb-3">Tecnologia Profunda (Deep Tech)</h3>
-            <p class="text-gray-600 text-justify">Soluções integradas e disruptivas em diversas áreas, com rigorosos processos de
+            <p class="text-gray-600 text-justify">Soluções integradas e disruptivas em diversas áreas, com rigorosos
+              processos de
               criação.</p>
           </div>
         </div>
@@ -513,7 +635,7 @@
         <div
           class="flex flex-col md:flex-row items-center justify-center gap-12 bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200">
           <div class="w-64 flex-shrink-0">
-            <img src="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/capalivro.jpg"
+            <img src="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/public/capalivro.jpg"
               alt="Capa do Livro de Validação Científica"
               class="w-full h-auto object-cover rounded-lg shadow-2xl transition duration-300 hover:scale-[1.02] border-4 border-white">
           </div>
@@ -592,7 +714,7 @@
 
                     <div class="bolsista-slide">
                       <div class="bolsista-card">
-                        <img src="https://via.placeholder.com/160" alt="Foto do colaborador" class="bolsista-photo" />
+                        <img src="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/public/VictoriaVianaSilva-PesquisadoraDesenvolvedora.png" alt="Foto do colaborador" class="bolsista-photo" />
 
                         <div>
                           <h5>Victória Viana</h5>
@@ -644,7 +766,7 @@
 
                     <div class="bolsista-slide">
                       <div class="bolsista-card">
-                        <img src="https://via.placeholder.com/160" alt="Foto do colaborador" class="bolsista-photo" />
+                        <img src="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/public/RonneiBorgesPeres-CEO-PesquisadorDesenvolvedor.png" alt="Foto do colaborador" class="bolsista-photo" />
 
                         <div>
                           <h5>Ronnei</h5>
@@ -657,7 +779,7 @@
 
                     <div class="bolsista-slide">
                       <div class="bolsista-card">
-                        <img src="https://via.placeholder.com/160" alt="Foto do colaborador" class="bolsista-photo" />
+                        <img src="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/public/PedroPauloGattaiGomes-PesquisadorDesenvolvedor.png" alt="Foto do colaborador" class="bolsista-photo" />
 
                         <div>
                           <h5>Pedro</h5>
@@ -669,7 +791,7 @@
                     </div>
                     <div class="bolsista-slide">
                       <div class="bolsista-card">
-                        <img src="https://via.placeholder.com/160" alt="Foto do colaborador" class="bolsista-photo" />
+                        <img src="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/public/LucasKrieselSperotto-PesquisadorDesenvolvedor.png" alt="Foto do colaborador" class="bolsista-photo" />
 
                         <div>
                           <h5>Lucas</h5>
@@ -681,7 +803,7 @@
                     </div>
                     <div class="bolsista-slide">
                       <div class="bolsista-card">
-                        <img src="https://via.placeholder.com/160" alt="Foto do colaborador" class="bolsista-photo" />
+                        <img src="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/public/NayraCoelho-PesquisadoraDesenvolvedora.png" alt="Foto do colaborador" class="bolsista-photo" />
 
                         <div>
                           <h5>Nayra</h5>
@@ -731,7 +853,7 @@
 
                     <div class="bolsista-slide">
                       <div class="bolsista-card">
-                        <img src="https://via.placeholder.com/160" alt="Foto do colaborador" class="bolsista-photo" />
+                        <img src="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/public/JulyIasmimdaSilvaBarbosa-PesquisadoraDesenvolvedora.png" alt="Foto do colaborador" class="bolsista-photo" />
 
                         <div>
                           <h5>July</h5>
@@ -744,7 +866,7 @@
 
                     <div class="bolsista-slide">
                       <div class="bolsista-card">
-                        <img src="https://via.placeholder.com/160" alt="Foto do colaborador" class="bolsista-photo" />
+                        <img src="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/public/GabrieldaSilva-PesquisadorDesenvolvedor.png" alt="Foto do colaborador" class="bolsista-photo" />
 
                         <div>
                           <h5>Gabriel</h5>
@@ -895,174 +1017,174 @@
   </script>
 
 
-<script>
-const FACE_SCAN_URL = 'https://www.thotiacorp.com.br/assets/images/supportitseez3d.com.glb';
-const container = document.getElementById('model-container');
-const progressBar = document.getElementById('model-progress-bar');
-const errorMsg = document.getElementById('model-error');
-const protectionLayer = document.getElementById('model-protection');
+  <script>
+    const FACE_SCAN_URL = 'https://www.thotiacorp.com.br/assets/images/supportitseez3d.com.glb';
+    const container = document.getElementById('model-container');
+    const progressBar = document.getElementById('model-progress-bar');
+    const errorMsg = document.getElementById('model-error');
+    const protectionLayer = document.getElementById('model-protection');
 
-if (!container) console.error("Contêiner #model-container não encontrado.");
-if (typeof THREE.GLTFLoader === 'undefined') console.error("GLTFLoader não está definido.");
-if (typeof THREE.OrbitControls === 'undefined') console.error("OrbitControls não está definido.");
+    if (!container) console.error("Contêiner #model-container não encontrado.");
+    if (typeof THREE.GLTFLoader === 'undefined') console.error("GLTFLoader não está definido.");
+    if (typeof THREE.OrbitControls === 'undefined') console.error("OrbitControls não está definido.");
 
-const width = container.clientWidth;
-const height = container.clientHeight;
+    const width = container.clientWidth;
+    const height = container.clientHeight;
 
-const scene = new THREE.Scene();
-scene.background = new THREE.Color(0xFAFAFA);
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xFAFAFA);
 
-const camera = new THREE.PerspectiveCamera(50, width/height, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true });
-renderer.setSize(width, height);
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
-container.appendChild(renderer.domElement);
+    const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(width, height);
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    container.appendChild(renderer.domElement);
 
-const controls = new THREE.OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;
-controls.autoRotate = true;
-controls.autoRotateSpeed = 0.8;
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 0.8;
 
-scene.add(new THREE.AmbientLight(0xffffff, 0.8));
-const dirLight = new THREE.DirectionalLight(0xffffff, 3);
-dirLight.position.set(5,5,5).normalize();
-scene.add(dirLight);
+    scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+    const dirLight = new THREE.DirectionalLight(0xffffff, 3);
+    dirLight.position.set(5, 5, 5).normalize();
+    scene.add(dirLight);
 
-let model = null;
-const loader = new THREE.GLTFLoader();
+    let model = null;
+    const loader = new THREE.GLTFLoader();
 
-// --- IndexedDB ---
-const dbName = "glbCacheDB";
-const storeName = "models";
+    // --- IndexedDB ---
+    const dbName = "glbCacheDB";
+    const storeName = "models";
 
-function openDB() {
-  return new Promise((resolve, reject) => {
-    const request = indexedDB.open(dbName, 1);
-    request.onupgradeneeded = e => e.target.result.createObjectStore(storeName);
-    request.onsuccess = e => resolve(e.target.result);
-    request.onerror = e => reject(e.target.error);
-  });
-}
-
-async function getCachedModel(key) {
-  const db = await openDB();
-  return new Promise((resolve,reject)=>{
-    const tx = db.transaction(storeName,"readonly");
-    const store = tx.objectStore(storeName);
-    const req = store.get(key);
-    req.onsuccess=()=>resolve(req.result);
-    req.onerror=e=>reject(e.target.error);
-  });
-}
-
-async function setCachedModel(key,data) {
-  const db = await openDB();
-  return new Promise((resolve,reject)=>{
-    const tx = db.transaction(storeName,"readwrite");
-    const store = tx.objectStore(storeName);
-    const req = store.put(data,key);
-    req.onsuccess=()=>resolve();
-    req.onerror=e=>reject(e.target.error);
-  });
-}
-
-async function loadModel() {
-  try {
-    let arrayBuffer = await getCachedModel(FACE_SCAN_URL);
-
-    if (!arrayBuffer) {
-      const res = await fetch(FACE_SCAN_URL);
-      if (!res.ok) throw new Error(`Falha ao baixar: ${res.status}`);
-
-      const reader = res.body.getReader();
-      const contentLength = +res.headers.get('Content-Length');
-      let receivedLength = 0;
-      const chunks = [];
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        chunks.push(value);
-        receivedLength += value.length;
-        if (contentLength) {
-          progressBar.style.width = ((receivedLength / contentLength) * 100).toFixed(0) + '%';
-        }
-      }
-
-      const tempArray = new Uint8Array(receivedLength);
-      let position = 0;
-      for (const chunk of chunks) {
-        tempArray.set(chunk, position);
-        position += chunk.length;
-      }
-
-      arrayBuffer = tempArray.buffer;
-      await setCachedModel(FACE_SCAN_URL, arrayBuffer);
-
-      console.log("Modelo baixado e salvo no cache!");
-      progressBar.style.width = "100%";
-      setTimeout(() => { progressBar.parentElement.style.display = "none"; }, 500);
-    } else {
-      console.log("Modelo carregado do cache!");
-      progressBar.style.width = "100%";
-      setTimeout(() => { progressBar.parentElement.style.display = "none"; }, 500);
+    function openDB() {
+      return new Promise((resolve, reject) => {
+        const request = indexedDB.open(dbName, 1);
+        request.onupgradeneeded = e => e.target.result.createObjectStore(storeName);
+        request.onsuccess = e => resolve(e.target.result);
+        request.onerror = e => reject(e.target.error);
+      });
     }
 
-    // --- Garantia de parse correto ---
-    const dataToParse = arrayBuffer instanceof ArrayBuffer ? arrayBuffer : arrayBuffer.buffer;
-    loader.parse(dataToParse, '', (gltf) => {
-      model = gltf.scene;
-      scene.add(model);
+    async function getCachedModel(key) {
+      const db = await openDB();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(storeName, "readonly");
+        const store = tx.objectStore(storeName);
+        const req = store.get(key);
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = e => reject(e.target.error);
+      });
+    }
 
-      const box = new THREE.Box3().setFromObject(model);
-      const center = box.getCenter(new THREE.Vector3());
-      const size = box.getSize(new THREE.Vector3());
-      model.position.sub(center);
+    async function setCachedModel(key, data) {
+      const db = await openDB();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(storeName, "readwrite");
+        const store = tx.objectStore(storeName);
+        const req = store.put(data, key);
+        req.onsuccess = () => resolve();
+        req.onerror = e => reject(e.target.error);
+      });
+    }
 
-      const maxDim = Math.max(size.x, size.y, size.z);
-      const fov = camera.fov * (Math.PI / 180);
-      const cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
-      camera.position.set(0, 0, cameraZ * 1.8);
-      controls.minDistance = cameraZ * 0.5;
-      controls.maxDistance = cameraZ * 5;
+    async function loadModel() {
+      try {
+        let arrayBuffer = await getCachedModel(FACE_SCAN_URL);
+
+        if (!arrayBuffer) {
+          const res = await fetch(FACE_SCAN_URL);
+          if (!res.ok) throw new Error(`Falha ao baixar: ${res.status}`);
+
+          const reader = res.body.getReader();
+          const contentLength = +res.headers.get('Content-Length');
+          let receivedLength = 0;
+          const chunks = [];
+
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            chunks.push(value);
+            receivedLength += value.length;
+            if (contentLength) {
+              progressBar.style.width = ((receivedLength / contentLength) * 100).toFixed(0) + '%';
+            }
+          }
+
+          const tempArray = new Uint8Array(receivedLength);
+          let position = 0;
+          for (const chunk of chunks) {
+            tempArray.set(chunk, position);
+            position += chunk.length;
+          }
+
+          arrayBuffer = tempArray.buffer;
+          await setCachedModel(FACE_SCAN_URL, arrayBuffer);
+
+          console.log("Modelo baixado e salvo no cache!");
+          progressBar.style.width = "100%";
+          setTimeout(() => { progressBar.parentElement.style.display = "none"; }, 500);
+        } else {
+          console.log("Modelo carregado do cache!");
+          progressBar.style.width = "100%";
+          setTimeout(() => { progressBar.parentElement.style.display = "none"; }, 500);
+        }
+
+        // --- Garantia de parse correto ---
+        const dataToParse = arrayBuffer instanceof ArrayBuffer ? arrayBuffer : arrayBuffer.buffer;
+        loader.parse(dataToParse, '', (gltf) => {
+          model = gltf.scene;
+          scene.add(model);
+
+          const box = new THREE.Box3().setFromObject(model);
+          const center = box.getCenter(new THREE.Vector3());
+          const size = box.getSize(new THREE.Vector3());
+          model.position.sub(center);
+
+          const maxDim = Math.max(size.x, size.y, size.z);
+          const fov = camera.fov * (Math.PI / 180);
+          const cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
+          camera.position.set(0, 0, cameraZ * 1.8);
+          controls.minDistance = cameraZ * 0.5;
+          controls.maxDistance = cameraZ * 5;
+          controls.update();
+        });
+
+      } catch (err) {
+        console.error("Erro ao carregar modelo:", err);
+        errorMsg.style.display = "block";
+      }
+    }
+
+    loadModel();
+
+    // --- Loop animação ---
+    function animate() {
+      requestAnimationFrame(animate);
       controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // --- Responsividade ---
+    window.addEventListener('resize', () => {
+      camera.aspect = container.clientWidth / container.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(container.clientWidth, container.clientHeight);
     });
 
-  } catch (err) {
-    console.error("Erro ao carregar modelo:", err);
-    errorMsg.style.display = "block";
-  }
-}
-
-loadModel();
-
-// --- Loop animação ---
-function animate(){
-  requestAnimationFrame(animate);
-  controls.update();
-  renderer.render(scene,camera);
-}
-animate();
-
-// --- Responsividade ---
-window.addEventListener('resize',()=>{
-  camera.aspect=container.clientWidth/container.clientHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(container.clientWidth,container.clientHeight);
-});
-
-// --- Proteção mobile ---
-if(window.innerWidth<768 && protectionLayer){
-  controls.enabled=false;
-  protectionLayer.addEventListener('click',()=>{
-    controls.enabled=true;
-    controls.autoRotate=false;
-    protectionLayer.classList.add('hidden');
-  });
-}else{
-  controls.enabled=true;
-}
-</script>
+    // --- Proteção mobile ---
+    if (window.innerWidth < 768 && protectionLayer) {
+      controls.enabled = false;
+      protectionLayer.addEventListener('click', () => {
+        controls.enabled = true;
+        controls.autoRotate = false;
+        protectionLayer.classList.add('hidden');
+      });
+    } else {
+      controls.enabled = true;
+    }
+  </script>
 
   <script>
     // --- CÓDIGO AMCHARTS 5 PARA O MAPA GLOBAL ---
@@ -1258,48 +1380,48 @@ if(window.innerWidth<768 && protectionLayer){
   </script>
 
 
-<script>
+  <script>
     // Detecta se é WebView do Instagram/Facebook/Messenger
     const isMetaWebView = () => {
-        const ua = navigator.userAgent || navigator.vendor || window.opera;
-        return /Instagram|FBAV|FBAN|Messenger/i.test(ua);
+      const ua = navigator.userAgent || navigator.vendor || window.opera;
+      return /Instagram|FBAV|FBAN|Messenger/i.test(ua);
     };
 
     document.addEventListener("DOMContentLoaded", () => {
-        const demoButton = document.querySelector('a[href*="analiseOrofacial"]'); // Botão "Fazer Demonstração"
+      const demoButton = document.querySelector('a[href*="analiseOrofacial"]'); // Botão "Fazer Demonstração"
 
-        if (demoButton && isMetaWebView()) {
-            // Intercepta o clique
-            demoButton.addEventListener("click", (event) => {
-                event.preventDefault(); // bloqueia a tentativa de abrir o link
+      if (demoButton && isMetaWebView()) {
+        // Intercepta o clique
+        demoButton.addEventListener("click", (event) => {
+          event.preventDefault(); // bloqueia a tentativa de abrir o link
 
-                // 1. SOLUÇÃO CONTRA LOOP DE RECARGA:
-                // Cria um novo estado de histórico antes de mostrar o overlay.
-                // Isso faz com que o botão "Voltar" do app ignore o overlay e retorne ao estado limpo.
-                history.replaceState(null, '', window.location.href);
+          // 1. SOLUÇÃO CONTRA LOOP DE RECARGA:
+          // Cria um novo estado de histórico antes de mostrar o overlay.
+          // Isso faz com que o botão "Voltar" do app ignore o overlay e retorne ao estado limpo.
+          history.replaceState(null, '', window.location.href);
 
-                // Cria o overlay de bloqueio
-                const overlay = document.createElement("div");
-                overlay.id = "meta-block-overlay"; // ID para fácil remoção
-                overlay.style.position = "fixed";
-                overlay.style.top = "0";
-                overlay.style.left = "0";
-                overlay.style.width = "100%";
-                overlay.style.height = "100vh";
-                overlay.style.backgroundColor = "#0d1117";
-                overlay.style.display = "flex";
-                overlay.style.flexDirection = "column";
-                overlay.style.alignItems = "center";
-                overlay.style.justifyContent = "center";
-                overlay.style.zIndex = "999999";
-                overlay.style.textAlign = "center";
-                overlay.style.color = "#fff";
-                overlay.style.padding = "20px";
-                overlay.style.transition = "opacity 0.3s";
+          // Cria o overlay de bloqueio
+          const overlay = document.createElement("div");
+          overlay.id = "meta-block-overlay"; // ID para fácil remoção
+          overlay.style.position = "fixed";
+          overlay.style.top = "0";
+          overlay.style.left = "0";
+          overlay.style.width = "100%";
+          overlay.style.height = "100vh";
+          overlay.style.backgroundColor = "#0d1117";
+          overlay.style.display = "flex";
+          overlay.style.flexDirection = "column";
+          overlay.style.alignItems = "center";
+          overlay.style.justifyContent = "center";
+          overlay.style.zIndex = "999999";
+          overlay.style.textAlign = "center";
+          overlay.style.color = "#fff";
+          overlay.style.padding = "20px";
+          overlay.style.transition = "opacity 0.3s";
 
-                // Conteúdo do overlay
-                const content = document.createElement("div");
-                content.innerHTML = `
+          // Conteúdo do overlay
+          const content = document.createElement("div");
+          content.innerHTML = `
                     <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px;">
                         Atenção! Restrição de Navegação 🚨
                     </h2>
@@ -1313,57 +1435,57 @@ if(window.innerWidth<768 && protectionLayer){
                         Toque no botão acima para **continuar no seu navegador padrão** (Chrome/Safari) e acessar a demonstração completa.
                     </p>
                 `;
-                overlay.appendChild(content);
+          overlay.appendChild(content);
 
-                // 2. INSERIR O OVERLAY POR CIMA E ESCONDER CONTEÚDO
-                document.body.appendChild(overlay);
-                document.body.style.overflow = "hidden"; // bloqueia rolagem
+          // 2. INSERIR O OVERLAY POR CIMA E ESCONDER CONTEÚDO
+          document.body.appendChild(overlay);
+          document.body.style.overflow = "hidden"; // bloqueia rolagem
 
-                const openExternalBtn = document.getElementById("openExternalBtn");
-                const targetUrl = demoButton.href;
-                
-                // 3. Lógica de abertura externa ao clicar
-                openExternalBtn.addEventListener("click", () => {
-                    // Remove o overlay antes de tentar a navegação
-                    overlay.style.opacity = '0';
-                    setTimeout(() => overlay.remove(), 300);
-                    document.body.style.overflow = "auto";
-                    
-                    try {
-                        // Tenta abrir no Chrome (Android)
-                        const chromeUrl = targetUrl.replace(/https?:\/\//, "googlechrome://");
-                        window.location.href = chromeUrl;
+          const openExternalBtn = document.getElementById("openExternalBtn");
+          const targetUrl = demoButton.href;
 
-                        // Tenta Safari (iOS)
-                        setTimeout(() => {
-                            const safariUrl = targetUrl.replace(/https?:\/\//, "x-callback-url://");
-                            window.location.href = safariUrl;
-                        }, 150);
+          // 3. Lógica de abertura externa ao clicar
+          openExternalBtn.addEventListener("click", () => {
+            // Remove o overlay antes de tentar a navegação
+            overlay.style.opacity = '0';
+            setTimeout(() => overlay.remove(), 300);
+            document.body.style.overflow = "auto";
 
-                        // Tenta método padrão (_system)
-                        setTimeout(() => {
-                            window.open(targetUrl, "_system");
-                        }, 300);
+            try {
+              // Tenta abrir no Chrome (Android)
+              const chromeUrl = targetUrl.replace(/https?:\/\//, "googlechrome://");
+              window.location.href = chromeUrl;
 
-                        // Se ainda falhar (bloqueio)
-                        setTimeout(() => {
-                            alert(
-                                "Se a demonstração não abriu automaticamente:\n\n" +
-                                "1️⃣ Toque nos três pontos no canto superior.\n" +
-                                "2️⃣ Selecione 'Abrir no navegador' ou 'Copiar link'.\n" +
-                                "3️⃣ Abra o Chrome/Safari e cole o link."
-                            );
-                        }, 600);
-                    } catch (error) {
-                        alert(
-                            "O aplicativo bloqueou a abertura externa. Toque nos três pontos e escolha 'Abrir no navegador'."
-                        );
-                    }
-                });
-            });
-        }
+              // Tenta Safari (iOS)
+              setTimeout(() => {
+                const safariUrl = targetUrl.replace(/https?:\/\//, "x-callback-url://");
+                window.location.href = safariUrl;
+              }, 150);
+
+              // Tenta método padrão (_system)
+              setTimeout(() => {
+                window.open(targetUrl, "_system");
+              }, 300);
+
+              // Se ainda falhar (bloqueio)
+              setTimeout(() => {
+                alert(
+                  "Se a demonstração não abriu automaticamente:\n\n" +
+                  "1️⃣ Toque nos três pontos no canto superior.\n" +
+                  "2️⃣ Selecione 'Abrir no navegador' ou 'Copiar link'.\n" +
+                  "3️⃣ Abra o Chrome/Safari e cole o link."
+                );
+              }, 600);
+            } catch (error) {
+              alert(
+                "O aplicativo bloqueou a abertura externa. Toque nos três pontos e escolha 'Abrir no navegador'."
+              );
+            }
+          });
+        });
+      }
     });
-</script>
+  </script>
 
 
 </body>
