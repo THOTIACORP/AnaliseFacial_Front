@@ -385,16 +385,49 @@
         0 8px 18px rgba(15, 23, 42, 0.08);
     }
 
-    .drive-link {
-      display: inline-flex;
-      align-items: center;
-      transition: transform 0.2s ease, opacity 0.2s ease;
-    }
+ .drive-link {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  margin-left: 0.25rem;
+  line-height: 1;
+}
+
+.drive-link svg {
+  width: 1em;
+  height: 1em;
+  display: block;
+}
 
     .drive-link:hover {
       transform: scale(1.1);
       opacity: 0.85;
     }
+       #projetos ul li {
+
+      position: relative;
+
+      padding-left: 1rem;
+
+    }
+
+
+
+    #projetos ul li::before {
+
+      content: "•";
+
+      position: absolute;
+
+      left: 0;
+
+      color: #6366f1;
+
+      font-weight: bold;
+
+    }
+
+
   </style>
   <!-- Meta Pixel Code -->
   <script>
