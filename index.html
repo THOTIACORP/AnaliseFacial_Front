@@ -126,9 +126,7 @@
   <style>
     /* ... (Mantenha as configurações globais iniciais que você já tem) ... */
 
-    #projetos {
-      background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
-    }
+
 
     /* CAROUSEL DE PROJETOS */
     .projetos-carousel {
@@ -385,25 +383,26 @@
         0 8px 18px rgba(15, 23, 42, 0.08);
     }
 
- .drive-link {
-  display: inline-flex;
-  align-items: center;
-  vertical-align: middle;
-  margin-left: 0.25rem;
-  line-height: 1;
-}
+    .drive-link {
+      display: inline-flex;
+      align-items: center;
+      vertical-align: middle;
+      margin-left: 0.25rem;
+      line-height: 1;
+    }
 
-.drive-link svg {
-  width: 1em;
-  height: 1em;
-  display: block;
-}
+    .drive-link svg {
+      width: 1em;
+      height: 1em;
+      display: block;
+    }
 
     .drive-link:hover {
       transform: scale(1.1);
       opacity: 0.85;
     }
-       #projetos ul li {
+
+    #projetos ul li {
 
       position: relative;
 
@@ -428,6 +427,200 @@
     }
 
 
+    /* =========================
+   BADGE MOEDA FLUTUANTE
+========================= */
+
+    .moeda-flutuante {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9999;
+    }
+
+    .moeda-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border-radius: 999px;
+      cursor: pointer;
+
+      background: linear-gradient(135deg, #0d47a1, #4338ca);
+      color: #ffffff;
+
+      box-shadow: 0 12px 28px rgba(13, 71, 161, 0.35);
+      transition: all 0.25s ease;
+    }
+
+    .moeda-badge:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 36px rgba(13, 71, 161, 0.45);
+    }
+
+    .moeda-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border-radius: 999px;
+      cursor: pointer;
+      background: linear-gradient(135deg, #0d47a1, #4338ca);
+      color: #ffffff;
+      box-shadow: 0 12px 28px rgba(13, 71, 161, 0.35);
+    }
+
+    .moeda-quantidade {
+      background: rgba(236, 8, 8, 0.915);
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    /* Mobile */
+    @media (max-width: 640px) {
+      .moeda-flutuante {
+        bottom: 16px;
+        right: 16px;
+      }
+
+      .moeda-badge {
+        font-size: 0.8rem;
+        padding: 0.55rem 0.9rem;
+      }
+    }
+  </style>
+  <style>
+    /* SECTION */
+    .noticias-section {
+      padding: 80px 0;
+    }
+
+    .noticias-title {
+      text-align: center;
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: #1e40af;
+    }
+
+    .noticias-subtitle {
+      text-align: center;
+      max-width: 680px;
+      margin: 12px auto 48px;
+      color: #64748b;
+    }
+
+    /* CAROUSEL */
+    .noticias-carousel {
+      position: relative;
+    }
+
+    .noticias-track {
+      display: flex;
+      gap: 32px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      padding-bottom: 12px;
+    }
+
+    .noticias-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .noticia-slide {
+      scroll-snap-align: start;
+      min-width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    @media (min-width: 768px) {
+      .noticia-slide {
+        min-width: 48%;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .noticia-slide {
+        min-width: 32%;
+      }
+    }
+
+    /* CARD */
+    .noticia-card {
+      max-width: 420px;
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 8px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+    }
+
+    /* BOTÕES */
+    .noticias-btn {
+      position: absolute;
+      top: 45%;
+      transform: translateY(-50%);
+      background: #0d47a1;
+      color: #fff;
+      border: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      font-size: 2rem;
+      cursor: pointer;
+      z-index: 10;
+      opacity: 0.9;
+    }
+
+    .noticias-btn.left {
+      left: -12px;
+    }
+
+    .noticias-btn.right {
+      right: -12px;
+    }
+
+    @media (max-width: 768px) {
+      .noticias-btn {
+        display: none;
+      }
+    }
+  </style>
+  <style>
+    .btn-compra-antecipada {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      padding: 12px 28px;
+      border-radius: 14px;
+
+      background: linear-gradient(135deg, #16a34a, #22c55e);
+      color: #ffffff;
+
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-decoration: none;
+
+      box-shadow: 0 18px 40px rgba(22, 163, 74, 0.35);
+      transition: all 0.25s ease;
+    }
+
+    .btn-compra-antecipada:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 48px rgba(22, 163, 74, 0.45);
+    }
+
+    .btn-compra-antecipada:active {
+      transform: translateY(0);
+    }
   </style>
   <!-- Meta Pixel Code -->
   <script>
@@ -462,6 +655,14 @@
 </head>
 
 <body class="min-h-screen bg-white antialiased">
+  <!-- BADGE MOEDA FLUTUANTE -->
+  <div class="moeda-flutuante">
+    <span class="moeda-badge" onclick="abrirMoedaModal()" title="Moeda institucional lastreada">
+      <span class="moeda-quantidade" id="saldoMoeda">0</span> 🪙 Moedas
+
+    </span>
+  </div>
+
 
   <header class="sticky top-0 z-20 bg-white shadow-md">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-4">
@@ -470,20 +671,103 @@
         <span class="text-xs text-gray-500">Soluções Integradas</span>
       </div>
 
-      <nav id="desktop-nav" class="hidden md:flex space-x-8 items-center">
-        <a href="#solucao" class="text-gray-600 hover:text-indigo-600 transition duration-150">Escudo Orofacial</a>
-        <a href="#perfil" class="text-gray-600 hover:text-indigo-600 transition duration-150">Tecnologia</a>
-        <a href="#livro" class="text-gray-600 hover:text-indigo-600 transition duration-150">Livro</a>
-        <a href="#projetos" class="text-gray-600 hover:text-indigo-600 transition duration-150">
-          Projetos
-        </a>
-        <a href="#global" class="text-gray-600 hover:text-indigo-600 transition duration-150">Presença Global</a>
-        <a href="https://api.whatsapp.com/send?phone=5566996675486&text=Estou%20entrando%20em%20contato%20para%20"
-          target="_blank" rel="noopener noreferrer"
-          class="px-4 py-2 font-semibold text-white bg-indigo-700 rounded-lg shadow-md hover:bg-indigo-800 transition duration-150 inline-block text-center">
-          Contato
+      <nav id="desktop-nav" class="hidden md:flex space-x-6 items-center">
+        <a href="#solucao"
+          class="group flex flex-col items-center text-gray-600 hover:text-indigo-600 transition duration-150">
+          <svg class="w-5 h-5 mb-1 group-hover:-translate-y-1 transition-transform duration-200"
+            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+            <polyline points="9 22 9 12 15 12 15 22" />
+          </svg>
+          <span class="text-xs font-medium">Início</span>
         </a>
 
+        <a href="#perfil"
+          class="group flex flex-col items-center text-gray-600 hover:text-indigo-600 transition duration-150">
+          <svg class="w-5 h-5 mb-1 group-hover:-translate-y-1 transition-transform duration-200"
+            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="16" height="16" rx="2" />
+            <rect x="9" y="9" width="6" height="6" />
+            <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3" />
+          </svg>
+          <span class="text-xs font-medium">Tecnologia</span>
+        </a>
+
+        <a href="#livro"
+          class="group flex flex-col items-center text-gray-600 hover:text-indigo-600 transition duration-150">
+          <svg class="w-5 h-5 mb-1 group-hover:-translate-y-1 transition-transform duration-200"
+            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+          </svg>
+          <span class="text-xs font-medium">Livro</span>
+        </a>
+
+        <a href="#projetos"
+          class="group flex flex-col items-center text-gray-600 hover:text-indigo-600 transition duration-150">
+          <svg class="w-5 h-5 mb-1 group-hover:-translate-y-1 transition-transform duration-200"
+            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 7V5a2 2 0 0 1 2-2h2" />
+            <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+            <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
+            <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
+            <rect width="7" height="5" x="7" y="7" rx="1" />
+            <rect width="7" height="5" x="10" y="12" rx="1" />
+          </svg>
+          <span class="text-xs font-medium">Projetos</span>
+        </a>
+
+        <a href="#moeda"
+          class="group flex flex-col items-center text-gray-600 hover:text-indigo-600 transition duration-150">
+          <svg class="w-5 h-5 mb-1 group-hover:-translate-y-1 transition-transform duration-200"
+            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="8" cy="8" r="6" />
+            <path d="M18.09 10.37A6 6 0 1 1 10.34 18.1" />
+            <path d="M7 6h1v4" />
+            <path d="m16.71 13.88.7.71-2.82 2.82" />
+          </svg>
+          <span class="text-xs font-medium">Moedas</span>
+        </a>
+
+        <a href="#noticias"
+          class="group flex flex-col items-center text-gray-600 hover:text-indigo-600 transition duration-150">
+          <svg class="w-5 h-5 mb-1 group-hover:-translate-y-1 transition-transform duration-200"
+            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2" />
+            <path d="M18 14h-8" />
+            <path d="M15 18h-5" />
+            <path d="M10 6h8v4h-8Z" />
+          </svg>
+          <span class="text-xs font-medium">Notícias</span>
+        </a>
+
+        <a href="#global"
+          class="group flex flex-col items-center text-gray-600 hover:text-indigo-600 transition duration-150">
+          <svg class="w-5 h-5 mb-1 group-hover:-translate-y-1 transition-transform duration-200"
+            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="2" y1="12" x2="22" y2="12" />
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+          </svg>
+          <span class="text-xs font-medium">Presença</span>
+        </a>
+
+        <a href="https://api.whatsapp.com/send?phone=5566996675486" target="_blank" rel="noopener noreferrer"
+          class="flex items-center space-x-2 px-4 py-2 font-semibold text-white bg-indigo-700 rounded-lg shadow-md hover:bg-indigo-800 transition duration-150 ml-4">
+          <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z" />
+          </svg>
+          <span>Contato</span>
+        </a>
       </nav>
 
       <button id="menu-toggle" class="md:hidden text-gray-600 hover:text-indigo-600">
@@ -526,7 +810,7 @@
   </header>
 
   <main>
-    <section id="solucao" class="bg-gray-50 py-16 sm:py-24">
+    <section id="solucao" class="py-16 sm:py-24">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-10">
 
         <div class="md:w-1/2 text-center md:text-left">
@@ -600,7 +884,7 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <h2 class="text-3xl sm:text-4xl font-extrabold text-center text-indigo-700 mb-12">
-          O Diferencial: Tecnologia Integrada
+          Tecnologia Integrada: O Diferencial
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 
@@ -665,12 +949,15 @@
           </div>
           <div
             class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
-            <svg class="mb-4 text-teal-600 h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <path d="M2 12s3-4 6-4 4 4 6 4 3 4 6 4 4-4 6-4" />
-              <path d="M2 12s3 4 6 4 4-4 6-4 3-4 6-4 4 4 6 4" />
+            <svg class="mb-4 text-teal-600 h-12 w-12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10V8a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2" />
+              <rect x="3" y="10" width="18" height="6" rx="2" />
+              <path d="M7 10v6" />
+              <path d="M17 10v6" />
+              <path d="M12 10v6" />
             </svg>
+
             <h3 class="text-xl font-bold text-gray-900 mb-3">Realidade Mista</h3>
             <p class="text-gray-600">Atua como um guia virtual imediato para o profissional durante procedimentos.</p>
           </div>
@@ -679,16 +966,23 @@
 
           <div
             class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
-            <svg class="mb-4 text-pink-600 h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <path
-                d="M4.5 16.5c-1.5 0-3-1.5-3-3s1.5-3 3-3c.22 0 .44.02.65.06a8 8 8 0 0 1 15.3 0c.2.04.42.06.65.06 1.5 0 3 1.5 3 3s-1.5 3-3 3h-2.5" />
+            <svg class="mb-4 text-pink-600 h-12 w-12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="4" width="16" height="16" rx="2" />
+              <rect x="9" y="9" width="6" height="6" />
+              <path d="M9 1v3" />
+              <path d="M15 1v3" />
+              <path d="M9 20v3" />
+              <path d="M15 20v3" />
+              <path d="M20 9h3" />
+              <path d="M20 15h3" />
+              <path d="M1 9h3" />
+              <path d="M1 15h3" />
             </svg>
+
             <h3 class="text-xl font-bold text-gray-900 mb-3">Tecnologia Profunda (Deep Tech)</h3>
             <p class="text-gray-600 text-justify">Soluções integradas e disruptivas em diversas áreas, com rigorosos
-              processos de
-              criação.</p>
+              processos de criação.</p>
           </div>
         </div>
         <p class="text-center mt-12 text-gray-500 italic">
@@ -699,41 +993,61 @@
     </section>
 
     <section id="livro" class="bg-white py-16 sm:py-24">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-center text-gray-900 mb-12">
-          <span class="text-indigo-700">Validação Científica:</span> O Livro
-        </h2>
-        <div
-          class="flex flex-col md:flex-row items-center justify-center gap-12 bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200">
-          <div class="w-64 flex-shrink-0">
-            <img src="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/public/capalivro.jpg"
-              alt="Capa do Livro de Validação Científica"
-              class="w-full h-auto object-cover rounded-lg shadow-2xl transition duration-300 hover:scale-[1.02] border-4 border-white">
-          </div>
-          <div class="md:text-left text-center">
-            <h3 class="text-2xl font-bold text-indigo-700 mb-3">
-              Engenharia Orofacial
-            </h3>
-            <p class="text-gray-700 text-lg mb-4 text-justify">
-              O método científico e a tecnologia por trás do Escudo Orofacial estão detalhados nesta publicação
-              essencial. O livro serve como a base teórica e clínica que valida a metodologia da ferramenta, garantindo
-              a precisão e a confiabilidade de cada laudo gerado.
-            </p>
-            <ul class="list-disc list-inside text-gray-600 space-y-2 text-sm md:text-base md:ml-4 text-left">
-              <li><span class="font-semibold text-gray-800">Autores:</span> [Nome do Autor(es)]</li>
-              <li><span class="font-semibold text-gray-800">Ano de Publicação:</span> [Ano]</li>
-              <li><span class="font-semibold text-gray-800">ISBN:</span> [Se houver]</li>
-            </ul>
-            <a href="javascript:void(0)" title="Função temporariamente desativada"
-              class="mt-6 inline-block font-semibold text-sm text-white bg-gray-400 px-6 py-2 rounded-lg opacity-60 cursor-not-allowed">
-              Em Desenvolvimento
-            </a>
-          </div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-3xl sm:text-4xl font-extrabold text-center text-gray-900 mb-12">
+      Livro: <span class="text-indigo-700">Validação Científica</span>
+    </h2>
+    
+    <div class="flex flex-col md:flex-row items-center justify-center gap-12 bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200">
+      <div class="w-64 flex-shrink-0">
+        <img src="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/public/capalivro.png"
+          alt="Capa do Livro de Validação Científica"
+          class="w-full h-auto object-cover rounded-lg shadow-2xl transition duration-300 hover:scale-[1.02] border-4 border-white">
+      </div>
+
+      <div class="md:text-left text-center flex-1">
+        <h3 class="text-2xl font-bold text-indigo-700 mb-3">
+          Engenharia Orofacial
+        </h3>
+        <p class="text-gray-700 text-lg mb-4 text-justify">
+          O método científico e a tecnologia por trás do Escudo Orofacial estão detalhados nesta publicação
+          essencial. O livro serve como a base teórica e clínica que valida a metodologia da ferramenta, garantindo
+          a precisão e a confiabilidade de cada laudo gerado.
+        </p>
+        
+        <ul class="list-disc list-inside text-gray-600 space-y-2 text-sm md:text-base md:ml-4 text-left mb-8">
+          <li><span class="font-semibold text-gray-800">Autores:</span> <a href="https://orcid.org/0000-0002-6417-8815" target="_blank" class="hover:text-indigo-600 underline">Peres RB</a></li>
+          <li><span class="font-semibold text-gray-800">Ano de Publicação:</span> 2024</li>
+          <li><span class="font-semibold text-gray-800">Status:</span> Em fase de expansão de conteúdo</li>
+        </ul>
+
+        <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+          
+          <a href="https://api.whatsapp.com/send?phone=5566996675486&text=Olá!%20Tenho%20uma%20sugestão%20para%20o%20livro%20Engenharia%20Orofacial:%20Cap.%20-%20X%20Pag.%20-%20X" 
+             target="_blank" rel="noopener noreferrer"
+             class="flex items-center gap-2 px-5 py-2.5 bg-white border-2 border-indigo-600 text-indigo-700 font-bold rounded-lg hover:bg-indigo-50 transition duration-200 shadow-sm">
+            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            Enviar Sugestão
+          </a>
+
+          <a href="https://api.whatsapp.com/send?phone=5566996675486&text=Olá!%20Gostaria%20de%20me%20candidatar%20como%20coautor(a)%20para%20o%20livro%20Engenharia%20Orofacial.%20Aqui%20está%20meu%20perfil%20ORCID:" 
+             target="_blank" rel="noopener noreferrer"
+             class="flex items-center gap-2 px-5 py-2.5 bg-indigo-700 text-white font-bold rounded-lg hover:bg-indigo-800 transition duration-200 shadow-md">
+            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+            Ser Coautor
+          </a>
+
+          <a href="https://go.hotmart.com/U103508406W" target="_blank" rel="noopener noreferrer"
+             class="flex items-center gap-2 px-5 py-2.5 bg-emerald-600 text-white font-bold rounded-lg hover:bg-emerald-700 transition duration-200 shadow-md w-full md:w-auto justify-center">
+            <span>🚀 Compra Antecipada - Módulos</span>
+          </a>
+
         </div>
       </div>
-    </section>
-
-    <section id="projetos" class="py-16 sm:py-24 bg-gray-50">
+    </div>
+  </div>
+</section>
+    <section id="projetos" class="py-16 sm:py-24 ">
 
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -923,10 +1237,11 @@
 
                 </p>
 
-                <ul class="projeto-meta">
+                <ul class="projeto-meta py-1">
                   <li><strong>Governança:</strong> I-GEOS</li>
                   <li><strong>Apoio:</strong> UNB, UFPEL, UNEMAT</li>
-                  <li><strong>Auditoria:</strong> Aberta <a href="https://drive.google.com/drive/folders/1t4xLmz-OrzSJE1xQdcv4Dnfq1cM3zhRt?usp=sharing"
+                  <li><strong>Auditoria:</strong> Aberta <a
+                      href="https://drive.google.com/drive/folders/1t4xLmz-OrzSJE1xQdcv4Dnfq1cM3zhRt?usp=sharing"
                       target="_blank" rel="noopener noreferrer" class="drive-link"
                       title="Acessar documentos no Google Drive">
                       <svg width="28" height="28" viewBox="0 0 48 48" aria-hidden="true">
@@ -936,7 +1251,8 @@
                       </svg>
                     </a>
                   </li>
-                  <li><strong>NF-e:</strong> Vinculada ao projeto <a href="https://drive.google.com/drive/folders/1NZyBDrN0m0gfHCJs3xVVyAP9JdmXd97y?usp=sharing"
+                  <li><strong>NF-e:</strong> Vinculada ao projeto <a
+                      href="https://drive.google.com/drive/folders/1NZyBDrN0m0gfHCJs3xVVyAP9JdmXd97y?usp=sharing"
                       target="_blank" rel="noopener noreferrer" class="drive-link"
                       title="Acessar documentos no Google Drive">
                       <svg width="28" height="28" viewBox="0 0 48 48" aria-hidden="true">
@@ -998,6 +1314,272 @@
 
       </div>
     </section>
+    <section id="moeda" class="py-16 text-justify">
+      <div class="max-w-5xl mx-auto px-4">
+
+        <!-- TÍTULO -->
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-center text-indigo-800 mb-4">
+          Moedas
+        </h2>
+
+        <p class="text-center text-slate-600 max-w-3xl mx-auto mb-12">
+          <b> 🪙 OroCoin </b>- Ativo digital interno lastreado em capital intelectual e tecnologia blockchain,
+          destinado exclusivamente ao fortalecimento do ecossistema da empresa.
+        </p>
+
+        <!-- CARD PRINCIPAL -->
+        <div class="bg-white rounded-2xl shadow-xl border border-slate-200 p-8 relative overflow-hidden">
+
+          <!-- BADGE -->
+          <span class="inline-flex items-center gap-2 mb-4 px-4 py-1 rounded-full text-xs font-semibold
+               bg-indigo-100 text-indigo-800">
+            🪙 Ativo Intelectual • Reinvestimento Total
+          </span>
+
+          <!-- VALOR -->
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-6">
+            <div>
+              <h3 class="text-2xl font-bold text-slate-900">
+                Emissão Total: 26.000.000 de Unidades
+              </h3>
+              <p class="text-slate-600 mt-1">
+                Representam 10% do capital intelectual do projeto
+              </p>
+            </div>
+
+            <div class="text-right">
+              <p class="text-sm text-slate-500">Valor de referência</p>
+              <p class="text-3xl font-extrabold text-emerald-600">
+                R$ 1,00
+              </p>
+              <p class="text-xs text-slate-500">por unidade</p>
+            </div>
+          </div>
+
+
+          <h4 class="text-lg font-bold text-slate-800 mb-4">
+            Composição de Valor da Moeda
+          </h4>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+            <!-- VALOR A -->
+            <div class="rounded-lg bg-white border border-slate-200 p-5">
+              <span class="inline-block mb-2 px-3 py-1 rounded-full text-xs font-semibold
+                   bg-indigo-100 text-indigo-800">
+                Valor A
+              </span>
+
+              <h5 class="font-semibold text-slate-900 mb-1">
+                Âncora Tecnológica (Ethereum)
+              </h5>
+
+              <p class="text-sm text-slate-600">
+                Referência mínima baseada em blockchain Ethereum (ETH).
+              </p>
+
+              <div class="mt-3 text-sm">
+                <p><strong>Referência:</strong> 0,000001 ETH por moeda</p>
+                <p class="text-xs text-slate-500 mt-1">
+                  Valor técnico de interoperabilidade, não conversível.
+                </p>
+              </div>
+            </div>
+
+            <!-- VALOR B -->
+            <div class="rounded-lg bg-white border border-slate-200 p-5">
+              <span class="inline-block mb-2 px-3 py-1 rounded-full text-xs font-semibold
+                   bg-emerald-100 text-emerald-800">
+                Valor B
+              </span>
+
+              <h5 class="font-semibold text-slate-900 mb-1">
+                Capital Intelectual
+              </h5>
+
+              <p class="text-sm text-slate-600">
+                Valor institucional vinculado ao capital intelectual
+              </p>
+
+              <div class="mt-3 text-sm">
+                <p><strong>Referência:</strong> R$ 1,00 por moeda</p>
+                <p class="text-xs text-slate-500 mt-1">
+                  Base econômica interna da organização.
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RESUMO -->
+          <div class="mt-6 rounded-lg bg-indigo-50 border border-indigo-200 p-4">
+            <p class="text-sm text-indigo-900 leading-relaxed">
+              <strong>Valor Referencial Total da Moeda:</strong><br />
+              Soma de <strong>Valor A (ETH)</strong> + <strong>Valor B (Capital Social)</strong>.
+            </p>
+
+            <p class="mt-2 text-xs text-indigo-700">
+              A moeda não representa promessa de rentabilidade, não caracteriza valor mobiliário
+              e tem seus recursos integralmente reinvestidos na empresa da seguinte forma
+            </p>
+          </div>
+
+
+
+
+          <!-- REINVESTIMENTO -->
+          <div class="rounded-xl bg-emerald-50 border border-emerald-200 p-6 mb-6 mt-2">
+            <h4 class="font-bold text-emerald-800 mb-2">
+              ♻️ Política de Reinvestimento <span
+                class="inline-block text-xs font-semibold px-4 py-1 rounded-full bg-emerald-100 text-emerald-800">
+                ♻️ 90% reinvestido | 10% isento
+              </span>
+            </h4>
+            <!-- BADGE RESUMO -->
+            <div class="mb-4 text-center">
+
+            </div>
+
+            <!-- REINVESTIMENTO -->
+
+
+
+            <p class="text-emerald-800 text-sm leading-relaxed">
+              Os recursos associados à utilização da moeda institucional seguem
+              uma política clara e transparente.
+              <strong>90% do valor é automaticamente reinvestido na própria empresa</strong>,
+              com foco no crescimento sustentável do projeto.
+            </p>
+
+            <ul class="mt-3 text-sm text-emerald-800 space-y-1">
+              <li>• Pesquisa, desenvolvimento e inovação</li>
+              <li>• Infraestrutura tecnológica</li>
+              <li>• Formação de equipe e concessão de bolsas</li>
+              <li>• Sustentabilidade financeira do ecossistema</li>
+            </ul>
+
+            <p class="mt-3 text-sm text-emerald-800">
+              Os <strong>10% restantes são livres</strong> e podem ser utilizados
+              para despesas administrativas, operacionais ou
+              <strong>pró-labore</strong>, sem obrigação de reinvestimento. Isento pelo aporte do reinvestimento
+            </p>
+
+
+            <!-- CAPITAL SOCIAL -->
+
+
+          </div>
+          <h4 class="font-bold text-slate-800 mb-2 mt-3">
+          🏦 Transformação das moedas
+          </h4>
+
+          <p class="text-slate-700 text-sm leading-relaxed">
+            Durante a fase inicial do projeto, não há caracterização de investimento
+            financeiro ou participação societária automática. Após esse período, a empresa poderá abrir
+            oportunidades formais
+            de investimento. Quando isso ocorrer, os valores aportados passarão
+            a ser tratados como <strong>capital social</strong>.
+            Pessoas que já possuam vínculo com a empresa poderão investir
+            novos valores ou <strong>deduzir montantes já reconhecidos</strong>,
+            conforme regras internas, contratuais e contábeis.
+            Não há investimento retroativo nem obrigação automática de aporte durante esse período.
+          </p>
+          <!-- AVISO LEGAL -->
+          <div class="text-xs text-slate-500 leading-relaxed border-t pt-4">
+            Este conteúdo tem caráter exclusivamente informativo.
+            A moeda institucional não constitui valor mobiliário,
+            oferta pública ou promessa de rentabilidade.
+            Sua finalidade é institucional, estratégica e operacional.
+          </div>
+
+
+
+          <!-- CTA -->
+       <div class="mt-8 bg-indigo-50 border border-indigo-100 p-6 rounded-2xl shadow-inner">
+  <p class="text-indigo-900 font-bold text-sm uppercase tracking-widest text-center mb-4">
+    🚀 Abertura oficial das vendas em:
+  </p>
+  
+  <div class="flex justify-center gap-4 text-center" id="countdown-timer">
+    <div class="flex flex-col bg-white p-3 rounded-xl shadow-sm min-w-[70px]">
+      <span id="days" class="text-2xl font-black text-indigo-700">00</span>
+      <span class="text-[10px] uppercase text-gray-400 font-bold">Dias</span>
+    </div>
+    <div class="flex flex-col bg-white p-3 rounded-xl shadow-sm min-w-[70px]">
+      <span id="hours" class="text-2xl font-black text-indigo-700">00</span>
+      <span class="text-[10px] uppercase text-gray-400 font-bold">Horas</span>
+    </div>
+    <div class="flex flex-col bg-white p-3 rounded-xl shadow-sm min-w-[70px]">
+      <span id="minutes" class="text-2xl font-black text-indigo-700">00</span>
+      <span class="text-[10px] uppercase text-gray-400 font-bold">Min</span>
+    </div>
+    <div class="flex flex-col bg-white p-3 rounded-xl shadow-sm min-w-[70px]">
+      <span id="seconds" class="text-2xl font-black text-pink-600 animate-pulse">00</span>
+      <span class="text-[10px] uppercase text-gray-400 font-bold">Seg</span>
+    </div>
+  </div>
+
+  
+</div>
+
+
+
+        </div>
+      </div>
+    </section>
+    <section id="noticias" class="noticias-section">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <h2 class="noticias-title">
+          Notícias & Atualizações
+        </h2>
+
+        <p class="noticias-subtitle">
+          Acompanhe as publicações institucionais e avanços do projeto
+        </p>
+
+        <div class="noticias-carousel">
+
+          <button class="noticias-btn left" onclick="scrollNoticias(-1)">‹</button>
+
+          <div class="noticias-track" id="noticiasTrack">
+
+            <!-- POST 1 -->
+            <div class="noticia-slide">
+              <div class="noticia-card">
+                <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DSlKfECknT2/"
+                  data-instgrm-version="14">
+                </blockquote>
+              </div>
+            </div>
+
+            <!-- POST 2 -->
+            <div class="noticia-slide">
+              <div class="noticia-card">
+                <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DSiTK-jDjCg/"
+                  data-instgrm-version="14">
+                </blockquote>
+              </div>
+            </div>
+
+            <!-- POST 3 -->
+            <div class="noticia-slide">
+              <div class="noticia-card">
+                <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DShZeScjjcp/"
+                  data-instgrm-version="14">
+                </blockquote>
+              </div>
+            </div>
+
+          </div>
+
+          <button class="noticias-btn right" onclick="scrollNoticias(1)">›</button>
+
+        </div>
+
+      </div>
+    </section>
+
 
 
     <section id="global" class="py-16 sm:py-24 bg-indigo-700">
@@ -1121,8 +1703,6 @@
       });
     });
   </script>
-
-
   <script>
     const FACE_SCAN_URL = 'https://www.thotiacorp.com.br/assets/images/supportitseez3d.com.glb';
     const container = document.getElementById('model-container');
@@ -1291,7 +1871,6 @@
       controls.enabled = true;
     }
   </script>
-
   <script>
     // --- CÓDIGO AMCHARTS 5 PARA O MAPA GLOBAL ---
     am5.ready(function () {
@@ -1372,7 +1951,6 @@
 
     });
   </script>
-
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const mapProtection = document.getElementById("model-protection");
@@ -1393,7 +1971,6 @@
       }
     });
   </script>
-
   <script>
     const saibaMaisBtn = document.getElementById("saibaMaisBtn");
     const extraText = document.getElementById("extraText");
@@ -1407,7 +1984,6 @@
       }
     });
   </script>
-
   <script>
     window.addEventListener('scroll', () => {
       const progressBar = document.getElementById('scroll-progress');
@@ -1484,8 +2060,6 @@
       });
     });
   </script>
-
-
   <script>
     // Detecta se é WebView do Instagram/Facebook/Messenger
     const isMetaWebView = () => {
@@ -1592,7 +2166,33 @@
       }
     });
   </script>
+  <script>
+  function updateCountdown() {
+    const targetDate = new Date("February 1, 2026 00:00:00").getTime();
+    const now = new Date().getTime();
+    const gap = targetDate - now;
 
+    // Cálculos de tempo
+    const second = 1000;
+    const minute = second * 60;
+    const hour = minute * 60;
+    const day = hour * 24;
+
+    if (gap > 0) {
+      document.getElementById("days").innerText = Math.floor(gap / day);
+      document.getElementById("hours").innerText = Math.floor((gap % day) / hour);
+      document.getElementById("minutes").innerText = Math.floor((gap % hour) / minute);
+      document.getElementById("seconds").innerText = Math.floor((gap % minute) / second);
+    } else {
+      document.getElementById("countdown-timer").innerHTML = "<p class='text-indigo-700 font-bold'>Vendas Liberadas!</p>";
+    }
+  }
+
+  // Atualiza a cada segundo
+  setInterval(updateCountdown, 1000);
+  updateCountdown(); // Chamada inicial
+</script>
+  <script async src="https://www.instagram.com/embed.js"></script>
 
 </body>
 
