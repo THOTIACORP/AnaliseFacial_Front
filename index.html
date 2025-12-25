@@ -357,6 +357,53 @@
 
     }
 
+    /* CONTROLES DO CAROUSEL */
+    .bolsistas-controls {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* BOTÕES PEQUENOS */
+    .bolsistas-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid #bbf7d0;
+      background: #dcfce7;
+      color: #166534;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* HOVER */
+    .bolsistas-btn:hover {
+      background: #22c55e;
+      color: #ffffff;
+      border-color: #22c55e;
+      transform: scale(1.05);
+    }
+
+    /* ATIVO */
+    .bolsistas-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* MOBILE – ainda menores */
+    @media (max-width: 768px) {
+      .bolsistas-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 0.7rem;
+      }
+    }
+
     /* =========================
    VALOR DO PROJETO
 ========================= */
@@ -786,13 +833,12 @@
     <nav id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200 shadow-lg animate-fade-in">
       <div class="pt-2 pb-3 space-y-1 flex flex-col items-center">
         <a href="#solucao"
-          class="mobile-link block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 w-full text-center">Escudo
-          Orofacial</a>
+          class="mobile-link block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 w-full text-center">Início</a>
         <a href="#perfil"
           class="mobile-link block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 w-full text-center">Tecnologia</a>
         <a href="#livro"
           class="mobile-link block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 w-full text-center">Livro</a>
-        <a href="#moedas"
+        <a href="#moeda"
           class="mobile-link block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 w-full text-center">
           Moedas
         </a>
@@ -1243,40 +1289,40 @@
             rendimento, participação societária ou distribuição de lucros,
             salvo se expressamente formalizado em instrumento jurídico próprio,
             em momento futuro e independente da posse da moeda.
-          </p>
-
-          <!-- CTA -->
-          <div class="mt-8 bg-indigo-50 border border-indigo-100 p-6 rounded-2xl shadow-inner">
-            <p class="text-indigo-900 font-bold text-sm uppercase tracking-widest text-center mb-4">
-              🚀 Abertura oficial das vendas em:
             </p>
 
-            <div class="flex justify-center gap-4 text-center" id="countdown-timer">
-              <div class="flex flex-col bg-white p-3 rounded-xl shadow-sm min-w-[70px]">
-                <span id="days" class="text-2xl font-black text-indigo-700">00</span>
-                <span class="text-[10px] uppercase text-gray-400 font-bold">Dias</span>
+            <!-- CTA -->
+            <div class="mt-8 bg-indigo-50 border border-indigo-100 p-6 rounded-2xl shadow-inner">
+              <p class="text-indigo-900 font-bold text-sm uppercase tracking-widest text-center mb-4">
+                🚀 Abertura oficial das vendas em:
+              </p>
+
+              <div class="flex justify-center gap-4 text-center" id="countdown-timer">
+                <div class="flex flex-col bg-white p-3 rounded-xl shadow-sm min-w-[70px]">
+                  <span id="days" class="text-2xl font-black text-indigo-700">00</span>
+                  <span class="text-[10px] uppercase text-gray-400 font-bold">Dias</span>
+                </div>
+                <div class="flex flex-col bg-white p-3 rounded-xl shadow-sm min-w-[70px]">
+                  <span id="hours" class="text-2xl font-black text-indigo-700">00</span>
+                  <span class="text-[10px] uppercase text-gray-400 font-bold">Horas</span>
+                </div>
+                <div class="flex flex-col bg-white p-3 rounded-xl shadow-sm min-w-[70px]">
+                  <span id="minutes" class="text-2xl font-black text-indigo-700">00</span>
+                  <span class="text-[10px] uppercase text-gray-400 font-bold">Min</span>
+                </div>
+                <div class="flex flex-col bg-white p-3 rounded-xl shadow-sm min-w-[70px]">
+                  <span id="seconds" class="text-2xl font-black text-pink-600 animate-pulse">00</span>
+                  <span class="text-[10px] uppercase text-gray-400 font-bold">Seg</span>
+                </div>
               </div>
-              <div class="flex flex-col bg-white p-3 rounded-xl shadow-sm min-w-[70px]">
-                <span id="hours" class="text-2xl font-black text-indigo-700">00</span>
-                <span class="text-[10px] uppercase text-gray-400 font-bold">Horas</span>
-              </div>
-              <div class="flex flex-col bg-white p-3 rounded-xl shadow-sm min-w-[70px]">
-                <span id="minutes" class="text-2xl font-black text-indigo-700">00</span>
-                <span class="text-[10px] uppercase text-gray-400 font-bold">Min</span>
-              </div>
-              <div class="flex flex-col bg-white p-3 rounded-xl shadow-sm min-w-[70px]">
-                <span id="seconds" class="text-2xl font-black text-pink-600 animate-pulse">00</span>
-                <span class="text-[10px] uppercase text-gray-400 font-bold">Seg</span>
-              </div>
+
+
             </div>
 
 
+
           </div>
-
-
-
         </div>
-      </div>
     </section>
     <section id="projetos" class="py-16 sm:py-24 ">
 
@@ -1328,6 +1374,14 @@
                 <h4 class="bolsista-title py-1">Equipe Bolsista</h4>
 
                 <div class="bolsistas-carousel">
+                  <div class="bolsistas-controls">
+                    <button class="bolsistas-btn prev" aria-label="Anterior">
+                      ◀
+                    </button>
+                    <button class="bolsistas-btn next" aria-label="Próximo">
+                      ▶
+                    </button>
+                  </div>
                   <div class="bolsistas-track">
 
                     <div class="bolsista-slide">
@@ -1383,6 +1437,14 @@
                 <h4 class="bolsista-title py-1">Equipe Bolsista</h4>
 
                 <div class="bolsistas-carousel">
+                  <div class="bolsistas-controls">
+                    <button class="bolsistas-btn prev" aria-label="Anterior">
+                      ◀
+                    </button>
+                    <button class="bolsistas-btn next" aria-label="Próximo">
+                      ▶
+                    </button>
+                  </div>
                   <div class="bolsistas-track">
 
                     <div class="bolsista-slide">
@@ -1498,6 +1560,14 @@
                 <h4 class="bolsista-title py-1">Equipe Bolsista</h4>
 
                 <div class="bolsistas-carousel">
+                  <div class="bolsistas-controls">
+                    <button class="bolsistas-btn prev" aria-label="Anterior">
+                      ◀
+                    </button>
+                    <button class="bolsistas-btn next" aria-label="Próximo">
+                      ▶
+                    </button>
+                  </div>
                   <div class="bolsistas-track">
 
                     <div class="bolsista-slide">
@@ -2042,12 +2112,35 @@
 
     document.querySelectorAll(".bolsistas-carousel").forEach(carousel => {
       const track = carousel.querySelector(".bolsistas-track");
+      const btnNext = carousel.querySelector(".bolsistas-btn.next");
+      const btnPrev = carousel.querySelector(".bolsistas-btn.prev");
 
       let isDown = false;
       let startX;
       let scrollLeft;
 
-      // Mouse (desktop)
+      /* =========================
+         BOTÕES
+      ========================= */
+
+      btnNext?.addEventListener("click", () => {
+        track.scrollBy({
+          left: track.clientWidth * 0.8,
+          behavior: "smooth"
+        });
+      });
+
+      btnPrev?.addEventListener("click", () => {
+        track.scrollBy({
+          left: -track.clientWidth * 0.8,
+          behavior: "smooth"
+        });
+      });
+
+      /* =========================
+         MOUSE (DESKTOP)
+      ========================= */
+
       track.addEventListener("mousedown", e => {
         isDown = true;
         startX = e.pageX - track.offsetLeft;
@@ -2073,7 +2166,10 @@
         track.scrollLeft = scrollLeft - walk;
       });
 
-      // Touch (mobile)
+      /* =========================
+         TOUCH (MOBILE)
+      ========================= */
+
       track.addEventListener("touchstart", e => {
         startX = e.touches[0].pageX;
         scrollLeft = track.scrollLeft;
@@ -2085,6 +2181,8 @@
         track.scrollLeft = scrollLeft - walk;
       });
     });
+
+
     /* =========================
    CAROUSEL DE NOTÍCIAS (FIX)
 ========================= */
