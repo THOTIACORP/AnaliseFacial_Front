@@ -1,31 +1,68 @@
 /* ============================================================
-   CAROUSEL UNIFICADO (PROJETOS, NOTÍCIAS E BOLSISTAS)
+   CAROUSEL UNIFICADO COM DOTS (PROJETOS, NOTÍCIAS E BOLSISTAS)
    ============================================================ */
 
-// Seletor que pega os containers de Bolsistas E os IDs de Projetos/Notícias
-const carrosséis = document.querySelectorAll(".bolsistas-carousel, #projetosTrack, #noticiasTrack");
+const carrosséis = document.querySelectorAll(".bolsistas-carousel, .projetos-carousel, .noticias-section");
 
 carrosséis.forEach(container => {
-    // Identifica se o container é o próprio track (ID) ou se tem um track dentro (.bolsistas-track)
-    const track = container.classList.contains("bolsistas-carousel") 
-                  ? container.querySelector(".bolsistas-track") 
-                  : container;
+    // 1. Localização dos elementos internos
+    const track = container.querySelector(".bolsistas-track, #projetosTrack, #noticiasTrack");
+    const dotsContainer = container.querySelector(".dots-container");
+    const slides = track?.querySelectorAll(".bolsista-slide, .projeto-slide, .noticia-slide");
+    
+    if (!track || !slides || slides.length === 0) return;
 
-    // Localiza os botões (para Projetos/Notícias, busca pelo onclick ou ID se existirem)
-    const btnNext = container.parentElement.querySelector(".bolsistas-btn.next, #btnNextProj, #btnNextNot");
-    const btnPrev = container.parentElement.querySelector(".bolsistas-btn.prev, #btnPrevProj, #btnPrevNot");
+    // 2. Lógica de criação dos DOTS
+    if (dotsContainer) {
+        dotsContainer.innerHTML = ""; // Limpa dots existentes
+        slides.forEach((_, index) => {
+            const dot = document.createElement("button");
+            dot.classList.add("carousel-dot");
+            if (index === 0) dot.classList.add("active"); // Primeiro começa ativo
+            
+            // Estilo básico caso não esteja no seu CSS (opcional)
+            dot.style.cursor = "pointer";
+            
+            dot.addEventListener("click", () => {
+                const scrollPos = slides[index].offsetLeft - track.offsetLeft;
+                track.scrollTo({ left: scrollPos, behavior: "smooth" });
+            });
+            dotsContainer.appendChild(dot);
+        });
+    }
+
+    // 3. Sincronização dos DOTS com o Scroll
+    const updateDots = () => {
+        if (!dotsContainer) return;
+        const scrollLeft = track.scrollLeft;
+        const slideWidth = slides[0].offsetWidth;
+        const activeIndex = Math.round(scrollLeft / slideWidth);
+
+        const dots = dotsContainer.querySelectorAll(".carousel-dot");
+        dots.forEach((dot, i) => {
+            dot.classList.toggle("active", i === activeIndex);
+        });
+    };
+
+    // Escuta o scroll para mover os dots
+    track.addEventListener("scroll", () => {
+        clearTimeout(track.scrollTimeout);
+        track.scrollTimeout = setTimeout(updateDots, 50);
+    });
+
+    // 4. Lógica de Botões e Arrastar (Mantida do seu original)
+    const btnNext = container.querySelector(".bolsistas-btn.next, .carousel-btn.right, .noticias-btn.right");
+    const btnPrev = container.querySelector(".bolsistas-btn.prev, .carousel-btn.left, .noticias-btn.left");
 
     let isDown = false;
     let startX;
-    let scrollLeft;
+    let scrollLeftPos;
 
-    /* --- BOTÕES --- */
     const scrollManual = (direction) => {
         const amount = track.clientWidth * 0.8;
         track.scrollBy({ left: amount * direction, behavior: "smooth" });
     };
 
-    // Aplica a lógica aos botões se eles existirem
     btnNext?.addEventListener("click", () => scrollManual(1));
     btnPrev?.addEventListener("click", () => scrollManual(-1));
 
@@ -33,9 +70,9 @@ carrosséis.forEach(container => {
     track.addEventListener("mousedown", e => {
         isDown = true;
         startX = e.pageX - track.offsetLeft;
-        scrollLeft = track.scrollLeft;
+        scrollLeftPos = track.scrollLeft;
         track.classList.add("dragging");
-        track.style.scrollBehavior = "auto"; // Melhora a resposta ao arrastar
+        track.style.scrollBehavior = "auto";
     });
 
     track.addEventListener("mouseleave", () => {
@@ -54,20 +91,20 @@ carrosséis.forEach(container => {
         e.preventDefault();
         const x = e.pageX - track.offsetLeft;
         const walk = (x - startX) * 1.5;
-        track.scrollLeft = scrollLeft - walk;
+        track.scrollLeft = scrollLeftPos - walk;
     });
 
     /* --- TOUCH (MOBILE) --- */
     track.addEventListener("touchstart", e => {
         startX = e.touches[0].pageX;
-        scrollLeft = track.scrollLeft;
+        scrollLeftPos = track.scrollLeft;
         track.style.scrollBehavior = "auto";
     });
 
     track.addEventListener("touchmove", e => {
         const x = e.touches[0].pageX;
         const walk = (x - startX) * 1.5;
-        track.scrollLeft = scrollLeft - walk;
+        track.scrollLeft = scrollLeftPos - walk;
     });
 
     track.addEventListener("touchend", () => {
@@ -75,17 +112,13 @@ carrosséis.forEach(container => {
     });
 });
 
-// Mantemos as funções originais apenas para compatibilidade com os 'onclick' do HTML
+/* Funções Legadas para compatibilidade HTML */
 function scrollProjetos(direction) {
-    document.getElementById("projetosTrack")?.scrollBy({ 
-        left: (document.getElementById("projetosTrack").clientWidth * 0.9) * direction, 
-        behavior: "smooth" 
-    });
+    const t = document.getElementById("projetosTrack");
+    t?.scrollBy({ left: (t.clientWidth * 0.9) * direction, behavior: "smooth" });
 }
 
 function scrollNoticias(direction) {
-    document.getElementById("noticiasTrack")?.scrollBy({ 
-        left: (document.getElementById("noticiasTrack").clientWidth * 0.9) * direction, 
-        behavior: "smooth" 
-    });
+    const t = document.getElementById("noticiasTrack");
+    t?.scrollBy({ left: (t.clientWidth * 0.9) * direction, behavior: "smooth" });
 }

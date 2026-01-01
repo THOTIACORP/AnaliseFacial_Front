@@ -568,11 +568,11 @@
 
     .noticias-track {
       display: flex;
-      gap: 32px;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
+      /* Faz o slide "grudar" no ponto certo */
       scroll-behavior: smooth;
-      padding-bottom: 12px;
+      -webkit-overflow-scrolling: touch;
     }
 
     .noticias-track::-webkit-scrollbar {
@@ -679,6 +679,44 @@
 
     .btn-compra-antecipada:active {
       transform: translateY(0);
+    }
+  </style>
+  <style>
+    /* Estilo básico para os Dots */
+    .carousel-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #cbd5e1;
+      /* Cinza claro */
+      border: none;
+      transition: all 0.3s ease;
+      padding: 0;
+    }
+
+    .carousel-dot.active {
+      background-color: #4f46e5;
+      /* Indigo-600 */
+      width: 24px;
+      /* Opcional: deixa o dot ativo mais comprido */
+      border-radius: 5px;
+    }
+
+    /* Garante que o track esconda a scrollbar mas permita o scroll */
+    .bolsistas-track,
+    .projetos-track,
+    .noticias-track {
+      scrollbar-width: none;
+      /* Firefox */
+      -ms-overflow-style: none;
+      /* IE/Edge */
+    }
+
+    .bolsistas-track::-webkit-scrollbar,
+    .projetos-track::-webkit-scrollbar,
+    .noticias-track::-webkit-scrollbar {
+      display: none;
+      /* Chrome/Safari */
     }
   </style>
   <!-- Meta Pixel Code -->
@@ -1351,7 +1389,7 @@
 
         <!-- CAROUSEL PROJETOS -->
         <div class="projetos-carousel">
-
+  
           <button class="carousel-btn left" onclick="scrollProjetos(-1)">‹</button>
 
           <div class="projetos-track" id="projetosTrack">
@@ -1415,6 +1453,7 @@
 
 
                   </div>
+                  <div class="dots-container flex justify-center space-x-2 mt-4"></div>
                 </div>
 
               </div>
@@ -1448,6 +1487,7 @@
 
                 <!-- BOLSISTAS -->
                 <h4 class="bolsista-title py-1">Equipe Bolsista</h4>
+
 
                 <div class="bolsistas-carousel">
                   <div class="bolsistas-controls">
@@ -1517,9 +1557,10 @@
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
 
+                  </div>
+                  <div class="dots-container flex justify-center space-x-2 mt-4"></div>
+                </div>
               </div>
             </div>
 
@@ -1615,6 +1656,7 @@
 
 
                   </div>
+                  <div class="dots-container flex justify-center space-x-2 mt-4"></div>
                 </div>
 
               </div>
@@ -1623,12 +1665,13 @@
           </div>
 
           <button class="carousel-btn right" onclick="scrollProjetos(1)">›</button>
-
+     
         </div>
-
+   <div class="dots-container flex justify-center space-x-2 mt-4"></div>
       </div>
     </section>
     <section id="noticias" class="noticias-section">
+
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <h2 class="noticias-title">
@@ -1640,6 +1683,7 @@
         </p>
 
         <div class="noticias-carousel">
+
 
           <button class="noticias-btn left" onclick="scrollNoticias(-1)">‹</button>
 
@@ -1681,7 +1725,7 @@
                 </blockquote>
               </div>
             </div>
-               <!-- POST 4 FEECITI-->
+            <!-- POST 4 FEECITI-->
             <div class="noticia-slide">
               <div class="noticia-card">
                 <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DS2jmIejm_b/"
@@ -1689,14 +1733,22 @@
                 </blockquote>
               </div>
             </div>
-
+            <!-- POST 5 InovaMT-->
+            <div class="noticia-slide">
+              <div class="noticia-card">
+                <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DS5Q4JQjiFj/"
+                  data-instgrm-version="14">
+                </blockquote>
+              </div>
+            </div>
           </div>
 
           <button class="noticias-btn right" onclick="scrollNoticias(1)">›</button>
 
         </div>
-
+        <div class="dots-container flex justify-center space-x-2 mt-4"></div>
       </div>
+
     </section>
     <section id="global" class="py-16 sm:py-24 bg-indigo-700">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
@@ -1816,6 +1868,7 @@
       const scrollPercent = (scrollTop / docHeight) * 100;
       progressBar.style.width = scrollPercent + '%';
     });
+
   </script>
   <script src="src/js/setupCarousel.js"></script>
   <script src="src/js/updateCountdown.js"></script>
