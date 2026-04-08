@@ -1,34 +1,37 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const menuToggle = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const menuIcon = document.getElementById('menu-icon');
-    const closeIcon = document.getElementById('close-icon');
-    const mobileLinks = document.querySelectorAll('.mobile-link');
-  
+document.addEventListener("DOMContentLoaded", () => {
+  const menuToggle = document.getElementById("menu-toggle");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const menuIcon = document.getElementById("menu-icon");
+  const closeIcon = document.getElementById("close-icon");
+  const mobileLinks = document.querySelectorAll(".mobile-link");
 
-    // Alterna o Menu Mobile
-    const toggleMenu = () => {
-        const isHidden = mobileMenu.classList.contains('hidden');
+  if (!menuToggle || !mobileMenu || !menuIcon || !closeIcon) {
+    return;
+  }
 
-        if (isHidden) {
-            mobileMenu.classList.remove('hidden');
-            menuIcon.classList.add('hidden');
-            closeIcon.classList.remove('hidden');
-        } else {
-            mobileMenu.classList.add('hidden');
-            menuIcon.classList.remove('hidden');
-            closeIcon.classList.add('hidden');
-        }
-    };
+  const setMenuState = (isOpen) => {
+    mobileMenu.classList.toggle("hidden", !isOpen);
+    menuIcon.classList.toggle("hidden", isOpen);
+    closeIcon.classList.toggle("hidden", !isOpen);
+    menuToggle.setAttribute("aria-expanded", String(isOpen));
+  };
 
-    menuToggle.addEventListener('click', toggleMenu);
+  const toggleMenu = () => {
+    const isOpen = mobileMenu.classList.contains("hidden");
+    setMenuState(isOpen);
+  };
 
-    // Fecha o menu quando um link é clicado
-    mobileLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            if (!mobileMenu.classList.contains('hidden')) {
-                toggleMenu();
-            }
-        });
+  menuToggle.addEventListener("click", toggleMenu);
+
+  mobileLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      setMenuState(false);
     });
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth >= 960) {
+      setMenuState(false);
+    }
+  });
 });
