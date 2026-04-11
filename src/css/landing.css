@@ -1158,3 +1158,269 @@ body.is-scrolled .site-header {
     text-align: center;
   }
 }
+
+/* 1. Remova ou aumente o max-width da descrição para ocupar o espaço total */
+.tech-cta__description {
+  color: var(--cta-text-muted);
+  font-size: 1.15rem;
+  line-height: 1.6;
+  max-width: 100%; /* Mudado de 580px para 100% */
+  margin-bottom: 0;
+}
+
+/* 2. Garante que o container de texto use todo o espaço da coluna */
+.tech-cta__text-container {
+  width: 100%;
+  flex: 1; /* Faz o texto "empurrar" o que estiver ao lado */
+}
+
+/* 3. Ajuste o título para não quebrar de forma estranha */
+.tech-cta__title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  color: var(--cta-text-main);
+  line-height: 1.1;
+  margin-bottom: 20px;
+  width: 100%; /* Ocupa a largura total da coluna */
+}
+
+/* 4. Melhore o alinhamento da coluna do botão */
+.tech-cta__action-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px; /* Garante que o botão tenha seu próprio espaço garantido */
+}
+
+/* 5. Ajuste de Responsividade para evitar que o botão 'atropele' o texto em telas médias */
+@media (min-width: 992px) {
+  .tech-cta__action-box {
+    align-items: flex-end; /* Botão colado na direita em desktop */
+  }
+}
+
+@media (max-width: 991px) {
+  .tech-cta__title {
+    text-align: center;
+  }
+  .tech-cta__description {
+    text-align: center;
+  }
+}
+/* --- Variáveis de Design --- */
+:root {
+  --cta-bg: #0a0f1e;
+  --cta-glass: rgba(255, 255, 255, 0.03);
+  --cta-border: rgba(255, 255, 255, 0.1);
+  --cta-accent-1: #4f46e5; /* Indigo Tech */
+  --cta-accent-2: #10b981; /* Esmeralda Saúde */
+  --cta-text-main: #ffffff;
+  --cta-text-muted: #94a3b8;
+}
+
+/* --- Container Principal --- */
+.tech-cta {
+  padding: 100px 0;
+  position: relative;
+  z-index: 50;
+  margin-bottom: -100px; /* Efeito de sobreposição no footer */
+}
+
+.tech-cta__card {
+  position: relative;
+  background: var(--cta-bg);
+  border: 1px solid var(--cta-border);
+  border-radius: 40px;
+  padding: 60px;
+  overflow: hidden;
+  box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(20px);
+}
+
+/* --- Efeitos de Iluminação --- */
+.tech-cta__glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 1;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.tech-cta__glow--1 {
+  width: 300px;
+  height: 300px;
+  background: var(--cta-accent-1);
+  top: -100px;
+  left: -50px;
+}
+
+.tech-cta__glow--2 {
+  width: 250px;
+  height: 250px;
+  background: var(--cta-accent-2);
+  bottom: -50px;
+  right: -50px;
+}
+
+/* --- Elementos de Conteúdo --- */
+.tech-cta__content {
+  position: relative;
+  z-index: 2;
+}
+
+.tech-cta__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--cta-glass);
+  border: 1px solid var(--cta-border);
+  padding: 8px 20px;
+  border-radius: 100px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 30px;
+}
+
+.tech-cta__pulse {
+  width: 8px;
+  height: 8px;
+  background: var(--cta-accent-2);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--cta-accent-2);
+  animation: pulse-ring 2s infinite;
+}
+
+.tech-cta__title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  color: var(--cta-text-main);
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.tech-cta__title--gradient {
+  background: linear-gradient(90deg, #fff, var(--cta-accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+/* --- Estatísticas --- */
+.tech-cta__stats {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.tech-cta__stat-value {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.tech-cta__stat-label {
+  font-size: 12px;
+  color: var(--cta-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.tech-cta__stat-divider {
+  width: 1px;
+  height: 40px;
+  background: var(--cta-border);
+}
+
+/* --- Botão Magnético --- */
+.tech-cta__button {
+  position: relative;
+  display: inline-block;
+  padding: 20px 45px;
+  background: #fff;
+  color: #000 !important;
+  text-decoration: none !important;
+  border-radius: 16px;
+  font-weight: 800;
+  font-size: 15px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.tech-cta__button:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(79, 70, 229, 0.4);
+  background: var(--cta-accent-1);
+  color: #fff !important;
+}
+
+.tech-cta__hint {
+  display: block;
+  margin-top: 15px;
+  color: var(--cta-text-muted);
+  font-size: 12px;
+  font-style: italic;
+}
+/* Container de Diferenciais */
+.tech-cta__features {
+  display: flex;
+  flex-wrap: wrap; /* Para não quebrar no mobile */
+  gap: 15px;
+  margin-top: 35px;
+}
+
+/* Item de Diferencial Estilo Pill */
+.tech-cta__feature-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 16px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.tech-cta__feature-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--cta-accent-2); /* Aquele verde/esmeralda */
+  transform: translateY(-2px);
+}
+
+.tech-cta__feature-icon {
+  font-size: 16px;
+}
+
+.tech-cta__feature-text {
+  color: var(--cta-text-main);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* Ajuste mobile para centralizar quando o texto ocupar tudo */
+@media (max-width: 991px) {
+  .tech-cta__features {
+    justify-content: center;
+  }
+}
+/* --- Animações --- */
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+/* --- Responsividade --- */
+@media (max-width: 991px) {
+  .tech-cta { padding: 60px 0; margin-bottom: -120px; }
+  .tech-cta__card { padding: 40px 20px; }
+  .tech-cta__stats { justify-content: center; }
+  .tech-cta__title { font-size: 2.2rem; }
+}
