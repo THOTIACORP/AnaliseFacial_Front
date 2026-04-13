@@ -1166,6 +1166,7 @@ body.is-scrolled .site-header {
   line-height: 1.6;
   max-width: 100%; /* Mudado de 580px para 100% */
   margin-bottom: 0;
+  text-align: justify;
 }
 
 /* 2. Garante que o container de texto use todo o espaço da coluna */
@@ -1348,6 +1349,7 @@ body.is-scrolled .site-header {
   border-radius: 16px;
   font-weight: 800;
   font-size: 15px;
+  margin-top: 18px;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -1379,6 +1381,11 @@ body.is-scrolled .site-header {
   display: flex;
   align-items: center;
   gap: 10px;
+  
+  /* Alteração aqui: */
+  width: auto; /* Permite que fiquem lado a lado */
+  flex: 1 1 calc(33.333% - 15px); /* Opcional: faz ocupar 3 colunas iguais */
+  
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 8px 16px;
