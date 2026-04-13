@@ -1623,11 +1623,7 @@ body.is-scrolled .site-header {
         margin-bottom: 15px;
     }
 
-    .section-title {
-        margin-bottom: 20px;
-        font-size: 0.7rem;
-        letter-spacing: 2px;
-    }
+    
 
     /* Facilitar o clique (Touch Target) */
     .footer-nav a {
