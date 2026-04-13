@@ -1223,7 +1223,7 @@ body.is-scrolled .site-header {
 .tech-cta {
   padding: 100px 0;
   position: relative;
-  z-index: 50;
+  z-index: 20;
   margin-bottom: -100px; /* Efeito de sobreposição no footer */
 }
 
@@ -1423,4 +1423,279 @@ body.is-scrolled .site-header {
   .tech-cta__card { padding: 40px 20px; }
   .tech-cta__stats { justify-content: center; }
   .tech-cta__title { font-size: 2.2rem; }
+}
+
+:root {
+    --tech-blue: #007aff;
+    --grid-border: #222;
+    --text-muted: #888;
+    --bg-dark: #050505;
+}
+
+.site-footer {
+    background-color: var(--bg-dark);
+    color: #fff;
+    padding: 60px 0 20px;
+    font-family: 'Inter', sans-serif;
+    border-top: 1px solid var(--grid-border);
+    position: relative;
+    overflow: hidden;
+    margin-top: 150px;
+    text-align: justify;
+    /* Reduz o tamanho de todas as letras dentro do footer em 15% */
+    font-size: 0.75rem; 
+}
+/* Linha de Scanner Animada */
+.footer-scanner-line {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--tech-blue), transparent);
+    animation: scan 4s linear infinite;
+    opacity: 0.5;
+}
+
+@keyframes scan {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.footer-main-wrapper {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--grid-border);
+}
+
+.footer-section {
+    padding: 40px;
+    border-right: 1px solid var(--grid-border);
+}
+
+.footer-section:last-child { border-right: none; }
+
+/* Tipografia Estilo Tech */
+.tech-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--tech-blue);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.footer-logo {
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+}
+
+.footer-logo span { font-weight: 200; color: var(--text-muted); }
+
+.section-title-footer {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 25px;
+}
+
+.footer-nav a {
+    display: block;
+    color: #eee;
+    text-decoration: none;
+    font-size: 0.8rem;
+    margin-bottom: 15px;
+    transition: 0.3s;
+}
+
+.nav-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--tech-blue);
+    margin-right: 10px;
+}
+
+.footer-nav a:hover {
+    color: var(--tech-blue);
+    transform: translateX(5px);
+}
+
+/* Badge THOT IA */
+.thot-badge {
+    margin-top: 30px;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    border: 1px solid var(--grid-border);
+    padding: 8px 12px;
+    display: inline-block;
+}
+
+.thot-badge span { color: #fff; font-weight: bold; }
+
+/* Terminal Bottom */
+.footer-terminal {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    border: 1px solid var(--grid-border);
+    border-top: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.terminal-right a {
+    color: var(--text-muted);
+    margin-left: 20px;
+    text-decoration: none;
+}
+
+.cursor {
+    animation: blink 1s infinite;
+    color: var(--tech-blue);
+}
+/* O ponto que pulsa */
+.status-indicator .dot {
+    height: 6px;
+    width: 6px;
+    background-color: var(--tech-blue);
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+    position: relative;
+    box-shadow: 0 0 8px var(--tech-blue);
+    animation: pulse-glow 2s infinite;
+}
+.footer-scanner-line {
+    position: absolute;
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        var(--tech-blue) 50%, 
+        transparent 100%
+    );
+    animation: scan-line 4s linear infinite;
+    z-index: 10;
+}
+
+@keyframes scan-line {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* Responsivo */
+/* --- Ajustes Gerais para Celular (Mobile First / Queries) --- */
+
+@media (max-width: 768px) {
+    .site-footer {
+        padding: 40px 15px 10px; /* Redução de padding para ganhar tela */
+    }
+
+    /* O grid de 4 colunas vira 1 coluna única */
+    .footer-main-wrapper {
+        display: block; /* Desativa o grid para evitar quebras estranhas */
+        border: none;   /* Remove a borda externa no mobile para não parecer um 'caixote' */
+    }
+
+    .footer-section {
+        padding: 30px 0; /* Padding vertical apenas, sem bordas laterais */
+        border-right: none;
+        border-bottom: 1px solid var(--grid-border); /* Borda apenas embaixo para separar seções */
+    }
+
+    .footer-section:last-child {
+        border-bottom: none;
+    }
+
+    /* Ajuste de Tipografia */
+    .footer-logo {
+        font-size: 1.4rem; /* Um pouco menor para não quebrar linha */
+        margin-bottom: 15px;
+    }
+
+    .section-title {
+        margin-bottom: 20px;
+        font-size: 0.7rem;
+        letter-spacing: 2px;
+    }
+
+    /* Facilitar o clique (Touch Target) */
+    .footer-nav a {
+        padding: 8px 0; /* Aumenta a área de toque */
+        font-size: 1rem; /* Texto levemente maior para leitura no celular */
+    }
+
+    /* Terminal Bottom: Deixa de ser lado a lado e empilha */
+    .footer-terminal {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px 0;
+        text-align: center;
+        border: none;
+        border-top: 1px solid var(--grid-border);
+    }
+
+    .terminal-right {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .terminal-right a {
+        margin-left: 0;
+    }
+
+    /* Ajuste do Badge THOT */
+    .thot-badge {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+}
+
+/* Ajuste específico para telas muito pequenas (iPhone SE, etc) */
+@media (max-width: 350px) {
+    .footer-logo {
+        font-size: 1.2rem;
+    }
+    
+    .terminal-right {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+.social-grid {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    border: 1px solid var(--grid-border);
+    color: var(--text-muted); /* Cor base que você já definiu */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.social-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Efeito Hover Estilo Tech */
+.social-icon:hover {
+    color: var(--tech-blue); /* A cor azul que você já usa no rodapé */
+    border-color: var(--tech-blue);
+    background: rgba(0, 122, 255, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 122, 255, 0.2);
 }
