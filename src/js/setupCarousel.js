@@ -1,14 +1,14 @@
 /* ============================================================
-   CAROUSEL UNIFICADO COM DOTS (PROJETOS, NOTÍCIAS E BOLSISTAS)
+   CAROUSEL UNIFICADO COM DOTS (PROJETOS E NOTÍCIAS)
    ============================================================ */
 
-const carrosséis = document.querySelectorAll(".bolsistas-carousel, .projetos-carousel, .noticias-section");
+const carrosséis = document.querySelectorAll(".projetos-carousel, .noticias-section");
 
 carrosséis.forEach(container => {
     // 1. Localização dos elementos internos
-    const track = container.querySelector(".bolsistas-track, #projetosTrack, #noticiasTrack");
+    const track = container.querySelector("#projetosTrack, #noticiasTrack");
     const dotsContainer = container.querySelector(".dots-container");
-    const slides = track?.querySelectorAll(".bolsista-slide, .projeto-slide, .noticia-slide");
+    const slides = track?.querySelectorAll(".projeto-slide, .noticia-slide");
     
     if (!track || !slides || slides.length === 0) return;
 
@@ -51,8 +51,8 @@ carrosséis.forEach(container => {
     });
 
     // 4. Lógica de Botões e Arrastar (Mantida do seu original)
-    const btnNext = container.querySelector(".bolsistas-btn.next, .carousel-btn.right, .noticias-btn.right");
-    const btnPrev = container.querySelector(".bolsistas-btn.prev, .carousel-btn.left, .noticias-btn.left");
+    const btnNext = container.querySelector(".carousel-btn.right, .noticias-btn.right");
+    const btnPrev = container.querySelector(".carousel-btn.left, .noticias-btn.left");
 
     let isDown = false;
     let startX;

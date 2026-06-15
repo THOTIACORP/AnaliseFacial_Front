@@ -202,149 +202,6 @@
       }
     }
 
-    /* CAROUSEL DE BOLSISTAS */
-    .bolsistas-track {
-      display: flex;
-      gap: 1rem;
-      overflow-x: auto;
-      padding: 1rem 5px;
-      scroll-snap-type: x mandatory;
-    }
-
-    .bolsistas-track::-webkit-scrollbar {
-      display: none;
-    }
-
-    .bolsista-slide {
-      flex: 0 0 85%;
-      scroll-snap-align: start;
-      display: flex;
-    }
-
-    @media (min-width: 768px) {
-      .bolsista-slide {
-        flex: 0 0 48%;
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .bolsista-slide {
-        flex: 0 0 32%;
-      }
-    }
-
-    /* CARD DO BOLSISTA - Correção das Letras Cortadas */
-    .bolsista-card {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.8rem;
-      background: white;
-      border-radius: 12px;
-      border: 1px solid #e5e7eb;
-      transition: all 0.3s ease;
-      min-width: 0;
-      /* ESSENCIAL para o texto não vazar */
-    }
-
-    .bolsista-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    .bolsista-photo {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      object-fit: cover;
-      flex-shrink: 0;
-    }
-
-    /* Container de texto interno do card */
-    .bolsista-info {
-      flex: 1;
-      min-width: 0;
-      /* Força o texto a respeitar o espaço do flexbox */
-      overflow: hidden;
-    }
-
-    .bolsista-title {
-      margin-top: 2rem;
-      font-weight: 700;
-      color: #0d47a1;
-    }
-
-    /* =========================
-
-   TEXTO DO BOLSISTA
-
-========================= */
-
-
-
-    .bolsista-card h5 {
-
-      font-weight: 700;
-
-      color: #0d47a1;
-
-    }
-
-
-
-    .bolsista-card .cargo {
-
-      font-size: 0.85rem;
-
-      color: #475569;
-
-    }
-
-
-
-    .bolsista-card .valor {
-
-      font-size: 0.85rem;
-
-      font-weight: 700;
-
-      color: #166534;
-
-    }
-
-
-
-    .bolsista-card a {
-
-      font-size: 0.75rem;
-
-      font-weight: 600;
-
-      color: #0a66c2;
-
-      text-decoration: none;
-
-    }
-
-
-
-    .bolsista-card a:hover {
-
-      text-decoration: underline;
-
-    }
-
-
-
-    /* =========================
-
-   RESPONSIVIDADE TEXTO
-
-========================= */
-
-
-
     @media (max-width: 768px) {
 
       #projetos h3 {
@@ -353,53 +210,6 @@
 
       }
 
-    }
-
-    /* CONTROLES DO CAROUSEL */
-    .bolsistas-controls {
-      display: flex;
-      justify-content: flex-end;
-      gap: 0.4rem;
-      margin-bottom: 0.5rem;
-    }
-
-    /* BOTÕES PEQUENOS */
-    .bolsistas-btn {
-      width: 34px;
-      height: 34px;
-      border-radius: 999px;
-      border: 1px solid #bbf7d0;
-      background: #dcfce7;
-      color: #166534;
-      font-size: 0.8rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* HOVER */
-    .bolsistas-btn:hover {
-      background: #22c55e;
-      color: #ffffff;
-      border-color: #22c55e;
-      transform: scale(1.05);
-    }
-
-    /* ATIVO */
-    .bolsistas-btn:active {
-      transform: scale(0.95);
-    }
-
-    /* MOBILE – ainda menores */
-    @media (max-width: 768px) {
-      .bolsistas-btn {
-        width: 30px;
-        height: 30px;
-        font-size: 0.7rem;
-      }
     }
 
     /* =========================
@@ -703,7 +513,6 @@
     }
 
     /* Garante que o track esconda a scrollbar mas permita o scroll */
-    .bolsistas-track,
     .projetos-track,
     .noticias-track {
       scrollbar-width: none;
@@ -712,7 +521,6 @@
       /* IE/Edge */
     }
 
-    .bolsistas-track::-webkit-scrollbar,
     .projetos-track::-webkit-scrollbar,
     .noticias-track::-webkit-scrollbar {
       display: none;
@@ -1011,6 +819,20 @@
 
           <div
             class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
+            <svg class="mb-4 text-cyan-600 h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M9 11l3 3L22 4" />
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+            </svg>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Auditorias Automatizadas</h3>
+            <p class="text-gray-600 text-justify">
+             Audita dados clínicos, prontuários e laudos por regras automatizadas para reduzir inconsistências, rastrear conformidade e acelerar revisões técnicas.
+            </p>
+          </div>
+
+          <div
+            class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
             <svg class="mb-4 text-indigo-600 h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
               viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
               stroke-linejoin="round">
@@ -1075,7 +897,7 @@
         <div
           class="flex flex-col md:flex-row items-center justify-center gap-12 bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200">
           <div class="w-64 flex-shrink-0">
-            <img src="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/public/capalivro.png"
+            <img src="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/public/capa.png"
               alt="Capa do Livro de Validação Científica"
               class="w-full h-auto object-cover rounded-lg shadow-2xl transition duration-300 hover:scale-[1.02] border-4 border-white">
           </div>
@@ -1178,41 +1000,6 @@
                 </ul>
                 <p class="valor-projeto">R$ 60.000,00</p>
 
-                <!-- BOLSISTAS -->
-                <h4 class="bolsista-title py-1">Equipe Bolsista</h4>
-
-                <div class="bolsistas-carousel">
-                  <div class="bolsistas-controls">
-                    <button class="bolsistas-btn prev" aria-label="Anterior">
-                      ◀
-                    </button>
-                    <button class="bolsistas-btn next" aria-label="Próximo">
-                      ▶
-                    </button>
-                  </div>
-                  <div class="bolsistas-track">
-
-                    <div class="bolsista-slide">
-                      <div class="bolsista-card">
-                        <img
-                          src="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/public/VictoriaVianaSilva-PesquisadoraDesenvolvedora.png"
-                          alt="Foto do colaborador" class="bolsista-photo" />
-
-                        <div>
-                          <h5>Victória</h5>
-                          <p class="cargo">Pesquisadora Desenvolvedora</p>
-                          <p class="valor">R$ 5.000,00 / mês</p>
-                          <a href="https://orcid.org/0000-0002-4496-4560" target="_blank">ORCID</a>
-                        </div>
-                      </div>
-                    </div>
-
-
-
-                  </div>
-                  <div class="dots-container flex justify-center space-x-2 mt-4"></div>
-                </div>
-
               </div>
             </div>
 
@@ -1241,83 +1028,6 @@
                   <li><strong>NF-e:</strong> Não se aplica (bolsas)</li>
                 </ul>
                 <p class="valor-projeto">R$ 120.000,00</p>
-
-                <!-- BOLSISTAS -->
-                <h4 class="bolsista-title py-1">Equipe Bolsista</h4>
-
-
-                <div class="bolsistas-carousel">
-                  <div class="bolsistas-controls">
-                    <button class="bolsistas-btn prev" aria-label="Anterior">
-                      ◀
-                    </button>
-                    <button class="bolsistas-btn next" aria-label="Próximo">
-                      ▶
-                    </button>
-                  </div>
-                  <div class="bolsistas-track">
-
-                    <div class="bolsista-slide">
-                      <div class="bolsista-card">
-                        <img
-                          src="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/public/RonneiBorgesPeres-CEO-PesquisadorDesenvolvedor.png"
-                          alt="Foto do colaborador" class="bolsista-photo" />
-
-                        <div>
-                          <h5>Ronnei</h5>
-                          <p class="cargo">Pesquisador Desenvolvedor</p>
-                          <p class="valor">R$ 2.500,00 / mês</p>
-                          <a href="https://orcid.org/0000-0002-7900-931X" target="_blank">ORCID</a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="bolsista-slide">
-                      <div class="bolsista-card">
-                        <img
-                          src="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/public/PedroPauloGattaiGomes-PesquisadorDesenvolvedor.png"
-                          alt="Foto do colaborador" class="bolsista-photo" />
-
-                        <div>
-                          <h5>Pedro</h5>
-                          <p class="cargo">Pesquisador Desenvolvedor</p>
-                          <p class="valor">R$ 6.500,00 / mês</p>
-                          <a href="https://orcid.org/0000-0002-6417-8815" target="_blank">ORCID</a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="bolsista-slide">
-                      <div class="bolsista-card">
-                        <img
-                          src="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/public/LucasKrieselSperotto-PesquisadorDesenvolvedor.png"
-                          alt="Foto do colaborador" class="bolsista-photo" />
-
-                        <div>
-                          <h5>Lucas</h5>
-                          <p class="cargo">Pesquisador Desenvolvedor</p>
-                          <p class="valor">R$ 4.500,00 / mês</p>
-                          <a href="https://orcid.org/0000-0002-4941-7398" target="_blank">ORCID</a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="bolsista-slide">
-                      <div class="bolsista-card">
-                        <img
-                          src="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/public/NayraCoelho-PesquisadoraDesenvolvedora.png"
-                          alt="Foto do colaborador" class="bolsista-photo" />
-
-                        <div>
-                          <h5>Nayra</h5>
-                          <p class="cargo">Pesquisador Desenvolvedor</p>
-                          <p class="valor">R$ 2.500,00 / mês</p>
-                          <a href="https://orcid.org/0009-0006-7270-5837" target="_blank">ORCID</a>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-                  <div class="dots-container flex justify-center space-x-2 mt-4"></div>
-                </div>
               </div>
             </div>
 
@@ -1367,54 +1077,6 @@
                     </a></li>
                 </ul>
                 <p class="valor-projeto">R$ 150.000,00</p>
-
-                <h4 class="bolsista-title py-1">Equipe Bolsista</h4>
-
-                <div class="bolsistas-carousel">
-                  <div class="bolsistas-controls">
-                    <button class="bolsistas-btn prev" aria-label="Anterior">
-                      ◀
-                    </button>
-                    <button class="bolsistas-btn next" aria-label="Próximo">
-                      ▶
-                    </button>
-                  </div>
-                  <div class="bolsistas-track">
-
-                    <div class="bolsista-slide">
-                      <div class="bolsista-card">
-                        <img
-                          src="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/public/JulyIasmimdaSilvaBarbosa-PesquisadoraDesenvolvedora.png"
-                          alt="Foto do colaborador" class="bolsista-photo" />
-
-                        <div>
-                          <h5>July</h5>
-                          <p class="cargo">Pesquisadora Desenvolvedora</p>
-                          <p class="valor">R$ 2.500,00 / mês</p>
-                          <a href="https://orcid.org/0009-0000-6968-9625" target="_blank">ORCID</a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="bolsista-slide">
-                      <div class="bolsista-card">
-                        <img
-                          src="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/public/GabrieldaSilva-PesquisadorDesenvolvedor.png"
-                          alt="Foto do colaborador" class="bolsista-photo" />
-
-                        <div>
-                          <h5>Gabriel</h5>
-                          <p class="cargo">Pesquisador Desenvolvedor</p>
-                          <p class="valor">R$ 2.500,00 / mês</p>
-                          <a href="https://ORCID.com" target="_blank">ORCID</a>
-                        </div>
-                      </div>
-                    </div>
-
-
-                  </div>
-                  <div class="dots-container flex justify-center space-x-2 mt-4"></div>
-                </div>
 
               </div>
             </div>
