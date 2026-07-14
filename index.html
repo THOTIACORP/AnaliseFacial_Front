@@ -1702,6 +1702,15 @@
   <script src="src/js/setupCarousel.js"></script>
   <script src="src/js/updateCountdown.js"></script>
   <script async src="https://www.instagram.com/embed.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch((error) => {
+          console.warn('Não foi possível ativar o cache do prontuário:', error);
+        });
+      });
+    }
+  </script>
 
 </body>
 
