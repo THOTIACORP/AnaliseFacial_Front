@@ -36,7 +36,7 @@
   <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
   <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
   <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <!-- Meta Pixel Code -->
   <script>
     !function (f, b, e, v, n, t, s) {
@@ -1019,16 +1019,17 @@
                   <p class="text-xs text-gray-500">Documento demonstrativo</p>
                 </div>
               </div>
-              <a href="public/Analise-Facial-F83f9B8r.pdf" target="_blank" rel="noopener noreferrer"
+              <button id="prontuario-download" type="button"
                 class="rounded-lg border border-gray-200 px-3 py-2 text-xs font-bold text-gray-600 transition hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-700">
-                Abrir PDF
-              </a>
+                Baixar PDF
+              </button>
             </div>
 
             <div id="prontuario-pdf-container"
               class="relative flex min-h-[420px] items-center justify-center overflow-hidden rounded-2xl bg-gray-100 p-2 ring-1 ring-gray-900/10 sm:p-4">
-              <canvas id="prontuario-pdf" class="block h-auto max-w-full rounded-lg bg-white shadow-lg"
-                aria-label="Página 1 do prontuário em PDF"></canvas>
+              <img id="prontuario-page" src="public/prontuario/pagina-01.jpg" width="1012" height="1432"
+                alt="Página 1 de 20 do prontuário" fetchpriority="high" decoding="async"
+                class="block h-auto max-w-full rounded-lg bg-white shadow-lg">
               <div id="prontuario-loading"
                 class="absolute inset-0 flex items-center justify-center bg-gray-100/90 text-sm font-bold text-indigo-700 backdrop-blur-sm">
                 <span class="mr-3 h-5 w-5 animate-spin rounded-full border-2 border-indigo-200 border-t-indigo-700"></span>
@@ -1036,9 +1037,9 @@
               </div>
               <div id="prontuario-error"
                 class="absolute inset-0 hidden flex-col items-center justify-center bg-gray-100 p-6 text-center">
-                <p class="font-bold text-gray-900">Não foi possível exibir o documento.</p>
-                <a href="public/Analise-Facial-F83f9B8r.pdf" target="_blank" rel="noopener noreferrer"
-                  class="mt-3 text-sm font-bold text-indigo-700 underline">Abrir o PDF completo</a>
+                <p class="font-bold text-gray-900">Não foi possível exibir esta página.</p>
+                <button id="prontuario-retry" type="button"
+                  class="mt-3 text-sm font-bold text-indigo-700 underline">Tentar novamente</button>
               </div>
             </div>
 
@@ -1574,26 +1575,23 @@
   <script src="src/js/protectionMobile.js"></script>
   <script>
     (() => {
-      const pdfCanvas = document.getElementById('prontuario-pdf');
-      const pdfContainer = document.getElementById('prontuario-pdf-container');
+      const pageImage = document.getElementById('prontuario-page');
       const loadingIndicator = document.getElementById('prontuario-loading');
       const errorIndicator = document.getElementById('prontuario-error');
       const previousButton = document.getElementById('prontuario-prev');
       const nextButton = document.getElementById('prontuario-next');
+      const downloadButton = document.getElementById('prontuario-download');
+      const retryButton = document.getElementById('prontuario-retry');
       const pageLabel = document.getElementById('prontuario-page-label');
       const progress = document.getElementById('prontuario-progress');
-      const pdfUrl = 'public/Analise-Facial-F83f9B8r.pdf';
-      let pdfDocument = null;
-      let totalPages = 0;
+      const totalPages = 20;
       let currentPage = 1;
-      let activeRender = null;
-      let resizeTimer = null;
 
-      if (!pdfCanvas || !pdfContainer || !loadingIndicator || !errorIndicator ||
-        !previousButton || !nextButton || !pageLabel || !progress || !window.pdfjsLib) return;
+      if (!pageImage || !loadingIndicator || !errorIndicator || !previousButton ||
+        !nextButton || !downloadButton || !retryButton || !pageLabel || !progress) return;
 
-      window.pdfjsLib.GlobalWorkerOptions.workerSrc =
-        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      const pageUrl = (pageNumber) =>
+        `public/prontuario/pagina-${String(pageNumber).padStart(2, '0')}.jpg`;
 
       const updateControls = () => {
         pageLabel.innerHTML = `Página <strong class="text-gray-950">${currentPage}</strong> de ${totalPages}`;
@@ -1602,70 +1600,87 @@
         nextButton.disabled = currentPage === totalPages;
       };
 
-      const renderPage = async (pageNumber) => {
-        if (!pdfDocument) return;
-
+      const showPage = (pageNumber) => {
         currentPage = Math.min(Math.max(pageNumber, 1), totalPages);
         updateControls();
         loadingIndicator.classList.remove('hidden');
+        errorIndicator.classList.add('hidden');
+        errorIndicator.classList.remove('flex');
 
-        if (activeRender) {
-          activeRender.cancel();
-          activeRender = null;
-        }
-
-        try {
-          const page = await pdfDocument.getPage(currentPage);
-          const baseViewport = page.getViewport({ scale: 1 });
-          const containerStyles = window.getComputedStyle(pdfContainer);
-          const horizontalPadding = parseFloat(containerStyles.paddingLeft) + parseFloat(containerStyles.paddingRight);
-          const availableWidth = Math.max(pdfContainer.clientWidth - horizontalPadding, 280);
-          const displayScale = availableWidth / baseViewport.width;
-          const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
-          const renderViewport = page.getViewport({ scale: displayScale * pixelRatio });
-
-          pdfCanvas.width = Math.floor(renderViewport.width);
-          pdfCanvas.height = Math.floor(renderViewport.height);
-          pdfCanvas.style.width = `${Math.floor(renderViewport.width / pixelRatio)}px`;
-          pdfCanvas.style.height = `${Math.floor(renderViewport.height / pixelRatio)}px`;
-          pdfCanvas.setAttribute('aria-label', `Página ${currentPage} de ${totalPages} do prontuário em PDF`);
-
-          activeRender = page.render({
-            canvasContext: pdfCanvas.getContext('2d'),
-            viewport: renderViewport
-          });
-          await activeRender.promise;
-          activeRender = null;
+        pageImage.onload = () => {
+          pageImage.alt = `Página ${currentPage} de ${totalPages} do prontuário`;
           loadingIndicator.classList.add('hidden');
-        } catch (error) {
-          if (error?.name === 'RenderingCancelledException') return;
-          console.error('Erro ao renderizar o prontuário:', error);
+          if (currentPage < totalPages) {
+            const preload = new Image();
+            preload.src = pageUrl(currentPage + 1);
+          }
+        };
+        pageImage.onerror = () => {
           loadingIndicator.classList.add('hidden');
           errorIndicator.classList.remove('hidden');
           errorIndicator.classList.add('flex');
+        };
+        pageImage.src = pageUrl(currentPage);
+      };
+
+      const loadImage = (url) => new Promise((resolve, reject) => {
+        const image = new Image();
+        image.onload = () => resolve(image);
+        image.onerror = reject;
+        image.src = url;
+      });
+
+      const downloadPdf = async () => {
+        if (!window.jspdf?.jsPDF) {
+          alert('Não foi possível preparar o PDF neste navegador. Tente abrir a página no navegador principal.');
+          return;
+        }
+
+        const originalLabel = downloadButton.textContent;
+        downloadButton.disabled = true;
+
+        try {
+          let pdf;
+          for (let pageNumber = 1; pageNumber <= totalPages; pageNumber += 1) {
+            downloadButton.textContent = `Preparando ${pageNumber}/${totalPages}`;
+            const image = await loadImage(pageUrl(pageNumber));
+            const orientation = image.width >= image.height ? 'landscape' : 'portrait';
+
+            if (!pdf) {
+              pdf = new window.jspdf.jsPDF({
+                orientation,
+                unit: 'px',
+                format: [image.width, image.height],
+                hotfixes: ['px_scaling'],
+                compress: true
+              });
+            } else {
+              pdf.addPage([image.width, image.height], orientation);
+            }
+
+            pdf.addImage(image, 'JPEG', 0, 0, image.width, image.height, undefined, 'FAST');
+          }
+          pdf.save('prontuario-demonstrativo.pdf');
+        } catch (error) {
+          console.error('Erro ao gerar o PDF:', error);
+          alert('Não foi possível gerar o PDF. Verifique sua conexão e tente novamente.');
+        } finally {
+          downloadButton.disabled = false;
+          downloadButton.textContent = originalLabel;
         }
       };
 
-      previousButton.addEventListener('click', () => renderPage(currentPage - 1));
-      nextButton.addEventListener('click', () => renderPage(currentPage + 1));
+      previousButton.addEventListener('click', () => showPage(currentPage - 1));
+      nextButton.addEventListener('click', () => showPage(currentPage + 1));
+      retryButton.addEventListener('click', () => showPage(currentPage));
+      downloadButton.addEventListener('click', downloadPdf);
 
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => renderPage(currentPage), 180);
-      });
-
-      window.pdfjsLib.getDocument(pdfUrl).promise
-        .then((document) => {
-          pdfDocument = document;
-          totalPages = document.numPages;
-          return renderPage(1);
-        })
-        .catch((error) => {
-          console.error('Erro ao carregar o prontuário:', error);
-          loadingIndicator.classList.add('hidden');
-          errorIndicator.classList.remove('hidden');
-          errorIndicator.classList.add('flex');
-        });
+      if (pageImage.complete && pageImage.naturalWidth) {
+        loadingIndicator.classList.add('hidden');
+      } else {
+        pageImage.onload = () => loadingIndicator.classList.add('hidden');
+      }
+      updateControls();
     })();
   </script>
   <script>
